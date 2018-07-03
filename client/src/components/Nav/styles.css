@@ -1,0 +1,32 @@
+.navbar-item img {
+    max-height: 2.8rem;
+    margin-top: -15px;
+}
+
+#fullNavbar a.navbar-item:hover,#fullNavbar a.navbar-item.is-active,#fullNavbar .navbar-link:hover,#fullNavbar .navbar-link.is-active {
+    background-color: unset;
+    color: unset;
+}
+
+#authNavbar{
+    padding-top: .285rem;
+    padding-right: 1.5rem;
+    z-index: 999;
+}
+#authNavbar, #authNavbar .container{
+    min-height: 25px;
+    height: 25px;
+}
+#authNavbar .navbar-end{
+    height: 25px !important;
+}
+#fullNavbar{
+    padding-top: .85rem;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+.has-navbar-gradient{
+
+    background: rgb(212, 201, 142);
+    background: -webkit-linear-gradient(to right, #eaeaea00, #dbdbdb78, #d4c98e, #ada9966b);
+    background: linear-gradient(to right, #eaeaea00, #dbdbdb78, #d4c98e, #ada9966b);
+}
