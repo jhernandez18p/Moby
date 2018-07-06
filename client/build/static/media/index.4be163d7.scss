@@ -44,7 +44,7 @@ body::-webkit-scrollbar-thumb {height: 20px;background-color: darkgrey;outline: 
 // Default
 .has-background-moby{background-color: rgba(154, 135, 0, 0.05) !important;}
 .site {min-height: 100%;display: flex;flex-direction: column;align-items: stretch;}
-.site .content {flex-grow: 1;margin-top: 80px;min-height: 80vh;}
+.site .content {flex-grow: 1;margin-top: 70px;min-height: 80vh;}
 header, .content, footer {flex-shrink: 0;}
 .is-inventory{border-radius: 5px;padding: 5px;}
 .is-centered{display: flex;align-items: center;justify-content: center;}
@@ -208,7 +208,9 @@ header, .content, footer {flex-shrink: 0;}
   z-index: 3;
 }
 #cookieBottomBox{position: fixed;bottom: 0%; z-index: 99; min-width: 100vw}
-
+#redes{
+  position: sticky;
+}
 
 #homeCarousel{
   margin-bottom: 100px;
@@ -370,11 +372,14 @@ header, .content, footer {flex-shrink: 0;}
   top: -23vh;
 }
 
-#categories, #feeds{
+#categories{
   margin-top: 100px;
   margin-bottom: 80px;
 }
-#feeds h3,
+#feeds{
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
 #categories h3{
   padding: 50px;
 }
@@ -433,6 +438,32 @@ header, .content, footer {flex-shrink: 0;}
   display: none;
   background-color: white;
   overflow: hidden;
+}
+
+.is-padding-y-60{
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+.is-padding-y-100{
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+.has-background-light-green{
+  background-color: rgb(233, 243, 236) !important;
+}
+#blog .btns {margin-top: 25px;}
+#blog .btns .button:not(:first-child){
+  margin-left: 15px;
+}
+.blog-cat ul{margin-bottom: 25px;}
+.blog-cat ul li{
+  display: inline;
+}
+.blog-cat ul li:not(:first-child){
+  margin-left: 15px;
+}
+.pagination-list{
+  list-style: none !important;
 }
 @media screen and (max-width: 800px){
   #serviceSlide {

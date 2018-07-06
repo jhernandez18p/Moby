@@ -1,10 +1,22 @@
 import React, { Component } from 'react'; 
 
 class RedesLine extends Component {
-
+    componentDidMount(){
+        window.addEventListener('scroll', this.handlerScroll, false);
+    }
+    handlerScroll = () =>{
+        // let documentHeight = document.querySelector('body').offsetHeight;
+        // let footerHeight = document.querySelector('footer').offsetHeight;
+        // let magic = documentHeight - (footerHeight+50);
+        // console.log(
+        //     document.getElementsByTagName('footer').scrollTop, documentHeight
+        // );
+        // if (documentHeight > magic){
+        // }
+    };
     render() {
         return (    
-            <div className="has-footer-background-dark is-fullhd">
+            <div className="has-footer-background-dark is-fullhd" id="redes">
                 <div className="container">
                     <nav className="level">
                         <div className="level-left">

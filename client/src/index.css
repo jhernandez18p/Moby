@@ -7958,7 +7958,7 @@ body::-webkit-scrollbar-thumb {
 
 .site .content {
   flex-grow: 1;
-  margin-top: 80px;
+  margin-top: 70px;
   min-height: 80vh; }
 
 header, .content, footer {
@@ -8149,6 +8149,9 @@ header, .content, footer {
   z-index: 99;
   min-width: 100vw; }
 
+#redes {
+  position: sticky; }
+
 #homeCarousel {
   margin-bottom: 100px;
   padding-top: calc(100vh - 97vh); }
@@ -8292,11 +8295,14 @@ header, .content, footer {
 #serviceSlide .slider-btn {
   top: -23vh; }
 
-#categories, #feeds {
+#categories {
   margin-top: 100px;
   margin-bottom: 80px; }
 
-#feeds h3,
+#feeds {
+  margin-top: 80px;
+  margin-bottom: 80px; }
+
 #categories h3 {
   padding: 50px; }
 
@@ -8350,6 +8356,35 @@ header, .content, footer {
   display: none;
   background-color: white;
   overflow: hidden; }
+
+.is-padding-y-60 {
+  padding-top: 60px;
+  padding-bottom: 60px; }
+
+.is-padding-y-100 {
+  padding-top: 100px;
+  padding-bottom: 100px; }
+
+.has-background-light-green {
+  background-color: #e9f3ec !important; }
+
+#blog .btns {
+  margin-top: 25px; }
+
+#blog .btns .button:not(:first-child) {
+  margin-left: 15px; }
+
+.blog-cat ul {
+  margin-bottom: 25px; }
+
+.blog-cat ul li {
+  display: inline; }
+
+.blog-cat ul li:not(:first-child) {
+  margin-left: 15px; }
+
+.pagination-list {
+  list-style: none !important; }
 
 @media screen and (max-width: 800px) {
   #serviceSlide {
