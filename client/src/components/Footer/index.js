@@ -10,13 +10,43 @@ class Footer extends Component {
       <footer className="is-fullhd has-footer-background has-text-white">
         <div className="container" id="overFooter">
           <div className="columns">
-            <div className="column">
-              <h2 className="is-size-3">Moby Supply</h2>
-              <p>Moby Panamá, S.A. fue fundada en Panamá en el año 2011.
+            <div className="column ">
+              <h2 className="is-size-4 has-text-white">Moby Supply</h2>
+              <p className="has-text-white">Moby Panamá, S.A. fue fundada en Panamá en el año 2011.
 Actualmente, con más de 30 colaboradores, una Fábrica y una Tienda ubicada en calle 1ra de Rio Abajo, nuestra base de productos y servicios se ve respaldada con marcas reconocidas internacionalmente en el ramo ferretero-maderero como FGV, Grupo Losan, entre otras, cada año hemos ido incrementando productos y presentando ofertas y soluciones para el sector.</p>
             </div>
             <div className="column">
-              <h2 className="is-size-3">De interés</h2>
+              <h2 className="is-size-4 has-text-white">Artículos recientes</h2>
+              <ul>
+                <li className="navbar-item">
+                  <Link to="/blog/publicacion-4" className="is-uppercase has-text-white">
+                    Publicación 4
+                  </Link>
+                </li>
+                <li className="navbar-item">
+                  <Link to="/blog/publicacion-3" className="is-uppercase has-text-white">
+                    Publicación 3
+                  </Link>
+                </li>
+                <li className="navbar-item">
+                  <Link to="/blog/publicacion-2" className="is-uppercase has-text-white">
+                    Publicación 2
+                  </Link>
+                </li>
+                <li className="navbar-item">
+                  <Link to="/blog/publicacion-1" className="is-uppercase has-text-white">
+                    Publicación 1
+                  </Link>
+                </li>
+                <li className="navbar-item">
+                  <Link to="/blog/bienvenidos" className="is-uppercase has-text-white">
+                    Bienvenidos al blog
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div className="column">
+              <h2 className="is-size-4 has-text-white">Enlaces</h2>
               <ul>
                 <li className="navbar-item">
                   <Link to="/quienes-somos" className="is-uppercase has-text-white">
@@ -24,47 +54,47 @@ Actualmente, con más de 30 colaboradores, una Fábrica y una Tienda ubicada en 
                   </Link>
                 </li>
                 <li className="navbar-item">
-                  <Link to="/f-a-q" className="is-uppercase has-text-white">
+                  <Link to="/contacto/f-a-q" className="is-uppercase has-text-white">
                     Preguntas Frecuentes
                   </Link>
                 </li>
                 <li className="navbar-item">
-                  <Link to="/terminos" className="is-uppercase has-text-white">
+                  <Link to="/contacto/terminos" className="is-uppercase has-text-white">
                     Terminos y condiciones
                   </Link>
                 </li>
                 <li className="navbar-item">
-                  <Link to="/politicas" className="is-uppercase has-text-white">
+                  <Link to="/contacto/politicas" className="is-uppercase has-text-white">
                     Política de provacidad
                   </Link>
                 </li>
                 <li className="navbar-item">
-                  <Link to="/mapa.xml" className="is-uppercase has-text-white">
+                  <Link to="/contacto/site.xml" className="is-uppercase has-text-white">
                     Mapa de sitio
                   </Link>
                 </li>
               </ul>
             </div>
             <div className="column">
-              <h2 className="is-size-3">Contacto</h2>
-              <p>Ernesto T. Lefevre, diagonal a Waikiki, Panama Panamá</p>
-              <p>Ciudad de Panamá</p>
-              <p>
+              <h2 className="is-size-4 has-text-white">Contacto</h2>
+              <p className="has-text-white">Ernesto T. Lefevre, diagonal a Waikiki, Panama Panamá</p>
+              <p className="has-text-white">Ciudad de Panamá</p>
+              <p className="has-text-white">
                 +(507)-800-MOBY
               </p>
-              <p>
+              <p className="has-text-white">
                 +(507)-800-6629 
               </p>
-              <p>
+              <p className="has-text-white">
                 Lunes a Viernes , 8:00 am - 5:00 pm 
               </p>
-              <p>
+              <p className="has-text-white">
                 Sabados de 8:00 a 1:00 pm
               </p>
-              <p>
+              <p className="has-text-white">
                 info@moby-group.com 
               </p>
-              <p>
+              <p className="has-text-white">
                 sale@moby-group.com
               </p>
             </div>

@@ -25,7 +25,6 @@ class Header extends Component {
         showMenu: !this.state.showMenu,
         toggled: this.state.toggled
       });
-      console.log('Toggled = True');
     }
   }
 

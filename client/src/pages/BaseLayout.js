@@ -5,18 +5,19 @@ import Helmet from 'react-helmet';
 // Pages
 import Blog from './Blog';
 import BlogDetail from './Blog/details';
-import Brand from './Brand';
-import BrandDetail from './Brand/details';
-import Category from './Category';
-import CategoryDetail from './Category/details';
+// import Brand from './Brand';
+// import BrandDetail from './Brand/details';
+// import Category from './Category';
+// import CategoryDetail from './Category/details';
 import Contact from './Contact';
-import Department from './Department';
-import DepartmentDetail from './Department/details';
+import FAQ from './Contact/details/FAQ';
+// import Department from './Department';
+// import DepartmentDetail from './Department/details';
 import Home from './Home';
 import Product from './Product';
 import ProductDetail from './Product/details';
 import Service from './Service';
-import ServiceDetail from './Service/details';
+// import ServiceDetail from './Service/details';
 
 // Components
 import Footer from '../components/Footer';
@@ -46,16 +47,18 @@ class Layout extends Component {
                 <Route exact path="/blog" component={ Blog } />
                 <Route exact path="/blog/:slug" component={ BlogDetail } />
                 <Route exact path="/contacto" component={ Contact } />
+                <Route exact path="/contacto/f-a-q" component={ FAQ } />
                 <Route exact path="/productos" component={ Product } />
-                <Route exact path="/productos/:slug" component={ ProductDetail } />
-                <Route exact path="/productos/categoria/:slug" component={ CategoryDetail } />
-                <Route exact path="/productos/categorias" component={ Category } />
-                <Route exact path="/productos/departamento/:slug" component={ DepartmentDetail } />
-                <Route exact path="/productos/departamentos" component={ Department } />
-                <Route exact path="/productos/marca/:slug" component={ BrandDetail } />
-                <Route exact path="/productos/marcas" component={ Brand } />
+                <Route exact path="/productos/todos" component={ ProductDetail } />
+                <Route exact path="/productos/todos?:slug" component={ ProductDetail } />
+                {/* <Route exact path="/productos/categoria/:slug" component={ CategoryDetail } /> */}
+                {/* <Route exact path="/productos/categorias" component={ Category } /> */}
+                {/* <Route exact path="/productos/departamento/:slug" component={ DepartmentDetail } /> */}
+                {/* <Route exact path="/productos/departamentos" component={ Department } /> */}
+                {/* <Route exact path="/productos/marca/:slug" component={ BrandDetail } /> */}
+                {/* <Route exact path="/productos/marcas" component={ Brand } /> */}
                 <Route exact path="/servicios" component={ Service } />
-                <Route exact path="/servicios/:slug" component={ ServiceDetail } />
+                <Route exact path="/servicios/:slug" component={ Service } />
             </Switch>
           </div>
           <RedesLine/>

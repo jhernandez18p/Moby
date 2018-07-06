@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import Slider from "react-slick";
 
 
-class Carrousel extends Component {
+class ServicesCarousel extends Component {
     constructor(props) {
         super(props);
         this.next = this.next.bind(this);
@@ -39,6 +39,9 @@ class Carrousel extends Component {
                 <div>
                     <img src="https://www.moby-group.com/media/frontend/carouselimage/2018/04/06/carrousel001.png" alt="Audi" ></img>
                 </div>
+                <div>
+                    <img src="https://www.moby-group.com/media/frontend/carouselimage/2018/04/06/carrousel001.png" alt="Audi" ></img>
+                </div>
             </Slider>
             <div className="slider-btn" style={{ textAlign: "center" }}>
                 <button className="slide-button-prev button has-background-transparent" onClick={this.previous}>
@@ -57,5 +60,4 @@ class Carrousel extends Component {
   }
 }
 
-export default Carrousel;
-
+export default ServicesCarousel;

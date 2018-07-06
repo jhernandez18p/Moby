@@ -16,18 +16,18 @@ class RedesLine extends Component {
                         </div>
                         <div className="level-right">
                             <div className="level-item has-text-white">
-                                <span className="icon">
-                                    <i className="fab fa-facebook-f"></i>
+                                <span className="icon has-text-white">
+                                    <i className="fab fa-facebook-f has-text-white"></i>
                                 </span>
                             </div>
                             <div className="level-item has-text-white">
-                                <span className="icon">
-                                    <i className="fab fa-instagram"></i>
+                                <span className="icon has-text-white">
+                                    <i className="fab fa-instagram has-text-white"></i>
                                 </span>
                             </div>
                             <div className="level-item has-text-white">
-                                <span className="icon">
-                                    <i className="fab fa-twitter"></i>
+                                <span className="icon has-text-white">
+                                    <i className="fab fa-twitter has-text-white"></i>
                                 </span>
                             </div>
                         </div>

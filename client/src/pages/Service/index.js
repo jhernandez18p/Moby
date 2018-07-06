@@ -1,12 +1,11 @@
 import React, { Component } from "react";
+import Services from '../../components/Services';
  
 class Service extends Component {
   render() {
     return (
-      <div className="container">
-        <p>
-          Servicios
-        </p>
+      <div className="">
+        <Services />
       </div>
     );
   }

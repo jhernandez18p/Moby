@@ -1,18 +1,21 @@
 {
-  "main.css": "static/css/main.38d5a505.css",
-  "main.css.map": "static/css/main.38d5a505.css.map",
-  "main.js": "static/js/main.e1168a07.js",
-  "main.js.map": "static/js/main.e1168a07.js.map",
+  "main.css": "static/css/main.a97fa704.css",
+  "main.css.map": "static/css/main.a97fa704.css.map",
+  "main.js": "static/js/main.fc3afbcb.js",
+  "main.js.map": "static/js/main.fc3afbcb.js.map",
   "static\\media\\android-icon-192x192.png": "static/media/android-icon-192x192.dc4171cc.png",
   "static\\media\\apple-icon-144x144.png": "static/media/apple-icon-144x144.3018d746.png",
   "static\\media\\apple-icon-152x152.png": "static/media/apple-icon-152x152.f2855e53.png",
   "static\\media\\apple-icon-180x180.png": "static/media/apple-icon-180x180.c5044b2b.png",
-  "static\\media\\background.jpg": "static/media/background.b34dd354.jpg",
   "static\\media\\fontawesome-webfont.eot": "static/media/fontawesome-webfont.674f50d2.eot",
   "static\\media\\fontawesome-webfont.svg?v=4.7.0": "static/media/fontawesome-webfont.912ec66d.svg",
   "static\\media\\fontawesome-webfont.ttf?v=4.7.0": "static/media/fontawesome-webfont.b06871f2.ttf",
   "static\\media\\fontawesome-webfont.woff2?v=4.7.0": "static/media/fontawesome-webfont.af7ae505.woff2",
   "static\\media\\fontawesome-webfont.woff?v=4.7.0": "static/media/fontawesome-webfont.fee66e71.woff",
-  "static\\media\\index.scss": "static/media/index.23d2e82b.scss",
-  "static\\media\\logo.png": "static/media/logo.9f489cc8.png"
+  "static\\media\\index.scss": "static/media/index.41bcd05c.scss",
+  "static\\media\\logo.png": "static/media/logo.9f489cc8.png",
+  "static\\media\\slick.eot": "static/media/slick.ced611da.eot",
+  "static\\media\\slick.svg": "static/media/slick.f97e3bbf.svg",
+  "static\\media\\slick.ttf": "static/media/slick.d41f55a7.ttf",
+  "static\\media\\slick.woff": "static/media/slick.b7c9e1e4.woff"
 }

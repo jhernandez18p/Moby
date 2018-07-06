@@ -22,6 +22,9 @@ import androidicon192x192 from './assets/images/logo/android-icon-192x192.png';
 import favicon32x32 from './assets/images/logo/favicon-32x32.png';
 import favicon96x96 from './assets/images/logo/favicon-96x96.png';
 
+// Components
+import SiteAllCookie from './components/Cookies';
+
 // Pages
 import Auth from './pages/Auth';
 import BaseLayout from './pages/BaseLayout';
@@ -60,10 +63,11 @@ class App extends Component {
               { 'rel': "icon", 'type': "image/png", 'sizes': "192x192", 'href': androidicon192x192 },
               { 'rel': "icon", 'type': "image/png", 'sizes': "32x32", 'href': favicon32x32 },
               { 'rel': "icon", 'type': "image/png", 'sizes': "96x96", 'href': favicon96x96 },
-              { 'rel': 'stylesheet', 'href': 'https://fonts.googleapis.com/css?family=Titillium+Web&amp;subset=latin-ext' },
+              { 'rel': 'stylesheet', 'href': 'https://fonts.googleapis.com/css?family=Raleway:400,400i' },
             ]
           }
         />
+        <SiteAllCookie/>
         <Switch>
           <Route path="/auth" component={ Auth } />
           <Route path="/intra" component={ PanelLayout } />
