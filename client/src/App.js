@@ -29,6 +29,7 @@ import SiteAllCookie from './components/Cookies';
 import Auth from './pages/Auth';
 import BaseLayout from './pages/BaseLayout';
 import PanelLayout from './pages/Panel';
+import ProductDetail from './pages/Product/details';
 
 class App extends Component {
   constructor(props) {
@@ -71,6 +72,8 @@ class App extends Component {
         <Switch>
           <Route path="/auth" component={ Auth } />
           <Route path="/intra" component={ PanelLayout } />
+          <Route exact path="/productos/todos" component={ ProductDetail } />
+          <Route exact path="/productos/todos?:slug" component={ ProductDetail } />
           <Route path="/" component={ BaseLayout } />
         </Switch>
       </div>

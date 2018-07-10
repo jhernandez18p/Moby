@@ -15,9 +15,7 @@ import Department from './Department';
 import DepartmentDetail from './Department/details';
 import Home from './Home';
 import Product from './Product';
-import ProductDetail from './Product/details';
 import Service from './Service';
-// import ServiceDetail from './Service/details';
 
 // Components
 import Footer from '../components/Footer';
@@ -50,8 +48,6 @@ class Layout extends Component {
                 <Route exact path="/contacto" component={Contact} />
                 <Route exact path="/contacto/f-a-q" component={FAQ} />
                 <Route exact path="/productos" component={Product} />
-                <Route exact path="/productos/todos" component={ProductDetail} />
-                <Route exact path="/productos/todos?:slug" component={ProductDetail} />
                 <Route exact path="/productos/categoria/:slug" component={CategoryDetail} />
                 <Route exact path="/productos/categorias" component={Category} />
                 <Route exact path="/productos/departamento/:slug" component={DepartmentDetail} />

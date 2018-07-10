@@ -10,16 +10,19 @@ class Blog extends Component {
   render() {
     return (
       <div>
-        <Helmet
-          title="Moby Supply - Blog"
-        />
+
+        <Helmet title="Moby Supply - Blog"/>
+
         <div className="container" id="blog">
+          
           <div className="has-text-centered is-padding-y-60">
             <h3 className="is-size-2">
               Bienvenidos al Blog de Moby Supply
             </h3>
           </div>
+          
           <hr></hr>
+
           <div className="blog-cat has-text-centered">
             <ul>
               <li><Link to="/blog?cat=lorem" className="has-text-black">lorem</Link></li>
@@ -34,7 +37,8 @@ class Blog extends Component {
               <li><Link to="/blog?cat=lorem" className="has-text-black">lorem</Link></li>
             </ul>
           </div>
-          <div className="section has-background-light-green">
+
+          <div className="section has-background-light-green box-animation">
             <div className="columns">
               <div className="column">
                 <div className="has-text-left ">
@@ -53,14 +57,15 @@ class Blog extends Component {
             </div>
           </div>
 
-          
           <Post/>
           <Post/>
           <Post/>
           <Post/>
-          <div className="is-padding-y-60">
-            <Paginator/>
-          </div>
+
+
+        </div>
+        <div className="is-padding-y-60 container-fluid">
+          <Paginator/>
         </div>
       </div>
     );

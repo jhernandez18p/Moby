@@ -58,4 +58,3 @@ class Carrousel extends Component {
 }
 
 export default Carrousel;
-

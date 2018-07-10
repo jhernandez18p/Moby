@@ -13,11 +13,11 @@ class Contact extends Component {
           title="Moby Supply - Contacto"
         />
         <div className="container-fluid">
-          <div className="columns is-fullheight">
-            <div className="column has-background-grey-lighter">
+          <div className="columns">
+            <div className="column has-background-white-ter is-fullheight">
               <Form/>
             </div>
-            <div className="column is-three-fifths">
+            <div className="column is-three-fifths is-hidden-touch">
               <div className="is-marginless is-paddingless">
                 <Maps/>
               </div>

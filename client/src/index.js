@@ -10,13 +10,16 @@ import registerServiceWorker from './registerServiceWorker';
 // Apps
 import ReactGA from 'react-ga';
 
+// Redux
+// import configureStore from './redux/store'
+
 ReactGA.initialize('UA-83370429-7');
 
 ReactDOM.render((
-    <CookiesProvider>    
+    <CookiesProvider>
         <Router>
-            <App />
+            <App/>
         </Router>
-    </CookiesProvider>    
+    </CookiesProvider>
 ), document.getElementById('wrapper'));
 registerServiceWorker();

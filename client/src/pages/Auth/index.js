@@ -6,6 +6,7 @@ import Login from './Login';
 import Logout from './Logout';
 import Register from './Register';
 
+require('dotenv').config()
 
 class Auth extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class Auth extends Component {
     }
 
     componentDidMount(){
-      
+      console.log(process.env.TEST);
     };
 
     goHome = (e) =>{
@@ -44,7 +45,7 @@ class Auth extends Component {
           />
           <div className="content is-marginless is-paddingless">
             <div className="columns is-marginless is-paddingless is-descktop">
-              <div className="column is-half is-marginless is-paddingless">
+              <div className="column is-two-fifths is-marginless is-paddingless">
                 <div className="hero has-background-white-ter is-fullheight is-marginless is-paddingless">
                   <div className="is-auth-pg">
                     <div>
@@ -65,31 +66,20 @@ class Auth extends Component {
                         </Link>
                       </div>
                     </div>
-                    <div className="title">
-                      <p className="is-size-4" >
-                        Moby Supply - { this.state.view === 'login' ? 'Iniciar Sesión' : 'Registrarse' }
-                      </p>
-                    </div>
-                    <div className="title">
-                      <form method="POST" className="auth-form">
-                        <Switch>
-                          <Route exact path="/auth/registro" component={Register} />
-                          <Route exact path="/auth/iniciar-sesion" component={Login} />
-                          <Route exact path="/auth/salir" component={Logout} />
-                        </Switch>
-                      </form>
-                    </div>
-                    <div className="links">
-                      <div className="">
-                        <p className="">
-                          
-                        </p>
-                      </div>
-                    </div>
+                    
+                    <Switch>
+                      <Route exact path="/auth/registro" component={Register} />
+                      <Route exact path="/auth/iniciar-sesion" component={Login} />
+                      <Route exact path="/auth/salir" component={Logout} />
+                    </Switch>
+                  
                   </div>
                 </div>
               </div>
-              <div className="column is-marginless is-paddingless">
+              <div className="column is-marginless is-paddingless is-hidden-touch">
+              <figure className="image is-cover">
+                <img src="https://images.pexels.com/photos/227577/pexels-photo-227577.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="auth img"></img>
+              </figure>
               </div>
             </div>
           </div>
