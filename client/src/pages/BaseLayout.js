@@ -21,7 +21,6 @@ import Service from './Service';
 import Footer from '../components/Footer';
 import RedesLine from '../components/Footer/Redes';
 import Header from '../components/Header';
-import NotFound from '../components/Errors';
 
 class Layout extends Component {
     constructor(props) {
@@ -57,7 +56,6 @@ class Layout extends Component {
                 <Route exact path="/productos/marcas" component={ Brand } />
                 <Route exact path="/servicios" component={ Service } />
                 <Route exact path="/servicios/:slug" component={ Service } />
-                <Route component={ NotFound } />
               </Switch>
             </div>
             <RedesLine />

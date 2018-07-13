@@ -73,7 +73,7 @@ class App extends Component {
           <Route path="/auth" component={ Auth } />
           <Route path="/intra" component={ PanelLayout } />
           <Route path="/" component={ BaseLayout } />
-          <Route component={ NotFound } />
+          <Route path="" component={ NotFound } />
         </Switch>
       </div>
     );
