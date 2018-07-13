@@ -21,6 +21,7 @@ import Service from './Service';
 import Footer from '../components/Footer';
 import RedesLine from '../components/Footer/Redes';
 import Header from '../components/Header';
+import NotFound from '../components/Errors';
 
 class Layout extends Component {
     constructor(props) {
@@ -42,20 +43,21 @@ class Layout extends Component {
             <Header />
             <div className="content">
               <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/blog" component={Blog} />
-                <Route exact path="/blog/:slug" component={BlogDetail} />
-                <Route exact path="/contacto" component={Contact} />
-                <Route exact path="/contacto/f-a-q" component={FAQ} />
-                <Route exact path="/productos" component={Product} />
-                <Route exact path="/productos/categoria/:slug" component={CategoryDetail} />
-                <Route exact path="/productos/categorias" component={Category} />
-                <Route exact path="/productos/departamento/:slug" component={DepartmentDetail} />
-                <Route exact path="/productos/departamentos" component={Department} />
-                <Route exact path="/productos/marca/:slug" component={BrandDetail} />
-                <Route exact path="/productos/marcas" component={Brand} />
-                <Route exact path="/servicios" component={Service} />
-                <Route exact path="/servicios/:slug" component={Service} />
+                <Route exact path="/" component={ Home } />
+                <Route exact path="/blog" component={  Blog } />
+                <Route exact path="/blog/:slug" component={ BlogDetail } />
+                <Route exact path="/contacto" component={ Contact } />
+                <Route exact path="/contacto/f-a-q" component={ FAQ } />
+                <Route exact path="/productos" component={ Product } />
+                <Route exact path="/productos/categoria/:slug" component={ CategoryDetail } />
+                <Route exact path="/productos/categorias" component={ Category } />
+                <Route exact path="/productos/departamento/:slug" component={ DepartmentDetail } />
+                <Route exact path="/productos/departamentos" component={ Department } />
+                <Route exact path="/productos/marca/:slug" component={ BrandDetail } />
+                <Route exact path="/productos/marcas" component={ Brand } />
+                <Route exact path="/servicios" component={ Service } />
+                <Route exact path="/servicios/:slug" component={ Service } />
+                <Route component={ NotFound } />
               </Switch>
             </div>
             <RedesLine />

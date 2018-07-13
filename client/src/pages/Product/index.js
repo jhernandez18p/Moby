@@ -26,12 +26,13 @@ class Product extends Component {
             <TopDepartments/>
           </div>
 
-          <div>
+          <div id="feeds">
+
             <div className="is-padding-top-60 has-text-centered">
               <h2 className="is-size-2">Nuestros productos</h2>
             </div>
             <TopProducts/>
-            <div className="has-text-centered">
+            <div className="has-text-centered is-padding-top-60">
               <Link to="/productos/todos" className="button is-fullwidth is-light  is-size-4 has-text-black">
                 Ver todos los productos
               </Link>

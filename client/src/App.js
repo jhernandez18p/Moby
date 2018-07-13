@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import { Route, Switch } from "react-router-dom";
 import Helmet from 'react-helmet';
 
-// Assets
-import './index.scss';
-import '../node_modules/font-awesome/css/font-awesome.min.css';
-import '../node_modules/bulma-carousel/dist/js/bulma-carousel';
-
 // logos
 import appleicon114x114 from './assets/images/logo/apple-icon-114x114.png';
 import appleicon120x120 from './assets/images/logo/apple-icon-120x120.png';
@@ -24,12 +19,14 @@ import favicon96x96 from './assets/images/logo/favicon-96x96.png';
 
 // Components
 import SiteAllCookie from './components/Cookies';
+import NotFound from './components/Errors';
 
 // Pages
 import Auth from './pages/Auth';
 import BaseLayout from './pages/BaseLayout';
 import PanelLayout from './pages/Panel';
 import ProductDetail from './pages/Product/details';
+import SingleDetail from './pages/Product/details/SingleDetails';
 
 class App extends Component {
   constructor(props) {
@@ -70,11 +67,13 @@ class App extends Component {
         />
         <SiteAllCookie/>
         <Switch>
+          <Route path="/productos/todos?:slug" component={ ProductDetail } />
+          <Route path="/productos/todos" component={ ProductDetail } />
+          <Route path="/producto/:slug" component={ SingleDetail } />
           <Route path="/auth" component={ Auth } />
           <Route path="/intra" component={ PanelLayout } />
-          <Route exact path="/productos/todos" component={ ProductDetail } />
-          <Route exact path="/productos/todos?:slug" component={ ProductDetail } />
           <Route path="/" component={ BaseLayout } />
+          <Route component={ NotFound } />
         </Switch>
       </div>
     );

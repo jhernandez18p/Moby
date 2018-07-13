@@ -7935,14 +7935,46 @@ body {
   padding: 0;
   background: #f9f9f9; }
 
+.is-x-scroll {
+  overflow-x: scroll;
+  overflow-y: hidden; }
+
+.is-y-scroll {
+  overflow-y: scroll;
+  overflow-x: hidden; }
+
+.is-x-scroll::-webkit-scrollbar,
+.is-y-scroll::-webkit-scrollbar,
 body::-webkit-scrollbar {
   width: .51em; }
 
+.is-x-scroll::scrollbar,
+.is-y-scroll::scrollbar,
+body::scrollbar {
+  width: .51em; }
+
+.is-x-scroll::-webkit-scrollbar-track,
+.is-y-scroll::-webkit-scrollbar-track,
 body::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); }
 
+.is-x-scroll::scrollbar-track,
+.is-y-scroll::scrollbar-track,
+body::scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); }
+
+.is-x-scroll::-webkit-scrollbar-thumb,
+.is-y-scroll::-webkit-scrollbar-thumb,
 body::-webkit-scrollbar-thumb {
+  height: 20px;
+  background-color: darkgrey;
+  outline: 1px solid slategrey; }
+
+.is-x-scroll::scrollbar-thumb,
+.is-y-scroll::scrollbar-thumb,
+body::scrollbar-thumb {
   height: 20px;
   background-color: darkgrey;
   outline: 1px solid slategrey; }
@@ -8007,6 +8039,10 @@ header, .content, footer {
 .navbar-item img {
   max-height: 2.8rem;
   margin-top: -15px; }
+
+#intraNav .navbar-item img {
+  max-height: 2.8rem;
+  margin-top: unset !important; }
 
 #fullNavbar a.navbar-item:hover, #fullNavbar a.navbar-item.is-active, #fullNavbar .navbar-link:hover, #fullNavbar .navbar-link.is-active {
   background-color: unset;
@@ -8381,23 +8417,59 @@ header, .content, footer {
   background-color: white;
   overflow: hidden; }
 
+.is-padding-bottom-10 {
+  padding-bottom: 10px; }
+
+.is-padding-bottom-15 {
+  padding-bottom: 15px; }
+
+.is-padding-bottom-20 {
+  padding-bottom: 20px; }
+
+.is-padding-bottom-25 {
+  padding-bottom: 25px; }
+
 .is-padding-bottom-30 {
   padding-bottom: 30px; }
+
+.is-padding-bottom-60 {
+  padding-bottom: 60px; }
+
+.is-padding-bottom-100 {
+  padding-bottom: 100px; }
+
+.is-padding-top-10 {
+  padding-top: 10px; }
+
+.is-padding-top-15 {
+  padding-top: 15px; }
+
+.is-padding-top-20 {
+  padding-top: 20px; }
 
 .is-padding-top-30 {
   padding-top: 30px; }
 
-.is-padding-bottom-30 {
-  padding-bottom: 60px; }
+.is-padding-top-50 {
+  padding-top: 50px; }
 
 .is-padding-top-60 {
   padding-top: 60px; }
 
-.is-padding-bottom-30 {
-  padding-bottom: 100px; }
-
 .is-padding-top-100 {
   padding-top: 100px; }
+
+.is-padding-y-10 {
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
+.is-padding-y-15 {
+  padding-top: 15px;
+  padding-bottom: 15px; }
+
+.is-padding-y-20 {
+  padding-top: 20px;
+  padding-bottom: 20px; }
 
 .is-padding-y-30 {
   padding-top: 30px;
@@ -8793,6 +8865,36 @@ header, .content, footer {
   background-color: #fff;
   margin-top: 15px; }
 
+#intra {
+  padding-top: 75px; }
+
+#intra #verticalNav {
+  height: calc(100vh - 63px);
+  padding-left: 15px; }
+
+#intra #verticalNav aside {
+  height: auto; }
+
+.menu-list li a {
+  text-transform: capitalize; }
+
+#productsNavBar .field:not(:last-child) {
+  margin-bottom: 0 !important; }
+
+#productsNavBar .field.has-addons .control:not(:last-child) {
+  margin-right: -1px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  padding-top: 2px;
+  padding-left: 15px; }
+
+#productsSearcher {
+  position: fixed; }
+
+#productsSearcher .card h3,
+#productsSearcher .card .field {
+  padding-left: 15px; }
+
 @media screen and (max-width: 800px) {
   #blogDetails .is-blog-content {
     padding: 25px; }
@@ -8829,6 +8931,9 @@ header, .content, footer {
   #fullNavbar #is-logo {
     max-height: 1.75em;
     margin: unset; }
+  #intraNav #is-logo {
+    max-height: 20px;
+    margin: unset !important; }
   .is-size-7 {
     font-size: 0.7135rem !important; }
   .slider-btn {

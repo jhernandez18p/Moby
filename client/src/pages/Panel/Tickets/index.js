@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-class PanelHome extends Component {
-    render() {
-        return (
+class PanelTickets extends Component {
+    render(){
+        return(
             <div>
                 <div className="columns is-padding-top-60" id="">
                     <div className="column is-8 is-offset-2 box-animation card" id="">
@@ -39,4 +39,4 @@ class PanelHome extends Component {
     }
 }
 
-export default PanelHome;
+export default PanelTickets;
