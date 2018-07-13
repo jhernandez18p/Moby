@@ -40,6 +40,7 @@ class App extends Component {
         <Helmet
           title="Moby Supply - Panamá"
           meta={[
+            { name: 'viewport', content: 'width=device-width, initial-scale=1' },
             { name: 'description', content: 'Moby Panamá, S.A. fue fundada en Panamá en el año 2011 estructurada en forma sociedad anónima. Actualmente, con más de 30 colaboradores, hacemos presencia en Panamá.' },
             { name: 'keywords', content: 'ebanisteria, ebanista, madera, marmol, cortes en madera, Panamá' },
           ]}
