@@ -49,7 +49,7 @@ class IntraNav extends Component {
                             </div>
                         </div>
                         <div className="navbar-brand">
-                            <Link to="/intra" className="navbar-item">
+                            <Link to="/" className="navbar-item">
                                 <img src={ Logo } alt="Moby Group:" id="is-logo"></img>
                             </Link>
                             <span className={ this.props.showMenu ? "navbar-burger" : "navbar-burger is-active" }

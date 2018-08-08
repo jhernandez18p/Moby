@@ -22,7 +22,6 @@ import SiteAllCookie from './components/Cookies';
 import NotFound from './components/Errors';
 
 // Pages
-import Auth from './pages/Auth';
 import BaseLayout from './pages/BaseLayout';
 import PanelLayout from './pages/Panel';
 import ProductDetail from './pages/Product/details';
@@ -71,7 +70,6 @@ class App extends Component {
           <Route path="/productos/todos?:slug" component={ ProductDetail } />
           <Route path="/productos/todos" component={ ProductDetail } />
           <Route path="/producto/:slug" component={ SingleDetail } />
-          <Route path="/auth" component={ Auth } />
           <Route path="/intra" component={ PanelLayout } />
           <Route path="/" component={ BaseLayout } />
           <Route path="" component={ NotFound } />

@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router} from 'react-router-dom'
 import { CookiesProvider } from 'react-cookie';
 
+import ScrollToTop from './routes/scrollTop';
+
 import './assets/styles/index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
@@ -18,7 +20,9 @@ ReactGA.initialize('UA-83370429-7');
 ReactDOM.render((
     <CookiesProvider>
         <Router>
-            <App/>
+            <ScrollToTop>
+                <App/>
+            </ScrollToTop>
         </Router>
     </CookiesProvider>
 ), document.getElementById('wrapper'));

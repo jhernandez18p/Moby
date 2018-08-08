@@ -72,7 +72,7 @@ class SideNav extends Component {
                             <Link to="/intra/administracion/suscripciones">Suscripciones</Link>
                         </li>
                     </ul>
-                    <p className="menu-label">
+                    {/* <p className="menu-label">
                         Tickets
                     </p>
                     <ul className="menu-list">
@@ -85,7 +85,7 @@ class SideNav extends Component {
                         <li>
                             <Link to="/intra/tickets/cerrados">Cerrados</Link>
                         </li>
-                    </ul>
+                    </ul> */}
                 </aside>
             </div>
         );

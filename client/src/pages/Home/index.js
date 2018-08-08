@@ -9,7 +9,7 @@ import Categories from '../../components/Products/Categories';
 import Post from '../../components/Blog';
 import Services from '../../components/Services';
 import Carrousel from "../../components/Carrousel";
-import TypeText from "../../components/Typetext";
+
 
 
 
@@ -26,7 +26,6 @@ class Home extends Component {
             <div className="columns">
               <div className="column is-10 is-offset-1" id="carousel">
                 <div className="has-text-centered" id="typetxt">
-                  <TypeText/>
                 </div>
                 <div className="" id="homeCarousel">
                   <Carrousel />

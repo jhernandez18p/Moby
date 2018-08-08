@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 // Assets
 import Logo from '../../assets/images/logo.png';
@@ -53,11 +53,11 @@ class Nav extends Component {
                         </div>
                         <div id="navMenu" className={ this.props.showMenu ? "navbar-menu" : "navbar-menu is-active" }>
                             <div className="navbar-end is-hidden-touch ">
-                                <Link data-target="navMenu" to="/" className="is-uppercase navbar-item is-nav-link">Inicio</Link>
-                                <Link data-target="navMenu" to="/servicios" className="is-uppercase navbar-item is-nav-link">Servicios</Link>
-                                <Link data-target="navMenu" to="/productos" className="is-uppercase navbar-item is-nav-link">Productos</Link>
-                                <Link data-target="navMenu" to="/blog" className="is-uppercase navbar-item is-nav-link">Blog</Link>
-                                <Link data-target="navMenu" to="/contacto" className="is-uppercase navbar-item is-nav-link">Contacto</Link>
+                                <NavLink data-target="navMenu" to="/" className="is-uppercase navbar-item is-nav-link">Inicio</NavLink>
+                                <NavLink data-target="navMenu" to="/servicios" className="is-uppercase navbar-item is-nav-link">Servicios</NavLink>
+                                <NavLink data-target="navMenu" to="/productos" className="is-uppercase navbar-item is-nav-link">Productos</NavLink>
+                                <NavLink data-target="navMenu" to="/blog" className="is-uppercase navbar-item is-nav-link">Blog</NavLink>
+                                <NavLink data-target="navMenu" to="/contacto" className="is-uppercase navbar-item is-nav-link">Contacto</NavLink>
                             </div>
                             <div className="navbar-end is-hidden-desktop">
                                 <Link onClick={this.props.toggleMenu} to="/" className="navbar-item">
