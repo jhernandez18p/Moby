@@ -10,6 +10,7 @@
     "bulma-carousel": "^3.0.0",
     "bulma-steps": "^2.2.1",
     "bulma-tooltip": "^2.0.1",
+    "connected-react-router": "^4.3.0",
     "font-awesome": "^4.7.0",
     "google-maps-react": "^2.0.2",
     "history": "^4.7.2",
