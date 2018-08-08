@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+const year = new Date().getFullYear();
 
 class Footer extends Component {
-
   render() {
-    const year = new Date().getFullYear();
     return (
       <footer className="is-fullhd has-footer-background has-text-white">
         <div className="container" id="overFooter">
           <div className="columns">
             <div className="column ">
               <h2 className="is-size-4 has-text-white">Moby Supply</h2>
-              <p className="has-text-white">Moby Panamá, S.A. fue fundada en Panamá en el año 2011.
-Actualmente, con más de 30 colaboradores, una Fábrica y una Tienda ubicada en calle 1ra de Rio Abajo, nuestra base de productos y servicios se ve respaldada con marcas reconocidas internacionalmente en el ramo ferretero-maderero como FGV, Grupo Losan, entre otras, cada año hemos ido incrementando productos y presentando ofertas y soluciones para el sector.</p>
+              <p className="has-text-white">
+                Moby Panamá, S.A. fue fundada en Panamá en el año 2011.
+                Actualmente, con más de 30 colaboradores, una Fábrica y una Tienda ubicada en calle 1ra de Rio Abajo, nuestra base de productos y servicios se ve respaldada con marcas reconocidas internacionalmente en el ramo ferretero-maderero como FGV, Grupo Losan, entre otras, cada año hemos ido incrementando productos y presentando ofertas y soluciones para el sector.
+              </p>
             </div>
             <div className="column">
               <h2 className="is-size-4 has-text-white">Artículos recientes</h2>
@@ -83,16 +84,16 @@ Actualmente, con más de 30 colaboradores, una Fábrica y una Tienda ubicada en 
                 +(507)-800-MOBY
               </p>
               <p className="has-text-white">
-                +(507)-800-6629 
+                +(507)-800-6629
               </p>
               <p className="has-text-white">
-                Lunes a Viernes , 8:00 am - 5:00 pm 
+                Lunes a Viernes , 8:00 am - 5:00 pm
               </p>
               <p className="has-text-white">
                 Sabados de 8:00 a 1:00 pm
               </p>
               <p className="has-text-white">
-                info@moby-group.com 
+                info@moby-group.com
               </p>
               <p className="has-text-white">
                 sale@moby-group.com
@@ -107,7 +108,7 @@ Actualmente, con más de 30 colaboradores, una Fábrica y una Tienda ubicada en 
                 <p className="navbar-item is-size-7 has-text-white">
                   Moby Group all rights reserved {year} <span className="is-hidden-touch">&nbsp;|&nbsp;</span><br className="is-hidden-desktop"></br> Website Designed & Developed by &nbsp;
                   <br className="is-hidden-desktop"></br>
-                  <a href="https://dev2tech.xyz"> Dev2tech</a>.
+                  <a href="https://dev2tech.xyz" className="has-text-grey"> Dev2tech</a>.
                 </p>
               </div>
             </div>
