@@ -11,6 +11,7 @@ const router = express.Router();
 
 // CONF.
 require('dotenv').config();
+const server = process.env.NODE_ENV || 'test';
 const port = parseInt(process.env.PORT || 9000);
 const secretKey = (process.env.JWT_SECRET_KEY || "secretKey");
 const nodeRestApi = (process.env.JWT_NODE_REST_API || "nodeRestApi");
@@ -32,6 +33,17 @@ app.get('/api/v2/checking', function(req, res){
 });
 
 
+// React App
+if (server === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  });
+  app.get('/service-worker.js', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client/build', 'service-worker.js'));
+  });
+}
+
 app.use(function (req, res, next) {
   let err = new Error('Not Found');
   err.status = 404;
@@ -47,15 +59,6 @@ app.use(function (err, req, res, next) {
   res.status(500).json({ message: "Algo va mal :( !!!" });
 });
 
-// React App
-if (process.env.NODE_ENV === 'production') {
-  app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-  });
-  app.get('/service-worker.js', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/build', 'service-worker.js'));
-  });
-}
 
 // RUN.
 app.listen(port, () => {
