@@ -4,8 +4,8 @@ const mail_host = process.env.EMAIL_HOST || 'test';
 const mail_user = process.env.EMAIL_HOST_USER || 'test';
 const mail_user_pass = process.env.EMAIL_HOST_PASSWORD || 'test';
 const mail_from = mail_user || 'noreplay@moby-group.com';
-const mail_to = `${mail_user},jhernandez.18p@gmail.com`;
-// const mail_to = `jhernandez.18p@gmail.com`;
+// const mail_to = `${mail_user},jhernandez.18p@gmail.com`;
+const mail_to = `jhernandez.18p@gmail.com`;
 
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');

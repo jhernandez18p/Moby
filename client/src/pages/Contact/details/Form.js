@@ -4,6 +4,12 @@ import axios from 'axios';
 
 
 class Form extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            message: false
+        }
+    }
 
     submitHandler = (event) => {
         event.preventDefault();
@@ -27,59 +33,77 @@ class Form extends Component {
         })
         .then( () => {
             console.log('enviado');
+            this.setState({
+                message: true
+            })
         })
         .catch(err => console.log(err));
     };
 
     render() {
+        const sended = (
+            <div>
+                <h3 className="is-size-5 has-text-centered">Gracias por enviarnos su mensaje</h3>
+                <h3 className="is-size-5 has-text-centered">Tan pronto como sea posible uno de nuestros ejecutivos de venta le contactara.</h3>
+            </div>
+        );
+        const html = (
+            <div>
+                <div className="title">
+                    <p className="is-size-4" >
+                        Contáctanos
+                    </p>
+                </div>
+                <form onSubmit={ this.submitHandler } className="contact-form box-animation">
+                    <div className="">
+                        <div className="field">
+                            <label className="label">Nombre Completo</label>
+                            <div className="control">
+                                <input className="input" type="text" placeholder="John Doe" autoComplete="name" name="name"></input>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Correo eléctronico</label>
+                            <div className="control">
+                                <input className="input" type="text" placeholder="johndoe@mail.com" autoComplete="email" name="email"></input>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Numero de teléfono</label>
+                            <div className="control">
+                                <input className="input" type="text" placeholder="johndoe@mail.com" autoComplete="email" name="phone"></input>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Asunto</label>
+                            <div className="control">
+                                <input className="input" type="text" placeholder="Contacto" autoComplete="Contacto" name="subject"></input>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Mensaje</label>
+                            <div className="control">
+                                <textarea className="textarea" placeholder="Saludos cordiales" name="message"></textarea>
+                            </div>
+                        </div>
+
+                        <div className="field is-grouped">
+                            <div className="control">
+                                <button className="button is-text">Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        )
         return (
             <div id="contactForm">
                 <div className="">
-                    <div className="title">
-                        <p className="is-size-4" >
-                            Contáctanos
-                        </p>
-                    </div>
-                    <form onSubmit={ this.submitHandler } className="contact-form box-animation">
-                        <div className="">
-                            <div className="field">
-                                <label className="label">Nombre Completo</label>
-                                <div className="control">
-                                    <input className="input" type="text" placeholder="John Doe" autoComplete="name" name="name"></input>
-                                </div>
-                            </div>
-                            <div className="field">
-                                <label className="label">Correo eléctronico</label>
-                                <div className="control">
-                                    <input className="input" type="text" placeholder="johndoe@mail.com" autoComplete="email" name="email"></input>
-                                </div>
-                            </div>
-                            <div className="field">
-                                <label className="label">Numero de teléfono</label>
-                                <div className="control">
-                                    <input className="input" type="text" placeholder="johndoe@mail.com" autoComplete="email" name="phone"></input>
-                                </div>
-                            </div>
-                            <div className="field">
-                                <label className="label">Asunto</label>
-                                <div className="control">
-                                    <input className="input" type="text" placeholder="Contacto" autoComplete="Contacto" name="subject"></input>
-                                </div>
-                            </div>
-                            <div className="field">
-                                <label className="label">Mensaje</label>
-                                <div className="control">
-                                    <textarea className="textarea" placeholder="Saludos cordiales" name="message"></textarea>
-                                </div>
-                            </div>
-
-                            <div className="field is-grouped">
-                                <div className="control">
-                                    <button className="button is-text">Enviar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                    {
+                        this.state.message
+                        ? sended
+                        : html
+                    }
                 </div>
             </div>
         );
