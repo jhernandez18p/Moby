@@ -8895,6 +8895,49 @@ header, .content, footer {
 #productsSearcher .card .field {
   padding-left: 15px; }
 
+.all-overlay {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.84);
+  z-index: 999; }
+
+.underconstruction {
+  height: auto;
+  max-height: 70%;
+  overflow-y: scroll;
+  background-color: #fff;
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  top: 15%; }
+
+.underconstruction #header,
+.underconstruction #footer {
+  padding: 15px 15px 5px 15px;
+  background-color: #7a7a7a26;
+  text-align: center; }
+
+.underconstruction #body {
+  padding: 0 15px 20px 15px;
+  background-color: #7a7a7a26; }
+
+.underconstruction #body #contactForm {
+  padding-top: 15px; }
+
+.underconstruction #body .title {
+  text-align: center; }
+
+.underconstruction #body .title p {
+  font-size: 1.74em; }
+
+.underconstruction #footer {
+  padding-bottom: 15px; }
+
+.contact-form button {
+  width: 100%; }
+
 @media screen and (max-width: 800px) {
   #blogDetails .is-blog-content {
     padding: 25px; }

@@ -22,6 +22,7 @@ import Service from './Service';
 import Footer from '../components/Footer';
 import RedesLine from '../components/Footer/Redes';
 import Header from '../components/Header';
+import UnderConstruction from '../components/UnderCostruction';
 
 class Layout extends Component {
     constructor(props) {
@@ -32,6 +33,9 @@ class Layout extends Component {
     render() {
       return (
         <div className="site pageloader has-navbar-fixed-top">
+          <div className="all-overlay">
+            <UnderConstruction/>
+          </div>
           <div className="site-wr">
             <Helmet
               title="Moby Supply - Inicio"

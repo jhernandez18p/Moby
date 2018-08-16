@@ -1,25 +1,53 @@
+// Main CONF.
 const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-
-
 const app = express();
-const port = 9000;
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const helmet = require('helmet');
+const logger = require('morgan');
+const path = require('path');
+const routes = require('./conf/routes');
+const router = express.Router();
 
+// CONF.
+require('dotenv').config();
+const port = parseInt(process.env.PORT || 9000);
+const secretKey = (process.env.JWT_SECRET_KEY || "secretKey");
+const nodeRestApi = (process.env.JWT_NODE_REST_API || "nodeRestApi");
 
+// APP CONF.
+routes(router);
+app.use(logger('dev'));
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(helmet());
+app.use('/api/v2/',router);
+app.disable('x-powered-by');
 
-// API calls
-app.get('/api/hello', (req, res) => {
-  res.send({ express: articles });
-});
-app.get('/api/checking', function(req, res){
+app.get('/api/v2/checking', function(req, res){
   res.json({
-    "Tutorial": "Welcome to the Node express JWT Tutorial"
+    "Tutorial": "Welcome to the APi"
   });
 });
+
+
+app.use(function (req, res, next) {
+  let err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+
+app.use(function (err, req, res, next) {
+  console.log(err);
+  if (err.status === 404)
+  res.status(404).json({ message: "No encontrado" });
+  else
+  res.status(500).json({ message: "Algo va mal :( !!!" });
+});
+
+// React App
 if (process.env.NODE_ENV === 'production') {
   app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
@@ -29,4 +57,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+// RUN.
+app.listen(port, () => {
+  console.log(`Servidor inició en el puerto: ${port}`);
+});
