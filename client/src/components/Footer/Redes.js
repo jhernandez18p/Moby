@@ -1,21 +1,33 @@
-import React, { Component } from 'react'; 
+import React, { Component } from 'react';
+// import { Link } from 'react-router-dom';
 
 class RedesLine extends Component {
-    componentDidMount(){
-        window.addEventListener('scroll', this.handlerScroll, false);
-    }
-    handlerScroll = () =>{
-        // let documentHeight = document.querySelector('body').offsetHeight;
-        // let footerHeight = document.querySelector('footer').offsetHeight;
-        // let magic = documentHeight - (footerHeight+50);
-        // console.log(
-        //     document.getElementsByTagName('footer').scrollTop, documentHeight
-        // );
-        // if (documentHeight > magic){
-        // }
-    };
+
     render() {
-        return (    
+        
+        let sm = this.props.redes.results;
+        let smCount = this.props.redes.count;
+        
+        let redesItems = <div></div>;
+        if (smCount >= 1) {
+            redesItems = sm.slice(0, 6).map(
+                (re) => {
+                    // console.log(re);
+                    let html = (
+                        <div className="level-item has-text-white" key={re.id.toString()} >
+                            <a href={re.url} target="_blank">
+                                <span className="icon has-text-white">
+                                    <i className={`fab ${re.icon} has-text-white`}></i>
+                                </span>
+                            </a>
+                        </div>
+                    )
+                    return html;
+                }
+            );
+        }
+
+        return (
             <div className="has-footer-background-dark is-fullhd" id="redes">
                 <div className="container">
                     <nav className="level">
@@ -27,21 +39,7 @@ class RedesLine extends Component {
                             </div>
                         </div>
                         <div className="level-right">
-                            <div className="level-item has-text-white">
-                                <span className="icon has-text-white">
-                                    <i className="fab fa-facebook-f has-text-white"></i>
-                                </span>
-                            </div>
-                            <div className="level-item has-text-white">
-                                <span className="icon has-text-white">
-                                    <i className="fab fa-instagram has-text-white"></i>
-                                </span>
-                            </div>
-                            <div className="level-item has-text-white">
-                                <span className="icon has-text-white">
-                                    <i className="fab fa-twitter has-text-white"></i>
-                                </span>
-                            </div>
+                            {redesItems}
                         </div>
                     </nav>
                 </div>

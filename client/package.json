@@ -11,6 +11,7 @@
     "bulma-steps": "^2.2.1",
     "bulma-tooltip": "^2.0.1",
     "connected-react-router": "^4.3.0",
+    "dompurify": "^1.0.7",
     "font-awesome": "^4.7.0",
     "google-maps-react": "^2.0.2",
     "history": "^4.7.2",
@@ -50,5 +51,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:8000/"
+  "proxy": "http://localhost:10500/"
 }

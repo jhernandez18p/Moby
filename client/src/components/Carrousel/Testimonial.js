@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import DOMPurify from 'dompurify';
+
 // Apps
 import Slider from "react-slick";
 
@@ -16,11 +18,56 @@ class Testimonial extends Component {
         this.slider.slickPrev();
     }
     render() {
+        const imgs = this.props.testimonials;
+        // console.log(imgs);
+        
+        const size = 8;
+        const listItems = imgs.slice(0, size).map(
+            (img) => {
+                return (
+                    // console.log(img)
+                    <div className="box-animation" key={ img.id.toString() }>
+                        <div className="columns has-background-grey-lighter">
+                            <div className="column">
+                                <div className="is-testimonial-img">
+                                    <div>
+                                    </div>
+                                    <figure className="image is-128x256">
+                                        <img src={ img.img } alt={ img.name } ></img>
+                                    </figure>
+                                    <div>
+                                    </div>
+                                </div>
+                                <div className="title has-text-centered is-padding-top-30">
+                                    <h3 className="is-size-5">
+                                        <span className="icon quote-left">
+                                            <i className="fas fa-quote-left"></i>
+                                        </span>
+                                        &nbsp; {img.name} - { img.company } &nbsp;
+                                    <span className="icon quote-left">
+                                            <i className="fas fa-quote-right"></i>
+                                        </span>
+                                    </h3>
+                                </div>
+
+                                <div className="columns" id="testimonialText">
+                                    <div className="column is-8 is-offset-2 is-paddingles">
+                                        <div className="is-testimonial-coment has-text-centered">
+                                            <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(img.description) }}></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+        );
         const settings = {
             dots: false,
             arrows: false,
             autoplay: true,
-            autoplaySpeed:5000,
+            autoplaySpeed:9000,
             infinite: true,
             lazyLoad: true,
             centerPadding: '50px',
@@ -31,133 +78,8 @@ class Testimonial extends Component {
     return (
         <div className="slider" id="testimonials">
             <Slider ref={c => (this.slider = c)} {...settings}>
-                <div className="box-animation">
-                    <div className="columns has-background-grey-lighter">
-                        <div className="column">
-                            <div className="is-testimonial-img">
-                                <div>
-                                </div>
-                                <figure className="image is-128x128">
-                                    <img src="https://bulma.io/images/placeholders/128x128.png" alt=""></img>
-                                </figure>
-                                <div>
-                                </div>
-                            </div>
-                            <div className="title has-text-centered is-padding-top-30">
-                                <h3 className="is-size-5">
-                                    <span className="icon quote-left">
-                                        <i className="fas fa-quote-left"></i>
-                                    </span>
-                                    &nbsp; Testimonio &nbsp;
-                                    <span className="icon quote-left">
-                                        <i className="fas fa-quote-right"></i>
-                                    </span>
-                                </h3>
-                            </div>
-
-                            <div className="columns" id="testimonialText">
-                                <div className="column is-8 is-offset-2 is-paddingles">
-                                    <div className="is-testimonial-coment has-text-centered">
-                                        <p className="is-size-6">
-                                            Bienvenidos al blog de Moby Group aqui encontraras contenido informativo. esperamos sea de tu agrado.
-                                            Bienvenidos al blog de Moby Group aqui encontraras contenido informativo. esperamos sea de tu agrado.
-                                            Bienvenidos al blog de Moby Group aqui encontraras contenido informativo. esperamos sea de tu agrado.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="box-animation">
-                    <div className="columns has-background-grey-lighter">
-                        <div className="column">
-                            <div className="is-testimonial-img">
-                                <div>
-                                </div>
-                                <figure className="image is-128x128">
-                                    <img src="https://bulma.io/images/placeholders/128x128.png" alt=""></img>
-                                </figure>
-                                <div>
-                                </div>
-                            </div>
-                            <div className="title has-text-centered is-padding-top-30">
-                                <h3 className="is-size-5">
-                                    <span className="icon quote-left">
-                                        <i className="fas fa-quote-left"></i>
-                                    </span>
-                                    &nbsp; Testimonio &nbsp;
-                                    <span className="icon quote-left">
-                                        <i className="fas fa-quote-right"></i>
-                                    </span>
-                                </h3>
-                            </div>
-
-                            <div className="columns" id="testimonialText">
-                                <div className="column is-8 is-offset-2 is-paddingles">
-                                    <div className="is-testimonial-coment has-text-centered">
-                                        <p className="is-size-6">
-                                            Bienvenidos al blog de Moby Group aqui encontraras contenido informativo. esperamos sea de tu agrado.
-                                            Bienvenidos al blog de Moby Group aqui encontraras contenido informativo. esperamos sea de tu agrado.
-                                            Bienvenidos al blog de Moby Group aqui encontraras contenido informativo. esperamos sea de tu agrado.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="box-animation">
-                    <div className="columns has-background-grey-lighter">
-                        <div className="column">
-                            <div className="is-testimonial-img">
-                                <div>
-                                </div>
-                                <figure className="image is-128x128">
-                                    <img src="https://bulma.io/images/placeholders/128x128.png" alt=""></img>
-                                </figure>
-                                <div>
-                                </div>
-                            </div>
-                            <div className="title has-text-centered is-padding-top-30">
-                                <h3 className="is-size-5">
-                                    <span className="icon quote-left">
-                                        <i className="fas fa-quote-left"></i>
-                                    </span>
-                                    &nbsp; Testimonio &nbsp;
-                                    <span className="icon quote-left">
-                                        <i className="fas fa-quote-right"></i>
-                                    </span>
-                                </h3>
-                            </div>
-
-                            <div className="columns" id="testimonialText">
-                                <div className="column is-8 is-offset-2 is-paddingles">
-                                    <div className="is-testimonial-coment has-text-centered">
-                                        <p className="is-size-6">
-                                            Bienvenidos al blog de Moby Group aqui encontraras contenido informativo. esperamos sea de tu agrado.
-                                            Bienvenidos al blog de Moby Group aqui encontraras contenido informativo. esperamos sea de tu agrado.
-                                            Bienvenidos al blog de Moby Group aqui encontraras contenido informativo. esperamos sea de tu agrado.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                { listItems }
             </Slider>
-            {/* <div className="slider-btn" style={{ textAlign: "center" }}>
-                <button className="slide-button-prev button has-background-transparent" onClick={this.previous}>
-                    <span className="icon">
-                        <i className="fas fa-chevron-left"></i>
-                    </span>
-                </button>
-                <button className="slide-button-next button has-background-transparent" onClick={this.next}>
-                    <span className="icon">
-                        <i className="fas fa-chevron-right"></i>
-                    </span>
-                </button>
-            </div> */}
         </div>
     );
   }

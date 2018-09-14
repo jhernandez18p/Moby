@@ -2,8 +2,52 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Helmet from "react-helmet";
 
+// Redux
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
+
+// actions
+import { fetchBlogPost } from '../../../redux/actions/blog'
+
 class BlogDetail extends Component {
+  
+  constructor(props){
+    super(props);
+    this.state = {
+      postSlug: ''
+    }
+  }
+
+  componentDidMount(){
+    const { slug } = this.props.match.params;
+    this.setState({
+      postSlug: slug,
+    })
+    this.props.onFetchBlogPost()
+  }
+  
   render() {
+    const filter = (array, key, val) => {
+      let filtered_array = [];
+      array.forEach(function (element) {
+        if (element[key] === val) {
+          filtered_array.push(element);
+        }
+      });
+      return filtered_array;
+    };
+
+    // console.log(this.props.blog_post)
+    let post = this.state.post;
+    let posts = this.props.blog_post;
+    
+    if (posts.count >= 1){
+      post = filter(posts.results, 'slug', post);
+      console.log(post);
+      
+    }
+
     return (
       <div>
         <Helmet
@@ -179,4 +223,35 @@ class BlogDetail extends Component {
   }
 }
 
-export default BlogDetail;
+// blog_post
+const blogSelector = createSelector(
+  state => state.blog_post,
+  blog_post => blog_post
+);
+
+// blog_tags
+const blogComentsSelector = createSelector(
+  state => state.blog_comments,
+  blog_comments => blog_comments
+);
+
+const mapStateToProps = createSelector(
+  blogSelector,
+  blogComentsSelector,
+  (blog_post, blog_comments) => (
+    {
+      blog_post,
+      blog_comments,
+    }
+  )
+);
+
+const mapDispatchToProps = (dispatch, props) => {
+  return bindActionCreators(
+    {
+      onFetchBlogPost: fetchBlogPost,
+    }, dispatch
+  );
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(BlogDetail);

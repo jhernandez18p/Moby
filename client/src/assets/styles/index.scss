@@ -454,18 +454,14 @@ header, .content, footer {flex-shrink: 0;}
   margin-bottom: 80px;
 }
 #feeds{
-  margin-top: 80px;
-  margin-bottom: 80px;
+  margin-bottom: 60px;
 }
 #categories h3{
   padding: 50px;
 }
-#feeds .feed-title,
-#feeds .feed-leyend,
-#feeds .feed-content{
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 5px;
+
+.feed-title, .feed-leyend, .feed-content{
+  padding:6px
 }
 #feeds .feed-title h3{
   padding: 0
@@ -473,6 +469,7 @@ header, .content, footer {flex-shrink: 0;}
 .recent-feed{
   -webkit-box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);;
+  height: 100%;
 }
 
 .content:not(:last-child){
@@ -917,15 +914,19 @@ height: 99.9vh;
 .media-content-img{
   display: grid;
 }
+
 #testimonials .is-testimonial-img figure,
 .media-content-img figure{
   align-self: center;
   justify-self: center;
 }
+
 #testimonials .is-testimonial-img img,
 .media-content-img figure img{
   border-radius: 50%;
+  width: 170px;
 }
+
 #testimonials .is-testimonial-coment {
   margin-top: 20px;
 }
@@ -934,7 +935,6 @@ height: 99.9vh;
 #blogDetails .is-blog-content{
   padding: 75px;
 }
-
 
 .media-content-text{
   padding-top: 35px;
@@ -1020,6 +1020,24 @@ height: 99.9vh;
 
 .contact-form button{
   width: 100%
+}
+.image.is-128x256 {
+  height: 128px !important;
+  width: 256px !important;
+}
+.is-margin-botton-50{
+  margin-bottom: 50px;
+}
+
+#brandCarrouselImg{
+  max-height: 150px;
+}
+
+#redes-fixed{
+  position: fixed;
+  z-index: 9999999999999999999999999999;
+  bottom: 0%;
+  width: 100%;
 }
 
 @media screen and (max-width: 800px){

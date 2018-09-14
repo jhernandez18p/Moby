@@ -22,7 +22,7 @@ class ServicesCarousel extends Component {
             arrows: false,
             accessibility: true,
             autoplay: true,
-            autoplaySpeed:5000,
+            autoplaySpeed: 5000,
             infinite: true,
             lazyLoad: true,
             centerPadding: '50px',
@@ -30,34 +30,39 @@ class ServicesCarousel extends Component {
             slidesToShow: 1,
             slidesToScroll: 1
         };
-    return (
-        <div className="slider">
-            <Slider ref={c => (this.slider = c)} {...settings}>
-                <div>
-                    <img src="https://www.moby-group.com/media/frontend/carouselimage/2018/04/06/carrousel002.png" alt="Audi" ></img>
+        const _imgs = this.props.imgs;
+        const size = 8;
+        const listItems = _imgs.slice(0, size).map(
+            (img) => {
+                return (
+                    // console.log(img)
+                    <div key={img.id.toString()}>
+                        <img  src={ img.url } alt={ img.alt } />
+                    </div>
+                )
+            }
+        );
+        // console.log(listItems);
+        return (
+            <div className="slider">
+                <Slider ref={c => (this.slider = c)} {...settings}>
+                    { listItems }
+                </Slider>
+                <div className="slider-btn" style={{ textAlign: "center" }}>
+                    <button className="slide-button-prev button has-background-transparent" onClick={this.previous}>
+                        <span className="icon">
+                            <i className="fas fa-chevron-left"></i>
+                        </span>
+                    </button>
+                    <button className="slide-button-next button has-background-transparent" onClick={this.next}>
+                        <span className="icon">
+                            <i className="fas fa-chevron-right"></i>
+                        </span>
+                    </button>
                 </div>
-                <div>
-                    <img src="https://www.moby-group.com/media/frontend/carouselimage/2018/04/06/carrousel001.png" alt="Audi" ></img>
-                </div>
-                <div>
-                    <img src="https://www.moby-group.com/media/frontend/carouselimage/2018/04/06/carrousel001.png" alt="Audi" ></img>
-                </div>
-            </Slider>
-            <div className="slider-btn" style={{ textAlign: "center" }}>
-                <button className="slide-button-prev button has-background-transparent" onClick={this.previous}>
-                    <span className="icon">
-                        <i className="fas fa-chevron-left"></i>
-                    </span>
-                </button>
-                <button className="slide-button-next button has-background-transparent" onClick={this.next}>
-                    <span className="icon">
-                        <i className="fas fa-chevron-right"></i>
-                    </span>
-                </button>
             </div>
-        </div>
-    );
-  }
+        );
+    }
 }
 
 export default ServicesCarousel;

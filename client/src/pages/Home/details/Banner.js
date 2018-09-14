@@ -12,10 +12,10 @@ class Banner extends Component {
                             <div className="card">
                                 <div className="card-content">
                                     <p className="title">
-                                        Moby Supply
+                                        {this.props.siteName}
                                     </p>
                                     <p className="subtitle">
-                                        Moby Panamá, S.A. fue fundada en Panamá en el año 2011 estructurada en forma sociedad anónima. Actualmente, con más de 30 colaboradores, hacemos presencia en Panamá.
+                                        {this.props.siteShortDesc}
                                     </p>
                                 </div>
                             </div>
@@ -28,7 +28,7 @@ class Banner extends Component {
                             <div className="column is-4 is-offset-2">
                                 <div className="card is-centered overlayer">
                                     <div className="content-overlay"></div>
-                                    <img className="content-image" alt="Productos de moby" src="https://www.globalwoodmarketsinfo.com/wp-content/uploads/2016/08/hardwood7-635x300.jpg"></img>
+                                    <img className="content-image" alt="Productos de moby" src={ this.props.siteServiceImg }></img>
                                     <div className="content-details fadeIn-top">
                                         <Link to="/productos">
                                             <h3>Conozca nuestros Productos</h3>
@@ -39,7 +39,7 @@ class Banner extends Component {
                             <div className="column is-4">
                                 <div className="card is-centered overlayer">
                                     <div className="content-overlay"></div>
-                                    <img className="content-image" alt="Servicios de moby" src="http://img.cdn2.vietnamnet.vn/Images/english/2013/04/08/09/20130408093208-wood.jpg"></img>
+                                    <img className="content-image" alt="Servicios de moby" src={ this.props.siteProductImg }></img>
                                     <div className="content-details fadeIn-top">
                                         <Link to="/servicios">
                                             <h3>Conozca nuestros servicios</h3>

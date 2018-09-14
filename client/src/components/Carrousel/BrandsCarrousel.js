@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 
 // Apps
 import Slider from "react-slick";
@@ -18,108 +17,36 @@ class BrandsCarrousel extends Component {
         this.slider.slickPrev();
     }
     render() {
-        const settings = {
-            dots: false,
-            arrows: false,
-            autoplay: true,
-            autoplaySpeed: 5000,
-            infinite: true,
-            lazyLoad: true,
-            speed: 500,
-            slidesToShow: 5,
-            slidesToScroll: 1
-        };
+        let imgs = this.props.brands;
+        // console.log(imgs);
+        
+        var slidesToShow;
+        if (imgs.length >= 3) { slidesToShow = imgs.length; } else { slidesToShow = 1; }
+        const listItems = imgs.slice(0, 10).map(
+            (img) => {
+                var html = <div key={img.id.toString()}>{/* <Link to={ `/productos/marcas/${ img.slug }` }> */}<img id="brandCarrouselImg" src={img.img} alt={img.alt} />{/* </Link> */}</div>;
+                return html;
+            }
+        );
+        const _listItems = imgs.slice(0, 10).map(
+            (img) => {
+                const html = (
+                    <div className="column" key={img.id.toString()}><div>{/* <Link to={ `/productos/marcas/${ img.slug }` }> */}<img id="brandCarrouselImg" src={img.img} alt={img.alt} />{/* </Link> */}</div></div>
+                )
+                return html;
+            }
+        );
+        const settings = { dots: false, arrows: false, accessibility: true, autoplay: true, autoplaySpeed: 4000, infinite: true, lazyLoad: true, speed: 500, slidesToShow: slidesToShow, slidesToScroll: 1, centerPadding: '50px', };
         return (
             <div>
-                <div className="slider is-hidden-touch" id="ourBrands">
-                    <Slider ref={c => (this.slider = c)} {...settings}>
-                        <div className="box-animation">
-                            <Link to="/productos/marcas/:slug">
-                                <img src="https://www.moby-group.com/media/frontend/carouselimage/2018/04/06/carrousel002.png" alt="Audi" ></img>
-                            </Link>
-                        </div>
-
-                        <div className="box-animation">
-                            <Link to="/productos/marcas/:slug">
-                                <img src="https://www.moby-group.com/media/frontend/carouselimage/2018/04/06/carrousel002.png" alt="Audi" ></img>
-                            </Link>
-                        </div>
-
-                        <div className="box-animation">
-                            <Link to="/productos/marcas/:slug">
-                                <img src="https://www.moby-group.com/media/frontend/carouselimage/2018/04/06/carrousel002.png" alt="Audi" ></img>
-                            </Link>
-                        </div>
-
-                        <div className="box-animation">
-                            <Link to="/productos/marcas/:slug">
-                                <img src="https://www.moby-group.com/media/frontend/carouselimage/2018/04/06/carrousel002.png" alt="Audi" ></img>
-                            </Link>
-                        </div>
-
-                        <div className="box-animation">
-                            <Link to="/productos/marcas/:slug">
-                                <img src="https://www.moby-group.com/media/frontend/carouselimage/2018/04/06/carrousel002.png" alt="Audi" ></img>
-                            </Link>
-                        </div>
-
-                        <div className="box-animation">
-                            <Link to="/productos/marcas/:slug">
-                                <img src="https://www.moby-group.com/media/frontend/carouselimage/2018/04/06/carrousel002.png" alt="Audi" ></img>
-                            </Link>
-                        </div>
-
+                <div className="is-hidden-touch">
+                    <Slider {...settings}>
+                        {listItems}
                     </Slider>
-                    {/* <div className="slider-btn" style={{ textAlign: "center" }}>
-                    <button className="slide-button-prev button has-background-transparent" onClick={this.previous}>
-                        <span className="icon">
-                            <i className="fas fa-chevron-left"></i>
-                        </span>
-                    </button>
-                    <button className="slide-button-next button has-background-transparent" onClick={this.next}>
-                        <span className="icon">
-                            <i className="fas fa-chevron-right"></i>
-                        </span>
-                    </button>
-                </div> */}
                 </div>
                 <div className="is-hidden-desktop">
                     <div className="columns">
-                        <div className="column">
-                            <div>
-                                <Link to="/productos/marcas/:slug">
-                                    <img src="https://www.moby-group.com/media/frontend/carouselimage/2018/04/06/carrousel002.png" alt="Audi" ></img>
-                                </Link>
-                            </div>
-                        </div>
-                        <div className="column">
-                            <div>
-                                <Link to="/productos/marcas/:slug">
-                                    <img src="https://www.moby-group.com/media/frontend/carouselimage/2018/04/06/carrousel002.png" alt="Audi" ></img>
-                                </Link>
-                            </div>
-                        </div>
-                        <div className="column">
-                            <div>
-                                <Link to="/productos/marcas/:slug">
-                                    <img src="https://www.moby-group.com/media/frontend/carouselimage/2018/04/06/carrousel002.png" alt="Audi" ></img>
-                                </Link>
-                            </div>
-                        </div>
-                        <div className="column">
-                            <div>
-                                <Link to="/productos/marcas/:slug">
-                                    <img src="https://www.moby-group.com/media/frontend/carouselimage/2018/04/06/carrousel002.png" alt="Audi" ></img>
-                                </Link>
-                            </div>
-                        </div>
-                        <div className="column">
-                            <div>
-                                <Link to="/productos/marcas/:slug">
-                                    <img src="https://www.moby-group.com/media/frontend/carouselimage/2018/04/06/carrousel002.png" alt="Audi" ></img>
-                                </Link>
-                            </div>
-                        </div>
+                        {_listItems}
                     </div>
                 </div>
             </div>

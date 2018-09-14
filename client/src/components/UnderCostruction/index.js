@@ -30,23 +30,30 @@ class UnderConstruction extends Component {
         })
     }
     render(){
-        return (
-            <div className="underconstruction is-y-scroll">
-                <div id="header">
-                    <h1 className="is-size-3">¡Hola!</h1>
-                    <h2 className="is-size-5">Estamos realizando cambios en nuestra plataforma, por favor vuelva pronto.</h2>
+        let isUnderConstruction = this.props.isUnderCostruction;
+        if(isUnderConstruction){
+            return (
+                <div className="all-overlay">
+                    <div className="underconstruction is-y-scroll">
+                        <div id="header">
+                            <h1 className="is-size-3">¡Hola!</h1>
+                            <h2 className="is-size-5">Estamos realizando cambios en nuestra plataforma, por favor vuelva pronto.</h2>
+                        </div>
+                        <div id="body" className={this.state.bodyHidden ? 'is-hidden-touch is-hidden-tablet is-hidden-desktop' : ''}>
+                            <Form/>
+                        </div>
+                        <div id="footer" className={this.state.footerHiden ? 'is-hidden-touch is-hidden-tablet is-hidden-desktop' : ''}>
+                            <p>¿Desea dejarnos un mensaje?</p>
+                            <button className="button is-text" onClick={this.handleClick}>
+                                Enviar un mensaje
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div id="body" className={this.state.bodyHidden ? 'is-hidden-touch is-hidden-tablet is-hidden-desktop' : ''}>
-                    <Form/>
-                </div>
-                <div id="footer" className={this.state.footerHiden ? 'is-hidden-touch is-hidden-tablet is-hidden-desktop' : ''}>
-                    <p>¿Desea dejarnos un mensaje?</p>
-                    <button className="button is-text" onClick={this.handleClick}>
-                        Dejar mensaje
-                    </button>
-                </div>
-            </div>
-        )
+            )
+        }else{
+            return <div></div>
+        }
     }
 }
 

@@ -1,23 +1,48 @@
 import React, { Component } from "react";
 
-class Paginator extends Component {
+class Pagination extends Component {
+
     render() {
+        // console.log(this.props)
+        // let postsCountLimit = this.props.postsCountLimit;
+        // let postsCount = this.props.postsCount;
+        // let currentPage = this.props.currentPage;
+        // let limitPage = this.props.limitPage;
+        // let offsetPage = this.props.offsetPage;
+        // let urlPage = this.props.urlPage;
+        // let nextPage = this.props.nextPage;
+        // let previousPage = this.props.previousPage;
+
+
+        // console.log(
+        //     'postsCountLimit ->', postsCountLimit, '\n',
+        //     'postsCount ->', postsCount, '\n',
+        //     'currentPage ->', currentPage, '\n',
+        //     'limitPage ->', limitPage, '\n',
+        //     'offsetPage ->', offsetPage, '\n',
+        //     'urlPage ->', urlPage, '\n',
+        //     'nextPage ->', nextPage, '\n',
+        //     'previousPage ->', previousPage, '\n',
+        // );
+
         return (
-            <div className="" id="">
-                <div className="pagination is-centered" role="navigation" aria-label="pagination">
-                    <ul className="pagination-list">
-                        <li><a className="pagination-link" aria-label="Goto page 1">1</a></li>
+            <div className="container" id="">
+                <nav className="pagination is-centered">
+                    <a className="pagination-previous" onClick={this.props.previousPage} disabled={ this.props.hasPrev } >Anterior</a>
+                    <a className="pagination-next" onClick={this.props.nextPage} disabled={ this.props.hasNext }>Siguiente</a>
+                    {/* <ul className="pagination-list">
+                        <li onClick={() => this.props.click()}><a className="pagination-link">1</a></li>
                         <li><span className="pagination-ellipsis">&hellip;</span></li>
-                        <li><a className="pagination-link" aria-label="Goto page 45">45</a></li>
-                        <li><a className="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
-                        <li><a className="pagination-link" aria-label="Goto page 47">47</a></li>
+                        <li><a className="pagination-link">45</a></li>
+                        <li><a className="pagination-link is-current"aria-current="page">46</a></li>
+                        <li><a className="pagination-link">47</a></li>
                         <li><span className="pagination-ellipsis">&hellip;</span></li>
-                        <li><a className="pagination-link" aria-label="Goto page 86">86</a></li>
-                    </ul>
-                </div>
+                        <li><a className="pagination-link">86</a></li>
+                    </ul> */}
+                </nav>
             </div>
         );
     }
 }
 
-export default Paginator;
+export default Pagination;

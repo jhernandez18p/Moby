@@ -1,49 +1,55 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-const year = new Date().getFullYear();
 
 class Footer extends Component {
+
   render() {
+
+    let year = new Date().getFullYear();
+    let site = this.props.site.results[0] || 'nada';
+    let posts = this.props.blog_post.results || 'nada';
+
+    let siteName = site.name || 'nada';
+    let siteDescription = site.description || 'nada';
+    let sitePhone = site.phone || 'nada';
+    let sitePhone2 = site.phone2 || 'nada';
+    let siteEmail = site.email || 'nada';
+    let siteEmail2 = site.email2 || 'nada';
+    let siteSchedule = site.schedule || 'nada';
+    let siteSchedule2 = site.schedule2 || 'nada';
+    let siteWorkday = site.workday || 'nada';
+    let siteAddress = site.address || 'nada';
+    let siteAddress1 = site.address1 || 'nada';
+    
+    let postItems = posts.slice(0,5).map((post) =>
+      <li className="navbar-item" key={post.id.toString()}>
+        <Link to={
+          post.slug
+            ? `/blog/${post.slug}`
+            : `/blog/${post.id}`
+        } className="is-uppercase has-text-white">
+          {post.title}
+        </Link>
+      </li>
+    );
+
     return (
       <footer className="is-fullhd has-footer-background has-text-white">
         <div className="container" id="overFooter">
           <div className="columns">
             <div className="column ">
-              <h2 className="is-size-4 has-text-white">Moby Supply</h2>
+              <h2 className="is-size-4 has-text-white">
+                {siteName}
+              </h2>
               <p className="has-text-white">
-                Moby Panamá, S.A. fue fundada en Panamá en el año 2011.
-                Actualmente, con más de 30 colaboradores, una Fábrica y una Tienda ubicada en calle 1ra de Rio Abajo, nuestra base de productos y servicios se ve respaldada con marcas reconocidas internacionalmente en el ramo ferretero-maderero como FGV, Grupo Losan, entre otras, cada año hemos ido incrementando productos y presentando ofertas y soluciones para el sector.
+                {siteDescription}
               </p>
             </div>
             <div className="column">
               <h2 className="is-size-4 has-text-white">Artículos recientes</h2>
               <ul>
-                <li className="navbar-item">
-                  <Link to="/blog/publicacion-4" className="is-uppercase has-text-white">
-                    Publicación 4
-                  </Link>
-                </li>
-                <li className="navbar-item">
-                  <Link to="/blog/publicacion-3" className="is-uppercase has-text-white">
-                    Publicación 3
-                  </Link>
-                </li>
-                <li className="navbar-item">
-                  <Link to="/blog/publicacion-2" className="is-uppercase has-text-white">
-                    Publicación 2
-                  </Link>
-                </li>
-                <li className="navbar-item">
-                  <Link to="/blog/publicacion-1" className="is-uppercase has-text-white">
-                    Publicación 1
-                  </Link>
-                </li>
-                <li className="navbar-item">
-                  <Link to="/blog/bienvenidos" className="is-uppercase has-text-white">
-                    Bienvenidos al blog
-                  </Link>
-                </li>
+                {postItems}
               </ul>
             </div>
             <div className="column">
@@ -65,8 +71,8 @@ class Footer extends Component {
                   </Link>
                 </li>
                 <li className="navbar-item">
-                  <Link to="/contacto/politicas" className="is-uppercase has-text-white">
-                    Política de provacidad
+                  <Link to="/contacto/privacidad" className="is-uppercase has-text-white">
+                    Política de privacidad
                   </Link>
                 </li>
                 <li className="navbar-item">
@@ -78,25 +84,32 @@ class Footer extends Component {
             </div>
             <div className="column">
               <h2 className="is-size-4 has-text-white">Contacto</h2>
-              <p className="has-text-white">Ernesto T. Lefevre, diagonal a Waikiki, Panama Panamá</p>
-              <p className="has-text-white">Ciudad de Panamá</p>
               <p className="has-text-white">
-                +(507)-800-MOBY
+                {siteAddress}
               </p>
               <p className="has-text-white">
-                +(507)-800-6629
+                {siteAddress1}
               </p>
               <p className="has-text-white">
-                Lunes a Viernes , 8:00 am - 5:00 pm
+                {sitePhone}
               </p>
               <p className="has-text-white">
-                Sabados de 8:00 a 1:00 pm
+                {sitePhone2}
               </p>
               <p className="has-text-white">
-                info@moby-group.com
+                Abierto: {siteWorkday}
               </p>
               <p className="has-text-white">
-                sale@moby-group.com
+                {siteSchedule}
+              </p>
+              <p className="has-text-white">
+                {siteSchedule2}
+              </p>
+              <p className="has-text-white">
+                {siteEmail}
+              </p>
+              <p className="has-text-white">
+                {siteEmail2}
               </p>
             </div>
           </div>
@@ -106,7 +119,10 @@ class Footer extends Component {
             <div className="container is-centered">
               <div className="navbar-brand">
                 <p className="navbar-item is-size-7 has-text-white">
-                  Moby Group all rights reserved {year} <span className="is-hidden-touch">&nbsp;|&nbsp;</span><br className="is-hidden-desktop"></br> Website Designed & Developed by &nbsp;
+                  Moby Group all rights reserved {year} 
+                  <span className="is-hidden-touch">&nbsp;|&nbsp;</span>
+                  <br className="is-hidden-desktop"></br> 
+                  Website Designed & Developed by &nbsp;
                   <br className="is-hidden-desktop"></br>
                   <a href="https://dev2tech.xyz" className="has-text-grey"> Dev2tech</a>.
                 </p>

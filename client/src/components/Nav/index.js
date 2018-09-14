@@ -19,7 +19,11 @@ class Nav extends Component {
                                     <span className="icon has-text-black tooltip is-tooltip-left" data-tooltip="Contáctenos">
                                         <i className="fas fa-phone"></i>
                                     </span>
-                                    +(507) 800 MOBY
+                                    {
+                                        this.props.sitePhone
+                                        ? this.props.sitePhone
+                                        : '+(507) 800 MOBY'
+                                    }
                                 </Link>
                                 <Link to="/auth/registro" className="is-uppercase is-size-7 has-text-black">
                                     <span className="icon has-text-black tooltip is-tooltip-bottom" data-tooltip="Registrarse">

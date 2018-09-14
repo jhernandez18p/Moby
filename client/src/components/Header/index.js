@@ -29,12 +29,17 @@ class Header extends Component {
   }
 
   render() {
+    let site = this.props.site;
+    
+    let sitePhone = site.phone || 'nada';
+    
     return (
       <div ref="test">
         <Nav 
           toggleMenu={this.toggleMenu} 
           showMenu={this.state.showMenu} 
-          fixedMenu={this.state.fixedMenu}/>
+          fixedMenu={this.state.fixedMenu}
+          sitePhone={sitePhone}/>
       </div>
     );
   }
