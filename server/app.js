@@ -26,18 +26,12 @@ app.disable('x-powered-by');
 // React App
 if (server === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
-  app.get('/api/checking', function (req, res) { res.json({ "Tutorial": "Welcome to the APi" }); });
-  app.get('*', function (req, res) { res.sendFile(path.join(__dirname, '../client/build', 'index.html')); });
-  app.get('/service-worker.js', (req, res) => { res.sendFile(path.resolve(__dirname, '../client/build', 'service-worker.js')); });
+  app.get('^/api/v2/$', function (req, res) { res.json({ "Tutorial": "Welcome to the APi" }); });
+  app.get('^/$', function (req, res) { res.sendFile(path.join(__dirname, '../client/build', 'index.html')); });
+  app.get('^/service-worker.js', (req, res) => { res.sendFile(path.resolve(__dirname, '../client/build', 'service-worker.js')); });
 }
 
-app.use(function (req, res, next) {
-  let err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
 app.use(function (err, req, res, next) {
-  console.log(err);
   if (err.status === 404)
     res.status(404).json({ message: "No encontrado" });
   else
@@ -45,6 +39,4 @@ app.use(function (err, req, res, next) {
 });
 
 // RUN.
-app.listen(port, () => {
-  console.log(`Servidor inició en el puerto: ${port}`);
-});
+app.listen(port, () => { console.log(`Servidor inició en el puerto: ${port}`); });
