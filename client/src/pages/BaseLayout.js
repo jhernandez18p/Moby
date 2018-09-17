@@ -61,8 +61,22 @@ class Layout extends Component {
   }
 
   render() {
-    let site = this.props.site.results[0];
-    let isUnderConstruction = site.is_undercostruction;    
+
+    let blog_post = this.props.blog_post || 'Cargando ...';
+    let blog_tags = this.props.blog_tags || 'Cargando ...';
+    let brands = this.props.brands || 'Cargando ...';
+    let carrousel = this.props.carrousel || 'Cargando ...';
+    let departments = this.props.departments || 'Cargando ...';
+    let img_carrousel = this.props.img_carrousel || 'Cargando ...';
+    let pages = this.props.pages || 'Cargando ...';
+    let products = this.props.products || 'Cargando ...';
+    let services = this.props.services || 'Cargando ...';
+    let site = this.props.site || 'Cargando ...';
+    let social_media = this.props.social_media || 'Cargando ...';
+    let testimonials = this.props.testimonials || 'Cargando ...';
+    
+    let isUnderConstruction = site.results[0].is_undercostruction || true;
+
     
     return (
       <div className="site pageloader has-navbar-fixed-top">
@@ -82,21 +96,21 @@ class Layout extends Component {
             <Switch>
               <Route exact path="/" render={
                 (props) => <Home
-                  site={this.props.site}
-                  services={this.props.services}
-                  blog_post={this.props.blog_post}
-                  departments={this.props.departments}
-                  carrousel={this.props.carrousel}
-                  pages={this.props.pages}
-                  imgs={this.props.img_carrousel} />
+                  site={site}
+                  services={services}
+                  blog_post={blog_post}
+                  departments={departments}
+                  carrousel={carrousel}
+                  pages={pages}
+                  imgs={img_carrousel} />
               } />
 
               <Route exact path="/blog/:slug" component={BlogDetail} />
 
               <Route exact path="/blog" render={
                 (props) => <Blog 
-                  posts={this.props.blog_post} 
-                  tags={this.props.blog_tags}/>
+                  posts={blog_post} 
+                  tags={blog_tags}/>
               } />
 
               <Route exact path="/contacto/f-a-q" render={
@@ -134,30 +148,30 @@ class Layout extends Component {
 
               <Route exact path="/productos" render={
                 (props) => <Product
-                  brands={this.props.brands}
-                  site={this.props.site}
-                  products={this.props.products}
-                  departments={this.props.departments} 
-                  testimonials={this.props.testimonials}
-                  carrousel={this.props.carrousel}
-                  pages={this.props.pages}
-                  imgs={this.props.img_carrousel} />
+                  brands={brands}
+                  site={site}
+                  products={products}
+                  departments={departments} 
+                  testimonials={testimonials}
+                  carrousel={carrousel}
+                  pages={pages}
+                  imgs={img_carrousel} />
               } />
 
               <Route exact path="/servicios/:slug" render={
                 (props) => <Service
-                  services={this.props.services}
-                  carrousel={this.props.carrousel}
-                  pages={this.props.pages}
-                  imgs={this.props.img_carrousel} />
+                  services={services}
+                  carrousel={carrousel}
+                  pages={pages}
+                  imgs={img_carrousel} />
               } />
 
               <Route exact path="/servicios" render={
                 (props) => <Service
-                  services={this.props.services}
-                  carrousel={this.props.carrousel}
-                  pages={this.props.pages}
-                  imgs={this.props.img_carrousel} />
+                  services={services}
+                  carrousel={carrousel}
+                  pages={pages}
+                  imgs={img_carrousel} />
               } />
 
               <Route exact path="/auth/:slug" render={
@@ -167,9 +181,9 @@ class Layout extends Component {
           </div>
         </div>
         <div>
-          <RedesLine redes={this.props.social_media} />
+          <RedesLine redes={social_media} />
         </div>
-        <Footer site={this.props.site} blog_post={this.props.blog_post} />
+        <Footer site={site} blog_post={blog_post} />
       </div>
     );
   }

@@ -9,10 +9,24 @@ export const FETCH_TESTIMONIAL = 'testimonials:fetchTestimonial';
 
 
 const instance = axios.create({
-    baseURL: 'http://localhost:10500/api/v2/',
+    baseURL: 'localhost:10500/api/v2/',
     headers: {"Content-Type": "application/json"}
 });
 
+const initialState = {
+    count: 0,
+    next: null,
+    previous: null,
+    results: [
+        {
+            id: 0,
+            company: null,
+            description: null,
+            img: null,
+            name: null,
+        }
+    ]
+}
 
 export function addTestimonial(newTestimonial) {
     return {
@@ -45,7 +59,7 @@ export function showError(error){
     return {
         type: SHOW_ERROR,
         payload: {
-            testimonials: 'ERROR!!',
+            testimonials: initialState,
             error: [error]
         }
     }
@@ -75,9 +89,6 @@ export const fetchTestimonial = () => {
                     }
                 })
             })
-            .catch(error => {
-                console.log('error!');
-                dispatch(showError('error'));
-            })
+            .catch(error => { dispatch(showError( error )); })
     }
 }

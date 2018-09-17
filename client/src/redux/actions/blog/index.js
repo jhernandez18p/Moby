@@ -10,9 +10,34 @@ export const FETCH_BLOG_POST = 'blog_post:fetchBlogPost';
 
 
 const instance = axios.create({
-    baseURL: 'http://localhost:10500/api/v2/',
+    baseURL: 'localhost:10500/api/v2/',
     headers: {"Content-Type": "application/json"}
 });
+
+const initialState = {
+    count: 0,
+    next: null,
+    previous: null,
+    results: [
+        {
+            id: 0,
+            title: null,
+            sub_title: null,
+            text: null,
+            is_public: null,
+            draft: null,
+            published: null,
+            read_time: null,
+            updated: null,
+            created_at: null,
+            img: null,
+            background: null,
+            slug: null,
+            author: null,
+            updated_by: null,
+        }
+    ]
+}
 
 export function addBlogPost(newPost) {
     return {
@@ -46,7 +71,7 @@ export function showError(error){
     return {
         type: SHOW_ERROR,
         payload: {
-            blog_post: 'ERROR!!',
+            blog_post: initialState,
             error: [error]
         }
     }
@@ -58,8 +83,6 @@ export const fetchBlogPost = () => {
         instance.get(`posts/`)
             .then(res => {
                 let blog_post = res.data;
-                // console.log(blog_post);
-                // dispatch(requestSite(site));
                 return dispatch({
                     type: FETCH_BLOG_POST,
                     payload: {
@@ -67,15 +90,12 @@ export const fetchBlogPost = () => {
                     }
                 })
             })
-            .catch(error => {
-                console.log('error!');
-                dispatch(showError('error'));
-            })
+            .catch(error => { dispatch(showError(error)); })
     }
 }
 
 
-export const fetchNextBlogPost = (next = 'http://localhost:10500/api/v2/posts/?limit=16&offset=16') => {
+export const fetchNextBlogPost = (next = 'localhost:10500/api/v2/posts/?limit=16&offset=16') => {
 
     // console.log(next);
     
@@ -99,7 +119,7 @@ export const fetchNextBlogPost = (next = 'http://localhost:10500/api/v2/posts/?l
     }
 }
 
-export const fetchPrevBlogPost = (prev = 'http://localhost:10500/api/v2/posts/') => {
+export const fetchPrevBlogPost = (prev = 'localhost:10500/api/v2/posts/') => {
     
     // let _url = url || '';
     

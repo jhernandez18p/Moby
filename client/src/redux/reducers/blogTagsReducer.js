@@ -14,7 +14,7 @@ const initialState = {
     previous: null,
     results: [
         {
-            id: null,
+            id: 0,
             title: null,
             slug: null,
             created_at: null,
@@ -24,7 +24,7 @@ const initialState = {
     ]
 }
 
-export default function blogReducer(state = initialState, { type, payload }) {
+export default function blogTagsReducer(state = initialState, { type, payload }) {
     switch (type) {
         case ADD_BLOG_TAG:
             return payload.blog_tags;

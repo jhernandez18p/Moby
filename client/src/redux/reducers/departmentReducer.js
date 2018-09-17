@@ -13,7 +13,7 @@ const initialState = {
     previous: null,
     results: [
         {
-            id: 1,
+            id: 0,
             background: null,
             description: null,
             img: null,

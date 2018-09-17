@@ -16,9 +16,27 @@ export const LOGIN_FAILED = 'user:updateUser';
 export const LOGOUT_SUCCESSFUL = 'user:updateUser';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:10500/api/v2/',
+    baseURL: 'localhost:10500/api/v2/',
     headers: { "Content-Type": "application/json" }
 });
+
+const initialUser = {
+    token: localStorage.getItem("token"),
+    refresh: localStorage.getItem('refresh'),
+    isAuthenticated: null,
+    isLoading: true,
+    user: null,
+    errors: {},
+    last_login: null,
+    is_superuser: false,
+    username: "Guest",
+    first_name: "",
+    last_name: "",
+    email: null,
+    is_staff: false,
+    is_active: false,
+    date_joined: null
+};
 
 export function addUser(newUser) {
     return {
@@ -60,7 +78,7 @@ export function showError(error) {
     return {
         type: SHOW_ERROR,
         payload: {
-            user: 'ERROR!!',
+            user: initialUser,
             error: [error]
         }
     }
@@ -75,7 +93,6 @@ export function apiRequest(id) {
                 dispatch(updateUser(person.name));
             })
             .catch(error => {
-                console.log('error!');
                 dispatch(showError('error'));
             })
     }

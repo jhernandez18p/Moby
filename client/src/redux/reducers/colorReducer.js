@@ -10,7 +10,22 @@
 
 // import data from '../../data';
 
-export default function colorReducer(state = {}, { type, payload }) {
+const initialState = {
+    count: 0,
+    next: null,
+    previous: null,
+    results: [
+        {
+            id: 0,
+            description: null,
+            hex_code: null,
+            name: null,
+            code: null,
+        },
+    ]
+}
+
+export default function colorReducer(state = initialState, { type, payload }) {
     switch (type) {
         // case ADD_BLOG:
         //     return payload.colors;

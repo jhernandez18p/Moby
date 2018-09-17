@@ -8,10 +8,26 @@ export const FETCH_IMAGES_CARROUSELS = 'img_carrousel:fetchImageCarrousels';
 export const SHOW_ERROR = 'img_carrousel:showError';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:10500/api/v2/',
+    baseURL: 'localhost:10500/api/v2/',
     headers: {"Content-Type": "application/json"}
 });
 
+const initialState = {
+    count: 0,
+    next: null,
+    previous: null,
+    results: [
+        {
+            id: 0,
+            image: null,
+            name: null,
+            text: null,
+            uploaded_at: null,
+            Carousel: null,
+            call_to_action_url: null,
+        },
+    ]
+}
 
 export function addImageCarrousel(newImageCarrousel) {
     return {
@@ -44,7 +60,7 @@ export function showError(error){
     return {
         type: SHOW_ERROR,
         payload: {
-            img_carrousel: 'ERROR!!',
+            img_carrousel: initialState,
             error: [error]
         }
     }
@@ -56,8 +72,6 @@ export const fetchImageCarrousels = () => {
         instance.get(`carousel-images/`)
             .then(res => {
                 let img_carrousel = res.data;
-                // console.log(img_carrousel);
-                // dispatch(requestcarousels(img_carrousel));
                 return dispatch({
                     type: FETCH_IMAGES_CARROUSELS,
                     payload: {
@@ -65,9 +79,6 @@ export const fetchImageCarrousels = () => {
                     }
                 })
             })
-            .catch(error => {
-                console.log('error!');
-                dispatch(showError('error'));
-            })
+            .catch(error => { dispatch(showError(error)); })
     }
 }

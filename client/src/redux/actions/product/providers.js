@@ -1,19 +1,18 @@
 import axios from 'axios';
 
-export const ADD_BRAND = 'brands:addBrand';
-export const DELETE_BRAND = 'brands:deleteBrand';
-export const REQUEST_BRAND = 'brands:requestBrand';
-export const SHOW_ERROR = 'brands:showError';
-export const UPDATE_BRAND = 'brands:updateBrand';
-export const FETCH_BRANDS = 'brands:fetchBrands';
-
+export const ADD_PROVIDER = 'providers:addProduct';
+export const UPDATE_PROVIDER = 'providers:updateProduct';
+export const DELETE_PROVIDER = 'providers:deleteProduct';
+export const REQUEST_PROVIDER = 'providers:requestProduct';
+export const FETCH_PROVIDERS = 'providers:fetchProducts';
+export const SHOW_ERROR = 'providers:showError';
 
 const instance = axios.create({
     baseURL: 'localhost:10500/api/v2/',
     headers: {"Content-Type": "application/json"}
 });
 
-const initialState = {
+const initialState ={
     count: 0,
     next: null,
     previous: null,
@@ -32,29 +31,29 @@ const initialState = {
     ]
 }
 
-export function addBrand(newBrand) {
+export function addProduct(newProduct) {
     return {
-        type: ADD_BRAND,
+        type: ADD_PROVIDER,
         payload: {
-            brands: newBrand
+            providers: newProduct
         },
     }
 };
 
-export function updateBrand(newBrand) {
+export function updateProduct(newProduct) {
     return {
-        type: UPDATE_BRAND,
+        type: UPDATE_PROVIDER,
         payload: {
-            brands: newBrand
+            providers: newProduct
         },
     }
 };
 
-export function deleteBrand(Brand) {
+export function deleteProduct(Product) {
     return {
-        type: DELETE_BRAND,
+        type: DELETE_PROVIDER,
         payload: {
-            brands: Brand
+            providers: Product
         },
     }
 };
@@ -63,31 +62,24 @@ export function showError(error){
     return {
         type: SHOW_ERROR,
         payload: {
-            brands: initialState,
+            providers: initialState,
             error: [error]
         }
     }
 };
 
-export function requestBrand(Brand) {
-    return {
-        type: REQUEST_BRAND,
-        payload:{
-            Brand
-        }
-    }
-};
-
-export const fetchBrands = () => {
+export const fetchProducts = () => {
 
     return dispatch => {
-        instance.get(`brands/`)
+        instance.get(`providers/    `)
             .then(res => {
-                let Brand = res.data;
+                let products = res.data;
+                // console.log(products);
+                // dispatch(requestcarousels(products));
                 return dispatch({
-                    type: FETCH_BRANDS,
+                    type: FETCH_PROVIDERS,
                     payload: {
-                        brands: Brand
+                        products
                     }
                 })
             })

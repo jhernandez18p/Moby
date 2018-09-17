@@ -8,9 +8,26 @@ import {
     SHOW_ERROR
 } from '../actions/blog/comment';
 
-// import data from '../../data';
+const initialState = {
+    count: 0,
+    next: null,
+    previous: null,
+    results: [
+        {
+            id: 0,
+            content: null,
+            approved: null,
+            timestamp: null,
+            object_id: null,
+            author: null,
+            parent: null,
+            post: null,
+            content_type: null,
+        },
+    ]
+}
 
-export default function blogCommentReducer (state = {}, { type, payload }) {
+export default function blogCommentReducer (state = initialState, { type, payload }) {
     switch (type) {
         case ADD_BLOG_COMMENT:
             return payload.blog_comments;

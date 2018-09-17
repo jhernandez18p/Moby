@@ -22,34 +22,39 @@ class Home extends Component {
       return filtered_array;
     };
 
-    let blogPost = this.props.blog_post.results;
-    let carrouselImg = this.props.imgs;
-    let carrousels = this.props.carrousel;
-    let departments = this.props.departments;
-    let pages = this.props.pages;
-    let services = this.props.services;
-    let site = this.props.site.results[0];
+    let blogPost = this.props.blog_post.results || 'Cargando ...';
+    let carrouselImg = this.props.imgs || 'Cargando ...';
+    let carrousels = this.props.carrousel || 'Cargando ...';
+    let departments = this.props.departments || 'Cargando ...';
+    let pages = this.props.pages || 'Cargando ...';
+    let services = this.props.services || 'Cargando ...';
+    let site = this.props.site.results[0] || 'Cargando ...';
     
-    let siteName = site['name'];
-    let siteShortDesc = site['short_description'];
-    let siteServiceImg = site["services_img"];
-    let siteProductImg = site["products_img"];
+    let siteName = site['name'] || 'Cargando ...';
+    let siteShortDesc = site['short_description'] || 'Cargando ...';
+    let siteServiceImg = site["services_img"] || 'Cargando ...';
+    let siteProductImg = site["products_img"] || 'Cargando ...';
 
-    let blogItems = blogPost.slice(0, 4).map(
-      (post) => {
-        const html = <div key={post.id.toString()}><Post post={post} /></div>;
-        return html;
-      }
-    );
+    let blogItems = <div> Cargando ... </div>;
 
-    var homeCarrousel = <div></div>
-    if (pages.count <= 1) {
-      homeCarrousel = <div></div>
-    } else {
-      let homePage = filter(pages.results, 'name', 'inicio');
-      let carrousel = filter(carrousels.results, 'page', homePage[0].id);
-      let imgs = filter(carrouselImg.results, 'Carousel', carrousel[0].id)
-      homeCarrousel = <Carrousel imgs={imgs} />
+    if (blogPost !== 'Cargando ...'){
+      blogItems = blogPost.slice(0, 4).map( (post) => { return <div key={post.id.toString()}><Post post={post} /></div>; } );
+    }
+
+    let homeCarrousel = <div> Cargando ... </div>
+    if (pages.count <= 0 && carrousels !== 'Cargando ...' && carrouselImg !== 'Cargando ...') {
+      console.log(pages.count);
+      
+      // let homePage = filter(pages.results, 'name', 'inicio');
+      // if (homePage[0].id){
+        // let carrousel = filter(carrousels.results, 'page', homePage[0].id);
+        // if (carrousel[0].id){
+          // let imgs = filter(carrouselImg.results, 'Carousel', carrousel[0].id)
+          // if (imgs !== undefined){
+            // homeCarrousel = <Carrousel imgs={imgs} />
+          // }
+        // }
+      // }
     }
 
     return (
@@ -62,7 +67,7 @@ class Home extends Component {
             <div className="columns">
               <div className="column is-10 is-offset-1" id="carousel">
                 <div className="" id="homeCarousel">
-                  {homeCarrousel}
+                  {/* {homeCarrousel} */}
                 </div>
               </div>
             </div>
@@ -70,24 +75,24 @@ class Home extends Component {
         </div>
         <div>
         </div>
-          <Banner 
+          {/* <Banner 
             siteName={siteName} 
             siteShortDesc={siteShortDesc} 
             siteServiceImg={siteServiceImg} 
             siteProductImg={siteProductImg} 
-          />
+          /> */}
         <div>
         </div>
-          <Services 
+          {/* <Services 
             services={ services.results } 
             pages={ pages } 
             carrousel={ carrousels } 
             imgs={ carrouselImg }
-          />
+          /> */}
         <div>
-          <Categories 
+          {/* <Categories 
             departments={departments} 
-          />
+          /> */}
         </div>
         <div className="container">
           <div className="is-centered">
@@ -96,7 +101,7 @@ class Home extends Component {
         </div>
         <div className="container" id="feeds">
           <div className="columns">
-            {blogItems}
+            {/* {blogItems} */}
           </div>
         </div>
       </div>

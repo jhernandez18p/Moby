@@ -8,9 +8,22 @@
 //     SHOW_ERROR
 // } from '../actions/';
 
-// import data from '../../data';
+const initialState = {
+    count: 0,
+    next: null,
+    previous: null,
+    results: [
+        {
+            id: 0,
+            description: null,
+            img: null,
+            name: null,
+            code: null,
+        },
+    ]
+}
 
-export default function colorReducer(state = {}, { type, payload }) {
+export default function lineReducer(state = initialState, { type, payload }) {
     switch (type) {
         // case ADD_BLOG:
         //     return payload.colors;

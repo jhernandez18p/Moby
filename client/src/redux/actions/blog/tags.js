@@ -10,9 +10,25 @@ export const FETCH_BLOG_TAGS = 'blog_tags:fetchBlogTags';
 
 
 const instance = axios.create({
-    baseURL: 'http://localhost:10500/api/v2/',
+    baseURL: 'localhost:10500/api/v2/',
     headers: {"Content-Type": "application/json"}
 });
+
+const initialState = {
+    count: 0,
+    next: null,
+    previous: null,
+    results: [
+        {
+            id: 0,
+            title: null,
+            slug: null,
+            created_at: null,
+            author: null,
+            updated_by: null,
+        }
+    ]
+}
 
 export function addBlogTag(newTag) {
     return {
@@ -46,7 +62,7 @@ export function showError(error){
     return {
         type: SHOW_ERROR,
         payload: {
-            blog_tags: 'ERROR!!',
+            blog_tags: initialState,
             error: [error]
         }
     }
@@ -67,9 +83,6 @@ export const fetchBlogTags = () => {
                     }
                 })
             })
-            .catch(error => {
-                console.log('error!');
-                dispatch(showError('error'));
-            })
+            .catch(error => { dispatch(showError(error)); })
     }
 }

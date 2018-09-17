@@ -8,9 +8,28 @@ export const FETCH_SERVICES = 'services:fetchServices';
 export const SHOW_ERROR = 'services:showError';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:10500/api/v2/',
+    baseURL: 'localhost:10500/api/v2/',
     headers: {"Content-Type": "application/json"}
 });
+
+const initialState = {
+    count: 0,
+    next: null,
+    previous: null,
+    results: [
+        {
+            id: 0,
+            name:null,
+            title:null,
+            content:null,
+            slug:null,
+            image:null,
+            featured:null,
+            position:null,
+            background:null,
+        },
+    ]
+}
 
 export function addService(newUser) {
     return {
@@ -43,7 +62,7 @@ export function showError(error){
     return {
         type: SHOW_ERROR,
         payload: {
-            services: 'ERROR!!',
+            services: initialState,
             error: [error]
         }
     }
@@ -64,9 +83,6 @@ export const fetchServices = () => {
                     }
                 })
             })
-            .catch(error => {
-                console.log('error!');
-                dispatch(showError('error'));
-            })
+            .catch(error => { dispatch(showError( error )); })
     }
 }

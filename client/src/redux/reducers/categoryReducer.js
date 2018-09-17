@@ -9,7 +9,7 @@ import {
 
 const initialState = {
     count: 0,
-    next: "http://localhost:10500/api/v2/categories/?limit=20&offset=20",
+    next: null,
     previous: null,
     results: [
         {

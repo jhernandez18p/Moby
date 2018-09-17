@@ -1,6 +1,8 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import thunk from 'redux-thunk';
+
 // import { createLogger } from 'redux-logger';
+
 import {
     answerReducer,                // Answers
     blogCommentReducer,           // blog_comments

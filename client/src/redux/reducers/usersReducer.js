@@ -10,7 +10,25 @@ import {
 
 // import data from '../../data';
 
-export default function usersReducer (state = {}, { type, payload }) {
+const initialUser = {
+    token: localStorage.getItem("token"),
+    refresh: localStorage.getItem('refresh'),
+    isAuthenticated: null,
+    isLoading: true,
+    user: null,
+    errors: {},
+    last_login: null,
+    is_superuser: false,
+    username: "Guest",
+    first_name: "",
+    last_name: "",
+    email: null,
+    is_staff: false,
+    is_active: false,
+    date_joined: null
+};
+
+export default function usersReducer (state = initialUser, { type, payload }) {
     switch (type) {
         case ADD_USER:
             return payload.users;

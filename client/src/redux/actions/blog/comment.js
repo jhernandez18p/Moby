@@ -9,6 +9,30 @@ export const REQUEST_BLOG_COMMENT = 'product:requestProduct';
 export const SHOW_ERROR = 'product:showError';
 export const UPDATE_BLOG_COMMENT = 'product:updateProduct';
 
+const instance = axios.create({
+    baseURL: 'localhost:10500/api/v2/',
+    headers: {"Content-Type": "application/json"}
+});
+
+const initialState = {
+    count: 0,
+    next: null,
+    previous: null,
+    results: [
+        {
+            id: 0,
+            content: null,
+            approved: null,
+            timestamp: null,
+            object_id: null,
+            author: null,
+            parent: null,
+            post: null,
+            content_type: null,
+        },
+    ]
+}
+
 export function addUser(newUser) {
     return {
         type: ADD_BLOG_COMMENT,
@@ -49,7 +73,7 @@ export function showError(error){
     return {
         type: SHOW_ERROR,
         payload: {
-            product: 'ERROR!!',
+            product: initialState,
             error: [error]
         }
     }
@@ -57,16 +81,13 @@ export function showError(error){
 
 export function apiRequest(){    
     return dispatch => {
-        axios.get(`http://127.0.0.1:8000/api/v2/users/1`)
+        axios.get(`localhost:10500/api/v2/users/1`)
             .then(res => {
                 const person = res.data;
                 console.log('SUCCESS');
                 dispatch(updateUser(person.name));
             })
-            .catch(error => {
-                console.log('error!');
-                dispatch(showError('error'));
-            })
+            .catch(error => { dispatch(showError(error)); })
             // .then(function () {
             //     dispatch(requestUser());
             //     console.log('Axios acction');

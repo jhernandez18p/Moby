@@ -8,9 +8,27 @@ export const FETCH_CATEGORIES = 'category:fetchCategories';
 export const SHOW_ERROR = 'category:showError';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:10500/api/v2/',
+    baseURL: 'localhost:10500/api/v2/',
     headers: {"Content-Type": "application/json"}
 });
+
+const initialState = {
+    count: 0,
+    next: "localhost:10500/api/v2/categories/?limit=20&offset=20",
+    previous: null,
+    results: [
+        {
+            id: 0,
+            background: null,
+            description: null,
+            img: null,
+            name: null,
+            slug: null,
+            code: null,
+            parent: null
+        },
+    ]
+}
 
 export function addCategory(newCategory) {
     return {
@@ -43,7 +61,7 @@ export function showError(error){
     return {
         type: SHOW_ERROR,
         payload: {
-            category: 'ERROR!!',
+            category: initialState,
             error: [error]
         }
     }
@@ -56,8 +74,6 @@ export const fetchCategories = () => {
         instance.get(`categories/`)
             .then(res => {
                 let services = res.data;
-                // console.log(site);
-                // dispatch(requestSite(site));
                 return dispatch({
                     type: FETCH_CATEGORIES,
                     payload: {
@@ -65,9 +81,6 @@ export const fetchCategories = () => {
                     }
                 })
             })
-            .catch(error => {
-                console.log('error!');
-                dispatch(showError('error'));
-            })
+            .catch(error => { dispatch(showError(error)); })
     }
 }

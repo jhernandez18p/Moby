@@ -8,10 +8,24 @@ export const FETCH_PAGES = 'pages:fetchPages';
 export const SHOW_ERROR = 'pages:showError';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:10500/api/v2/',
+    baseURL: 'localhost:10500/api/v2/',
     headers: {"Content-Type": "application/json"}
 });
 
+const initialState = {
+    count: 0,
+    next: null,
+    previous: null,
+    results: [
+        {
+            id: 0,
+            name: null,
+            description: null,
+            have_icon: null,
+            url: null,
+        },
+    ]
+}
 
 export function addPage(newPage) {
     return {
@@ -44,7 +58,7 @@ export function showError(error){
     return {
         type: SHOW_ERROR,
         payload: {
-            pages: 'ERROR!!',
+            pages: initialState,
             error: [error]
         }
     }
@@ -56,8 +70,6 @@ export const fetchPages = () => {
         instance.get(`pages/`)
             .then(res => {
                 let pages = res.data;
-                // console.log(pages);
-                // dispatch(requestcarousels(pages));
                 return dispatch({
                     type: FETCH_PAGES,
                     payload: {
@@ -65,9 +77,6 @@ export const fetchPages = () => {
                     }
                 })
             })
-            .catch(error => {
-                console.log('error!');
-                dispatch(showError('error'));
-            })
+            .catch(error => { dispatch(showError(error)); })
     }
 }

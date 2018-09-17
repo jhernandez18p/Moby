@@ -9,9 +9,25 @@ export const FETCH_SOCIAL_MEDIA = 'social_media:fetchSocialMedia';
 
 
 const instance = axios.create({
-    baseURL: 'http://localhost:10500/api/v2/',
+    baseURL: 'localhost:10500/api/v2/',
     headers: {"Content-Type": "application/json"}
 });
+
+const initialState = {
+    count: 0,
+    next: null,
+    previous: null,
+    results: [
+        {
+            id: 0,
+            name: null,
+            url: null,
+            icon: null,
+            title: null,
+            site: 1
+        },
+    ]
+}
 
 
 export function addSocialMedia(newSocialMedia) {
@@ -45,7 +61,7 @@ export function showError(error){
     return {
         type: SHOW_ERROR,
         payload: {
-            social_media: 'ERROR!!',
+            social_media: initialState,
             error: [error]
         }
     }
@@ -66,8 +82,6 @@ export const fetchSocialMedia = () => {
         instance.get(`social-media/`)
             .then(res => {
                 let SocialMedia = res.data;
-                // console.log(SocialMedia);
-                // dispatch(requestSocialMedia(SocialMedia));
                 return dispatch({
                     type: FETCH_SOCIAL_MEDIA,
                     payload: {
@@ -75,9 +89,6 @@ export const fetchSocialMedia = () => {
                     }
                 })
             })
-            .catch(error => {
-                console.log('error!');
-                dispatch(showError('error'));
-            })
+            .catch(error => { dispatch(showError( error )); })
     }
 }

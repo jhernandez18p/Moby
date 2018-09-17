@@ -25,8 +25,8 @@ class Blog extends Component {
       currentPage: 1,
       limitPage: 16,
       offsetPage: 16,
-      urlPage: 'http://localhost:10500/api/v2/posts/',
-      nextPage: 'http://localhost:10500/api/v2/posts/?limit=16&offset=16',
+      urlPage: 'localhost:10500/api/v2/posts/',
+      nextPage: 'localhost:10500/api/v2/posts/?limit=16&offset=16',
       previousPage: null,
       hasNext: false,
       hasPrev: true

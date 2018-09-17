@@ -8,9 +8,25 @@ export const FETCH_CARROUSELS = 'carrousel:fetchCarrousels';
 export const SHOW_ERROR = 'carrousel:showError';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:10500/api/v2/',
+    baseURL: 'localhost:10500/api/v2/',
     headers: {"Content-Type": "application/json"}
 });
+
+const initialState ={
+    count: 0,
+    next: null,
+    previous: null,
+    results: [
+        {
+            id: 0,
+            name: null,
+            description: null,
+            crated_at: null,
+            page: null,
+            position: null
+        },
+    ]
+}
 
 
 export function addCarrousel(newCarrousel) {
@@ -44,7 +60,7 @@ export function showError(error){
     return {
         type: SHOW_ERROR,
         payload: {
-            carrousel: 'ERROR!!',
+            carrousel: initialState,
             error: [error]
         }
     }
@@ -56,8 +72,6 @@ export const fetchCarrousels = () => {
         instance.get(`carousels/`)
             .then(res => {
                 let carrousel = res.data;
-                // console.log(carrousels);
-                // dispatch(requestcarrousels(carrousels));
                 return dispatch({
                     type: FETCH_CARROUSELS,
                     payload: {
@@ -65,9 +79,6 @@ export const fetchCarrousels = () => {
                     }
                 })
             })
-            .catch(error => {
-                console.log('error!');
-                dispatch(showError('error'));
-            })
+            .catch(error => { dispatch(showError(error)); })
     }
 }

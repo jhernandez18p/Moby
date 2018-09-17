@@ -8,9 +8,20 @@ import {
     SHOW_ERROR
 } from '../actions/blog/comment';
 
-// import data from '../../data';
+const initialState = {
+    count: 0,
+    next: null,
+    previous: null,
+    results: [
+        {
+            id: null,
+            name: null,
+            description: null,
+        },
+    ]
+}
 
-export default function pagePositionReducer (state = {}, { type, payload }) {
+export default function pagePositionReducer (state = initialState, { type, payload }) {
     switch (type) {
         case ADD_BLOG_COMMENT:
             return payload.page_position;

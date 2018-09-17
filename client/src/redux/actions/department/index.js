@@ -8,10 +8,27 @@ export const FETCH_DEPARTMENTS = 'departments:fetchServices';
 export const SHOW_ERROR = 'departments:showError';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:10500/api/v2/',
+    baseURL: 'localhost:10500/api/v2/',
     headers: {"Content-Type": "application/json"}
 });
 
+const initialState = {
+    count: 0,
+    next: null,
+    previous: null,
+    results: [
+        {
+            id: 0,
+            background: null,
+            description: null,
+            img: null,
+            name: null,
+            slug: null,
+            code: null,
+            order: 0
+        },
+    ]
+}
 
 export function addDepartment(newDepartment) {
     return {
@@ -44,7 +61,7 @@ export function showError(error){
     return {
         type: SHOW_ERROR,
         payload: {
-            departments: 'ERROR!!',
+            departments: initialState,
             error: [error]
         }
     }
@@ -56,8 +73,6 @@ export const fetchDepartments = () => {
         instance.get(`departments/`)
             .then(res => {
                 let departments = res.data;
-                // console.log(departments);
-                // dispatch(requestDepartments(departments));
                 return dispatch({
                     type: FETCH_DEPARTMENTS,
                     payload: {
@@ -65,9 +80,6 @@ export const fetchDepartments = () => {
                     }
                 })
             })
-            .catch(error => {
-                console.log('error!');
-                dispatch(showError('error'));
-            })
+            .catch(error => { dispatch(showError(error)); })
     }
 }

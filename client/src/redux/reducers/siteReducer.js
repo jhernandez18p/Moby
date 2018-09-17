@@ -7,12 +7,12 @@ import {
 } from '../actions/site';
 
 const initialSite = {
-    count: 1,
+    count: 0,
     next: null,
     previous: null,
     results: [
         {
-            id: 1,
+            id: 0,
             name: null,
             title: null,
             short_description: null,
