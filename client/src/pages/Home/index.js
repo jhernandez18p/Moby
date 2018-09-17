@@ -43,8 +43,7 @@ class Home extends Component {
 
     let homeCarrousel = <div> Cargando ... </div>
     if (pages.count <= 0 && carrousels !== 'Cargando ...' && carrouselImg !== 'Cargando ...') {
-      console.log(pages.count);
-      
+      // console.log(pages.count);      
       // let homePage = filter(pages.results, 'name', 'inicio');
       // if (homePage[0].id){
         // let carrousel = filter(carrousels.results, 'page', homePage[0].id);
