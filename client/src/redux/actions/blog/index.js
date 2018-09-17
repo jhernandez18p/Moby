@@ -9,10 +9,7 @@ export const UPDATE_BLOG_POST = 'blog_post:updateBlogPost';
 export const FETCH_BLOG_POST = 'blog_post:fetchBlogPost';
 
 
-const instance = axios.create({
-    baseURL: 'localhost:10500/api/v2/',
-    headers: {"Content-Type": "application/json"}
-});
+const instance = axios.create({ baseURL: 'http://127.0.0.1:10500/api/v2/', headers: {"Content-Type": "application/json"} });
 
 const initialState = {
     count: 0,
@@ -95,7 +92,7 @@ export const fetchBlogPost = () => {
 }
 
 
-export const fetchNextBlogPost = (next = 'localhost:10500/api/v2/posts/?limit=16&offset=16') => {
+export const fetchNextBlogPost = (next = '127.0.0.1:10500/api/v2/posts/?limit=16&offset=16') => {
 
     // console.log(next);
     
@@ -119,7 +116,7 @@ export const fetchNextBlogPost = (next = 'localhost:10500/api/v2/posts/?limit=16
     }
 }
 
-export const fetchPrevBlogPost = (prev = 'localhost:10500/api/v2/posts/') => {
+export const fetchPrevBlogPost = (prev = '127.0.0.1:10500/api/v2/posts/') => {
     
     // let _url = url || '';
     

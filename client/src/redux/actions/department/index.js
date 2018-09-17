@@ -7,10 +7,7 @@ export const REQUEST_DEPARTMENT = 'departments:requestService';
 export const FETCH_DEPARTMENTS = 'departments:fetchServices';
 export const SHOW_ERROR = 'departments:showError';
 
-const instance = axios.create({
-    baseURL: 'localhost:10500/api/v2/',
-    headers: {"Content-Type": "application/json"}
-});
+const instance = axios.create({ baseURL: 'http://127.0.0.1:10500/api/v2/', headers: {"Content-Type": "application/json"} });
 
 const initialState = {
     count: 0,

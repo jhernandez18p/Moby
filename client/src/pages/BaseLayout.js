@@ -45,7 +45,7 @@ import { fetchTestimonial } from '../redux/actions/testimonial';
 
 class Layout extends Component {
 
-  componentDidMount() {
+  getData(){
     this.props.onFetchBrands();
     this.props.onFetchBlogPost();
     this.props.onFetchBlogTags();
@@ -57,11 +57,18 @@ class Layout extends Component {
     this.props.onFetchServices();
     this.props.onFetchSite();
     this.props.onFetchSocialMedia();
-    this.props.onFetchTestimonial();
+    this.props.onFetchTestimonial();    
   }
 
+  componentDidMount() {
+    setTimeout(() => {
+      this.getData();
+    }, 200);    
+  }
+  
   render() {
-
+    
+    console.log(this.props);
     let blog_post = this.props.blog_post || 'Cargando ...';
     let blog_tags = this.props.blog_tags || 'Cargando ...';
     let brands = this.props.brands || 'Cargando ...';

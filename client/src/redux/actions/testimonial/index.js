@@ -7,11 +7,7 @@ export const SHOW_ERROR = 'testimonials:showError';
 export const UPDATE_TESTIMONIAL = 'testimonials:updateTestimonial';
 export const FETCH_TESTIMONIAL = 'testimonials:fetchTestimonial';
 
-
-const instance = axios.create({
-    baseURL: 'localhost:10500/api/v2/',
-    headers: {"Content-Type": "application/json"}
-});
+const instance = axios.create({ baseURL: 'http://127.0.0.1:10500/api/v2/', headers: {"Content-Type": "application/json"} });
 
 const initialState = {
     count: 0,

@@ -15,25 +15,25 @@ const fetch = (url, {...params}) => {
         });
 }
 
-const brands = fetch("localhost:10500/api/v2/brands/");
-const carouselImages = fetch("localhost:10500/api/v2/carousel-images/");
-const carousels = fetch("localhost:10500/api/v2/carousels/");
-const categories = fetch("localhost:10500/api/v2/categories/");
-const colors = fetch("localhost:10500/api/v2/colors/");
-const comments = fetch("localhost:10500/api/v2/comments/");
-const departments = fetch("localhost:10500/api/v2/departments/");
-const lines = fetch("localhost:10500/api/v2/lines/");
-const pagePositions = fetch("localhost:10500/api/v2/page-positions/");
-const pages = fetch("localhost:10500/api/v2/pages/");
-const posts = fetch("localhost:10500/api/v2/posts/");
-const products = fetch("localhost:10500/api/v2/products/");
-const providers = fetch("localhost:10500/api/v2/providers/");
-const services = fetch("localhost:10500/api/v2/services/");
-const site = fetch("localhost:10500/api/v2/site/");
-const socialMedia = fetch("localhost:10500/api/v2/social-media/");
-const subLines = fetch("localhost:10500/api/v2/sub-lines/");
-const types = fetch("localhost:10500/api/v2/types/");
-const testimonials = fetch("localhost:10500/api/v2/testimonials/");
+const brands = fetch("127.0.0.1:10500/api/v2/brands/");
+const carouselImages = fetch("127.0.0.1:10500/api/v2/carousel-images/");
+const carousels = fetch("127.0.0.1:10500/api/v2/carousels/");
+const categories = fetch("127.0.0.1:10500/api/v2/categories/");
+const colors = fetch("127.0.0.1:10500/api/v2/colors/");
+const comments = fetch("127.0.0.1:10500/api/v2/comments/");
+const departments = fetch("127.0.0.1:10500/api/v2/departments/");
+const lines = fetch("127.0.0.1:10500/api/v2/lines/");
+const pagePositions = fetch("127.0.0.1:10500/api/v2/page-positions/");
+const pages = fetch("127.0.0.1:10500/api/v2/pages/");
+const posts = fetch("127.0.0.1:10500/api/v2/posts/");
+const products = fetch("127.0.0.1:10500/api/v2/products/");
+const providers = fetch("127.0.0.1:10500/api/v2/providers/");
+const services = fetch("127.0.0.1:10500/api/v2/services/");
+const site = fetch("127.0.0.1:10500/api/v2/site/");
+const socialMedia = fetch("127.0.0.1:10500/api/v2/social-media/");
+const subLines = fetch("127.0.0.1:10500/api/v2/sub-lines/");
+const types = fetch("127.0.0.1:10500/api/v2/types/");
+const testimonials = fetch("127.0.0.1:10500/api/v2/testimonials/");
 
 
 const data = {
