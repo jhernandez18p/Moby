@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+import DOMPurify from 'dompurify';
 
 class Footer extends Component {
 
@@ -21,15 +22,15 @@ class Footer extends Component {
 		let siteWorkday = site.workday || 'Cargando ...';
 		let siteAddress = site.address || 'Cargando ...';
 		let siteAddress1 = site.address1 || 'Cargando ...';
-		
+
 		let postItems = <li className="navbar-item"> Cargando ... </li>;
-		if (posts !== 'Cargando ...'){
-			postItems = posts.slice(0,5).map((post) =>
+		if (posts !== 'Cargando ...') {
+			postItems = posts.slice(0, 5).map((post) =>
 				<li className="navbar-item" key={post.id.toString()}>
 					<Link to={
 						post.slug
-						? `/blog/${post.slug}`
-						: `/blog/${post.id}`
+							? `/blog/${post.slug}`
+							: `/blog/${post.id}`
 					} className="is-uppercase has-text-white">
 						{post.title}
 					</Link>
@@ -46,7 +47,7 @@ class Footer extends Component {
 								{siteName}
 							</h2>
 							<p className="has-text-white">
-								{siteDescription}
+								<div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(siteDescription) }}></div>
 							</p>
 						</div>
 						<div className="column">
@@ -122,9 +123,9 @@ class Footer extends Component {
 						<div className="container is-centered">
 							<div className="navbar-brand">
 								<p className="navbar-item is-size-7 has-text-white">
-									Moby Group all rights reserved {year} 
+									Moby Group all rights reserved {year}
 									<span className="is-hidden-touch">&nbsp;|&nbsp;</span>
-									<br className="is-hidden-desktop"></br> 
+									<br className="is-hidden-desktop"></br>
 									Website Designed & Developed by &nbsp;
 									<br className="is-hidden-desktop"></br>
 									<a href="https://dev2tech.xyz" className="has-text-grey"> Dev2tech</a>.

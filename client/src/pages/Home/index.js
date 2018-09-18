@@ -41,19 +41,18 @@ class Home extends Component {
       blogItems = blogPost.slice(0, 4).map( (post) => { return <div key={post.id.toString()}><Post post={post} /></div>; } );
     }
 
-    let homeCarrousel = <div> Cargando ... </div>
-    if (pages.count <= 0 && carrousels !== 'Cargando ...' && carrouselImg !== 'Cargando ...') {
-      // console.log(pages.count);      
-      // let homePage = filter(pages.results, 'name', 'inicio');
-      // if (homePage[0].id){
-        // let carrousel = filter(carrousels.results, 'page', homePage[0].id);
-        // if (carrousel[0].id){
-          // let imgs = filter(carrouselImg.results, 'Carousel', carrousel[0].id)
-          // if (imgs !== undefined){
-            // homeCarrousel = <Carrousel imgs={imgs} />
-          // }
-        // }
-      // }
+    var homeCarrousel = <div> Cargando ... </div>
+    if (pages.count > 0 && carrousels.count > 0 && carrouselImg.count > 0) {
+      let homePage = filter(pages.results, 'name', 'inicio');
+      if (homePage[0].id){
+        let carrousel = filter(carrousels.results, 'page', homePage[0].id);
+        if (carrousel[0].id){
+          let imgs = filter(carrouselImg.results, 'Carousel', carrousel[0].id)
+          if (imgs){
+            homeCarrousel = <Carrousel imgs={imgs} />
+          }
+        }
+      }
     }
 
     return (
@@ -66,7 +65,7 @@ class Home extends Component {
             <div className="columns">
               <div className="column is-10 is-offset-1" id="carousel">
                 <div className="" id="homeCarousel">
-                  {/* {homeCarrousel} */}
+                  {homeCarrousel}
                 </div>
               </div>
             </div>
@@ -74,24 +73,24 @@ class Home extends Component {
         </div>
         <div>
         </div>
-          {/* <Banner 
+          <Banner 
             siteName={siteName} 
             siteShortDesc={siteShortDesc} 
             siteServiceImg={siteServiceImg} 
             siteProductImg={siteProductImg} 
-          /> */}
+          />
         <div>
         </div>
-          {/* <Services 
+          <Services 
             services={ services.results } 
             pages={ pages } 
             carrousel={ carrousels } 
             imgs={ carrouselImg }
-          /> */}
+          />
         <div>
-          {/* <Categories 
+          <Categories 
             departments={departments} 
-          /> */}
+          />
         </div>
         <div className="container">
           <div className="is-centered">
@@ -100,7 +99,7 @@ class Home extends Component {
         </div>
         <div className="container" id="feeds">
           <div className="columns">
-            {/* {blogItems} */}
+            {blogItems}
           </div>
         </div>
       </div>

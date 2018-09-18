@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Route, Switch } from "react-router-dom";
 import Helmet from 'react-helmet';
 
+// Assets
+import LogoImg from '../assets/images/logo/ms-icon-70x70.png';
+
 // Pages
 import Auth from './Auth';
 import Blog from './Blog';
@@ -45,7 +48,7 @@ import { fetchTestimonial } from '../redux/actions/testimonial';
 
 class Layout extends Component {
 
-  getData(){
+  getData() {
     this.props.onFetchBrands();
     this.props.onFetchBlogPost();
     this.props.onFetchBlogTags();
@@ -55,20 +58,19 @@ class Layout extends Component {
     this.props.onFetchPages();
     this.props.onFetchProducts();
     this.props.onFetchServices();
-    this.props.onFetchSite();
+    // this.props.onFetchSite();
     this.props.onFetchSocialMedia();
-    this.props.onFetchTestimonial();    
+    this.props.onFetchTestimonial();
   }
 
   componentDidMount() {
     setTimeout(() => {
       this.getData();
-    }, 200);    
+    }, 2000);
   }
-  
+
   render() {
-    
-    console.log(this.props);
+
     let blog_post = this.props.blog_post || 'Cargando ...';
     let blog_tags = this.props.blog_tags || 'Cargando ...';
     let brands = this.props.brands || 'Cargando ...';
@@ -81,204 +83,136 @@ class Layout extends Component {
     let site = this.props.site || 'Cargando ...';
     let social_media = this.props.social_media || 'Cargando ...';
     let testimonials = this.props.testimonials || 'Cargando ...';
-    
-    let isUnderConstruction = site.results[0].is_undercostruction || true;
 
-    
-    return (
-      <div className="site pageloader has-navbar-fixed-top">
-        <Helmet
-          title="Moby Supply - Inicio"
-          meta={[
-            { name: 'description', content: 'Moby Panamá, S.A. fue fundada en Panamá en el año 2011 estructurada en forma sociedad anónima. Actualmente, con más de 30 colaboradores, hacemos presencia en Panamá.' },
-            { name: 'keywords', content: 'ebanisteria, ebanista, madera, marmol, cortes en madera, Panamá' },
-          ]}
-        />
-        <div>
-          <UnderConstruction isUnderCostruction={isUnderConstruction} />
-        </div>
-        <div className="site-wr">
-          <Header site={site}/>
-          <div className="content">
-            <Switch>
-              <Route exact path="/" render={
-                (props) => <Home
-                  site={site}
-                  services={services}
-                  blog_post={blog_post}
-                  departments={departments}
-                  carrousel={carrousel}
-                  pages={pages}
-                  imgs={img_carrousel} />
-              } />
+    let isUnderConstruction = site.results[0].is_undercostruction;
 
-              <Route exact path="/blog/:slug" component={BlogDetail} />
-
-              <Route exact path="/blog" render={
-                (props) => <Blog 
-                  posts={blog_post} 
-                  tags={blog_tags}/>
-              } />
-
-              <Route exact path="/contacto/f-a-q" render={
-                (props) => <FAQ />
-              } />
-
-              <Route exact path="/contacto" render={
-                (props) => <Contact />
-              } />
-
-              <Route exact path="/productos/categoria/:slug" render={
-                (props) => <CategoryDetail />
-              } />
-
-              <Route exact path="/productos/categorias" render={
-                (props) => <Category />
-              } />
-
-              <Route exact path="/productos/departamento/:slug" render={
-                (props) => <DepartmentDetail />
-              } />
-
-              <Route exact path="/productos/departamentos" render={
-                (props) => <Department />
-              } />
-
-              <Route exact path="/productos/marca/:slug" render={
-                (props) => <BrandDetail />
-              } />
-
-              <Route exact path="/productos/marcas" render={
-                (props) => <Brand />
-              } />
-
-
-              <Route exact path="/productos" render={
-                (props) => <Product
-                  brands={brands}
-                  site={site}
-                  products={products}
-                  departments={departments} 
-                  testimonials={testimonials}
-                  carrousel={carrousel}
-                  pages={pages}
-                  imgs={img_carrousel} />
-              } />
-
-              <Route exact path="/servicios/:slug" render={
-                (props) => <Service
-                  services={services}
-                  carrousel={carrousel}
-                  pages={pages}
-                  imgs={img_carrousel} />
-              } />
-
-              <Route exact path="/servicios" render={
-                (props) => <Service
-                  services={services}
-                  carrousel={carrousel}
-                  pages={pages}
-                  imgs={img_carrousel} />
-              } />
-
-              <Route exact path="/auth/:slug" render={
-                (props) => <Auth />
-              } />
-            </Switch>
+    if (blog_post.count === 0 || blog_tags.count === 0 || brands.count === 0 || carrousel.count === 0 || departments.count === 0 || img_carrousel.count === 0 || pages.count === 0 || products.count === 0 || services.count === 0 || site.count === 0 || social_media.count === 0 || testimonials.count === 0){
+      return <div><img src={LogoImg} alt="Moby Supply" id="preloadImg" className="ping"/></div>;
+    } else {
+      return (
+        <div className="site pageloader has-navbar-fixed-top">
+          <Helmet
+            title="Moby Supply - Inicio"
+            meta={[
+              { name: 'description', content: 'Moby Panamá, S.A. fue fundada en Panamá en el año 2011 estructurada en forma sociedad anónima. Actualmente, con más de 30 colaboradores, hacemos presencia en Panamá.' },
+              { name: 'keywords', content: 'ebanisteria, ebanista, madera, marmol, cortes en madera, Panamá' },
+            ]}
+          />
+          <div>
+            <UnderConstruction isUnderCostruction={isUnderConstruction} />
           </div>
+          <div className="site-wr">
+            <Header site={site} />
+            <div className="content">
+              <Switch>
+                <Route exact path="/" render={
+                  (props) => <Home
+                    site={site}
+                    services={services}
+                    blog_post={blog_post}
+                    departments={departments}
+                    carrousel={carrousel}
+                    pages={pages}
+                    imgs={img_carrousel} />
+                } />
+
+                <Route exact path="/blog/:slug" component={BlogDetail} />
+
+                <Route exact path="/blog" render={
+                  (props) => <Blog
+                    posts={blog_post}
+                    tags={blog_tags} />
+                } />
+
+                <Route exact path="/contacto/f-a-q" render={
+                  (props) => <FAQ />
+                } />
+
+                <Route exact path="/contacto" render={
+                  (props) => <Contact />
+                } />
+
+                <Route exact path="/productos/categoria/:slug" render={
+                  (props) => <CategoryDetail />
+                } />
+
+                <Route exact path="/productos/categorias" render={
+                  (props) => <Category />
+                } />
+
+                <Route exact path="/productos/departamento/:slug" render={
+                  (props) => <DepartmentDetail />
+                } />
+
+                <Route exact path="/productos/departamentos" render={
+                  (props) => <Department />
+                } />
+
+                <Route exact path="/productos/marca/:slug" render={
+                  (props) => <BrandDetail />
+                } />
+
+                <Route exact path="/productos/marcas" render={
+                  (props) => <Brand />
+                } />
+
+
+                <Route exact path="/productos" render={
+                  (props) => <Product
+                    brands={brands}
+                    site={site}
+                    products={products}
+                    departments={departments}
+                    testimonials={testimonials}
+                    carrousel={carrousel}
+                    pages={pages}
+                    imgs={img_carrousel} />
+                } />
+
+                <Route exact path="/servicios/:slug" render={
+                  (props) => <Service
+                    services={services}
+                    carrousel={carrousel}
+                    pages={pages}
+                    imgs={img_carrousel} />
+                } />
+
+                <Route exact path="/servicios" render={
+                  (props) => <Service
+                    services={services}
+                    carrousel={carrousel}
+                    pages={pages}
+                    imgs={img_carrousel} />
+                } />
+
+                <Route path="/auth" component={Auth} />
+              </Switch>
+            </div>
+          </div>
+          <div>
+            <RedesLine redes={social_media} />
+          </div>
+          <Footer site={site} blog_post={blog_post} />
         </div>
-        <div>
-          <RedesLine redes={social_media} />
-        </div>
-        <Footer site={site} blog_post={blog_post} />
-      </div>
-    );
+      );
+    }
   }
 }
 
-// site
-const siteSelector = createSelector(
-  state => state.site,
-  site => site
-);
-
-// Social media
-const socialMediaSelector = createSelector(
-  state => state.social_media,
-  social_media => social_media
-);
-
-// brands
-const brandsSelector = createSelector(
-  state => state.brands,
-  brands => brands
-);
-
-// blog_post
-const blogSelector = createSelector(
-  state => state.blog_post,
-  blog_post => blog_post
-);
-
-// blog_tags
-const blogTagSelector = createSelector(
-  state => state.blog_tags,
-  blog_tags => blog_tags
-);
-
-// user
-// const userSelector = createSelector(
-//   state => state.user,
-//   user => user
-// );
-
-// services
-const servicesSelector = createSelector(
-  state => state.services,
-  services => services
-);
-
-// products
-const productsSelector = createSelector(
-  state => state.products,
-  products => products
-);
-
-// categories
-// const categoriesSelector = createSelector(
-//   state => state.categories,
-//   categories => categories
-// );
-
-// Department
-const departmentSelector = createSelector(
-  state => state.departments,
-  departments => departments
-);
-
-// carrousel 
-const carrouselSelector = createSelector(
-  state => state.carrousel,
-  carrousel => carrousel
-);
-
-// img_carrousel 
-const imageCarrouselSelector = createSelector(
-  state => state.img_carrousel,
-  img_carrousel => img_carrousel
-);
-
-// Pages 
-const pagesSelector = createSelector(
-  state => state.pages,
-  pages => pages
-);
-
-// Testimonials
-const testimonialsSelector = createSelector(
-  state => state.testimonials,
-  testimonials => testimonials
-);
+const blogSelector = createSelector( state => state.blog_post, blog_post => blog_post );                          // blog_post
+const blogTagSelector = createSelector( state => state.blog_tags, blog_tags => blog_tags );                       // blog_tags
+const brandsSelector = createSelector( state => state.brands, brands => brands );                                 // brands
+const carrouselSelector = createSelector( state => state.carrousel, carrousel => carrousel );                     // carrousel 
+// const categoriesSelector = createSelector(   state => state.categories,   categories => categories );             // categories
+const departmentSelector = createSelector( state => state.departments, departments => departments );              // Department
+const imageCarrouselSelector = createSelector( state => state.img_carrousel, img_carrousel => img_carrousel );    // img_carrousel 
+const pagesSelector = createSelector( state => state.pages, pages => pages );                                     // Pages 
+const productsSelector = createSelector( state => state.products, products => products );                         // products
+const servicesSelector = createSelector( state => state.services, services => services );                         // services
+const siteSelector = createSelector( state => state.site, site => site );                                         // site
+const socialMediaSelector = createSelector( state => state.social_media, social_media => social_media );          // Social media
+const testimonialsSelector = createSelector( state => state.testimonials, testimonials => testimonials );         // Testimonials
+// const userSelector = createSelector(   state => state.user,   user => user );                                     // user
 
 const mapStateToProps = createSelector(
   brandsSelector,

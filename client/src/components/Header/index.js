@@ -31,7 +31,7 @@ class Header extends Component {
   render() {
     let site = this.props.site;
     
-    let sitePhone = site.phone || 'nada';
+    let sitePhone = site.results[0].phone || 'nada';
     
     return (
       <div ref="test">

@@ -78,7 +78,7 @@ export function showError(error){
 
 export function apiRequest(){    
     return dispatch => {
-        axios.get(`127.0.0.1:10500/api/v2/users/1`)
+        instance.get(`users/1`)
             .then(res => {
                 const person = res.data;
                 console.log('SUCCESS');

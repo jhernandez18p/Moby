@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {Link} from 'react-router-dom';
 
+import DOMPurify from 'dompurify';
 
 class Banner extends Component {
     render() {
@@ -15,7 +16,7 @@ class Banner extends Component {
                                         {this.props.siteName}
                                     </p>
                                     <p className="subtitle">
-                                        {this.props.siteShortDesc}
+                                        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(this.props.siteShortDesc) }}></div>
                                     </p>
                                 </div>
                             </div>

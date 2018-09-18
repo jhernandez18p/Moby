@@ -55,28 +55,30 @@ class Carrousel extends Component {
             slidesToShow: 1,
             slidesToScroll: 1
         };
-
-        
         return (
             <div className="slider">
                 <Slider ref={c => (this.slider = c)} {...settings}>
                     { this.state.listItems }
                 </Slider>
-                <div className="slider-btn" style={{ textAlign: "center" }}>
-                    <button className="slide-button-prev button has-background-transparent" onClick={this.previous}>
-                        <span className="icon">
-                            <i className="fas fa-chevron-left"></i>
-                        </span>
-                    </button>
-                    <button className="slide-button-next button has-background-transparent" onClick={this.next}>
-                        <span className="icon">
-                            <i className="fas fa-chevron-right"></i>
-                        </span>
-                    </button>
-                </div>
             </div>
         );
     }
 }
 
 export default Carrousel;
+
+/* 
+IF ARROWS 
+<div className="slider-btn" style={{ textAlign: "center" }}>
+    <button className="slide-button-prev button has-background-transparent" onClick={this.previous}>
+        <span className="icon">
+            <i className="fas fa-chevron-left"></i>
+        </span>
+    </button>
+    <button className="slide-button-next button has-background-transparent" onClick={this.next}>
+        <span className="icon">
+            <i className="fas fa-chevron-right"></i>
+        </span>
+    </button>
+</div> 
+*/

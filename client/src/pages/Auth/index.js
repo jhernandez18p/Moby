@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, Link } from "react-router-dom";
+import { Route, Switch, Link, Redirect } from "react-router-dom";
 import Helmet from 'react-helmet';
 
 import { connect } from 'react-redux';
@@ -12,40 +12,18 @@ import Register from './Register';
 import { login } from '../../redux/actions/user/userActions';
 
 class Auth extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      view: 'login',
-      prev: true,
-      next: false,
-    };
-    this.onLogin = this.onLogin.bind(this);
-  }
 
   componentDidMount() {
     // console.log(process.env.TEST);
   };
 
   goHome = (e) => {
-    // const location = window.history.forward();
-    if (window.history.forward) {
-      window.history.go('/');
-    }
+    if (window.history.forward) {window.history.go('/');}
   };
 
   goBack = (e) => {
-    // const location = window.history.forward();
-    if (window.history.back) {
-      window.history.back();
-    }
+    if (window.history.back) { window.history.back(); }
   };
-
-  onLogin = e => {
-    e.preventDefault();
-    console.log('Login Submit');
-
-    // this.props.login(this.state.username, this.state.password);
-  }
 
   render() {
     const user = this.props.user;
@@ -81,11 +59,12 @@ class Auth extends Component {
 
                   <Switch>
                     <Route exact path="/auth/registro"
-                      render={(props) => <Register user={user} onLogin={this.onLogin()} />} />
+                      render={(props) => <Register user={user} />} />
                     <Route exact path="/auth/iniciar-sesion"
                       render={(props) => <Login user={user} />} />
                     <Route exact path="/auth/salir"
                       render={(props) => <Logout user={user} />} />
+                    <Route exact path="/auth" render={() => <Redirect to="/"/> }/>
                   </Switch>
 
                 </div>

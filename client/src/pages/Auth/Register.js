@@ -3,32 +3,7 @@ import { Link } from "react-router-dom";
 import Helmet from 'react-helmet';
 
 class Register extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            view:'register',
-            username:'',
-            password:''
-        };
-    }
-    
-    handleInputChange = (event) => {
-        const target = event.target,
-            value = target.type ===
-                'checkbox' ? target.checked : target.value,
-            name = target.name
-        this.setState({
-            [name]: value
-        });
-    }
 
-    onSubmit = (event) => {
-        event.preventDefault()
-        // this.props.onSubmit(this.state.username, this.state.password)
-        console.log('click');
-        
-    }
-    
     render() {
         return (
             <div>
@@ -38,7 +13,7 @@ class Register extends Component {
 
                 <div className="title">
                     <p className="is-size-4" >
-                        Moby Supply - {this.state.view === 'login' ? 'Iniciar Sesión' : 'Registrarse'}
+                        Moby Supply - Registrarse
                     </p>
                 </div>
                 <div className="title">
@@ -47,7 +22,7 @@ class Register extends Component {
                             <div className="field">
                                 <label className="label">Nombre</label>
                                 <div className="control has-icons-left has-icons-right">
-                                    <input className="input" type="text" placeholder="John" name="first-name"  autoComplete="John"></input>
+                                    <input className="input" type="text" placeholder="John" name="first-name" autoComplete="John"></input>
                                     <span className="icon is-small is-left">
                                         <i className="fas fa-user"></i>
                                     </span>
@@ -56,7 +31,7 @@ class Register extends Component {
                                     </span> */}
                                 </div>
                             </div>
-                            
+
                             <div className="field">
                                 <label className="label">Apellido</label>
                                 <div className="control has-icons-left has-icons-right">
@@ -73,7 +48,7 @@ class Register extends Component {
                             <div className="field">
                                 <label className="label">Correo eléctronico</label>
                                 <div className="control has-icons-left has-icons-right">
-                                    <input className="input" type="email" placeholder="johndoe@mail.com" name="email"  autoComplete="johndoe@mail.com"></input>
+                                    <input className="input" type="email" placeholder="johndoe@mail.com" name="email" autoComplete="johndoe@mail.com"></input>
                                     <span className="icon is-small is-left">
                                         <i className="fas fa-envelope"></i>
                                     </span>
@@ -82,11 +57,11 @@ class Register extends Component {
                                     </span> */}
                                 </div>
                             </div>
-                            
+
                             <div className="field">
                                 <label className="label">Contraseña</label>
                                 <div className="control has-icons-left has-icons-right">
-                                    <input className="input" type="password" name="password"  autoComplete="password"></input>
+                                    <input className="input" type="password" name="password" autoComplete="password"></input>
                                     <span className="icon is-small is-left">
                                         <i className="fas fa-key"></i>
                                     </span>
@@ -98,7 +73,7 @@ class Register extends Component {
 
                             <div className="field is-grouped">
                                 <div className="control">
-                                    <button className="button is-link" onClick={ this.onSubmit }>Enviar</button>
+                                    <button className="button is-link" onClick={this.onSubmit}>Enviar</button>
                                 </div>
                                 <div className="control">
                                     <button className="button is-text">Cancelar</button>

@@ -30,7 +30,8 @@ class UnderConstruction extends Component {
         })
     }
     render(){
-        let isUnderConstruction = this.props.isUnderCostruction;
+        let isUnderConstruction = this.props.isUnderCostruction;        
+
         if(isUnderConstruction){
             return (
                 <div className="all-overlay">

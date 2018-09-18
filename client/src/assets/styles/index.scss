@@ -1040,6 +1040,52 @@ height: 99.9vh;
   width: 100%;
 }
 
+#preloadImg{
+  position: absolute;
+  top: 45%;
+  left: 45%;
+}
+
+.ping {
+	-webkit-animation: ping 1.8s ease-in-out infinite backwards;
+	        animation: ping 1.8s ease-in-out infinite backwards;
+}
+
+@-webkit-keyframes ping {
+  0% {
+    -webkit-transform: scale(0.2);
+            transform: scale(0.2);
+    opacity: 0.8;
+  }
+  80% {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: scale(2.2);
+            transform: scale(2.2);
+    opacity: 0;
+  }
+}
+@keyframes ping {
+  0% {
+    -webkit-transform: scale(0.2);
+            transform: scale(0.2);
+    opacity: 0.8;
+  }
+  80% {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: scale(2.2);
+            transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
 @media screen and (max-width: 800px){
   #blogDetails .is-blog-content{
     padding: 25px;
