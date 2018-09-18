@@ -15,7 +15,7 @@ export const AUTHENTICATION_ERROR = 'user:updateUser';
 export const LOGIN_FAILED = 'user:updateUser';
 export const LOGOUT_SUCCESSFUL = 'user:updateUser';
 
-const instance = axios.create({ baseURL: 'http://127.0.0.1:10500/api/v2/', headers: {"Content-Type": "application/json"} });
+const instance = axios.create({ baseURL: '/api/v2/', headers: {"Content-Type": "application/json"} });
 
 const initialUser = {
     token: localStorage.getItem("token"),

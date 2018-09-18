@@ -9,7 +9,7 @@ export const REQUEST_BLOG_COMMENT = 'product:requestProduct';
 export const SHOW_ERROR = 'product:showError';
 export const UPDATE_BLOG_COMMENT = 'product:updateProduct';
 
-const instance = axios.create({ baseURL: 'http://127.0.0.1:10500/api/v2/', headers: {"Content-Type": "application/json"} });
+const instance = axios.create({ baseURL: '/api/v2/', headers: {"Content-Type": "application/json"} });
 
 const initialState = {
     count: 0,

@@ -9,7 +9,7 @@ export const UPDATE_BLOG_POST = 'blog_post:updateBlogPost';
 export const FETCH_BLOG_POST = 'blog_post:fetchBlogPost';
 
 
-const instance = axios.create({ baseURL: 'http://127.0.0.1:10500/api/v2/', headers: {"Content-Type": "application/json"} });
+const instance = axios.create({ baseURL: '/api/v2/', headers: {"Content-Type": "application/json"} });
 
 const initialState = {
     count: 0,

@@ -7,7 +7,7 @@ export const DELETE_CATEGORY = 'category:deleteCategory';
 export const FETCH_CATEGORIES = 'category:fetchCategories';
 export const SHOW_ERROR = 'category:showError';
 
-const instance = axios.create({ baseURL: 'http://127.0.0.1:10500/api/v2/', headers: {"Content-Type": "application/json"} });
+const instance = axios.create({ baseURL: '/api/v2/', headers: {"Content-Type": "application/json"} });
 
 const initialState = {
     count: 0,
