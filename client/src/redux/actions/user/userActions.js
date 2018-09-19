@@ -10,54 +10,58 @@ export const SHOW_ERROR = 'user:showError';
 export const UPDATE_USER = 'user:updateUser';
 export const LOADING_USER = 'user:updateUser';
 export const LOADED_USER = 'user:updateUser';
-export const LOGIN_SUCCESSFUL = 'user:updateUser';
+export const LOGIN_SUCCESSFUL = 'user:userLogin';
 export const AUTHENTICATION_ERROR = 'user:updateUser';
 export const LOGIN_FAILED = 'user:updateUser';
-export const LOGOUT_SUCCESSFUL = 'user:updateUser';
+export const LOGOUT_SUCCESSFUL = 'user:userLogout';
 
-const instance = axios.create({ baseURL: '/api/v2/', headers: {"Content-Type": "application/json"} });
+const instance = axios.create({ baseURL: '/api/v2/', headers: { "Content-Type": "application/json" } });
 
-const initialUser = {
-    token: localStorage.getItem("token"),
-    refresh: localStorage.getItem('refresh'),
-    isAuthenticated: null,
-    isLoading: true,
-    user: null,
-    errors: {},
-    last_login: null,
-    is_superuser: false,
-    username: "Guest",
-    first_name: "",
-    last_name: "",
-    email: null,
-    is_staff: false,
-    is_active: false,
-    date_joined: null
+const initialUser = { 
+    user: { 
+        id: null, 
+        password: null, 
+        last_login: null, 
+        is_superuser: true, 
+        username: "Guest", 
+        first_name: null, 
+        last_name: null, 
+        email: null, 
+        is_staff: null, 
+        is_active: null, 
+        date_joined: null 
+    }, 
+    isLoading: true, 
+    isAuthenticated: null, 
+    token: localStorage.getItem("token"), 
+    errors: {}, 
 };
+
 
 export function addUser(newUser) {
     return {
         type: ADD_USER,
-        payload: {
-            user: newUser
-        },
+        payload: { user: newUser },
     }
 };
 
 export function authUser(newUser) {
     return {
         type: AUTH_USER,
-        payload: {
-            user: newUser
-        },
+        payload: { user: newUser },
     }
 };
 
-export function updateUser(newUser) {
+export function updateUser(newUser = initialUser.user, token = initialUser.token, isAuthenticated = initialUser.isAuthenticated) {
+    // console.log('----', newUser, isAuthenticated, token);
     return {
         type: UPDATE_USER,
         payload: {
-            user: newUser
+            user: {
+                user: newUser,
+                token: token,
+                isAuthenticated: isAuthenticated
+            },
         },
     }
 };
@@ -71,41 +75,48 @@ export function deleteUser(User) {
     }
 };
 
-export function showError(error) {
+export function showError( errors, id= null, password= null, last_login= null, is_superuser= true, username= "Guest", first_name= null, last_name= null, email= null, is_staff= null, is_active= null, date_joined= null) {
     return {
         type: SHOW_ERROR,
         payload: {
-            user: initialUser,
-            error: [error]
+            user:{
+                user: { 
+                    id: id,
+                    password: password,
+                    last_login: last_login,
+                    is_superuser: is_superuser,
+                    username: username,
+                    first_name: first_name,
+                    last_name: last_name,
+                    email: email,
+                    is_staff: is_staff,
+                    is_active: is_active,
+                    date_joined: date_joined,
+                }, 
+                isLoading: true, 
+                isAuthenticated: false, 
+                token: localStorage.getItem("token"), 
+                errors: {errors},
+            }
         }
-    }
-};
-
-export function apiRequest(id) {
-    return dispatch => {
-        instance.get(`users/${id}/`)
-            .then(res => {
-                const person = res.data;
-                console.log('SUCCESS');
-                dispatch(updateUser(person.name));
-            })
-            .catch(error => {
-                dispatch(showError('error'));
-            })
     }
 };
 
 export function invalidateUser(user) {
     return {
         type: INVALIDATE_USER,
-        user
+        payload: {
+            user: user
+        }
     }
 };
 
 export function requestUser(user) {
     return {
         type: REQUEST_USER,
-        user
+        payload: {
+            user: user
+        }
     }
 };
 
@@ -141,41 +152,176 @@ export const loadUser = () => {
     }
 }
 
-export const register = () => {
 
-}
-
-export const logout = () => {
-
-}
-
-export const login = (username, password) => {
-    return (dispatch, getState) => {
-        let headers = { "Content-Type": "application/json" };
-        let body = JSON.stringify({ username, password });
-
-        return fetch("/api/auth/login/", { headers, body, method: "POST" })
-            .then(res => {
-                if (res.status < 500) {
-                    return res.json().then(data => {
-                        return { status: res.status, data };
-                    })
-                } else {
-                    console.log("Server Error!");
-                    throw res;
+export const userLogout = () => {
+    return dispatch => {
+        dispatch(
+            {
+                type: LOGOUT_SUCCESSFUL,
+                payload: {
+                    user: {
+                        user: initialUser.user,
+                        token: initialUser.token,
+                        isAuthenticated: false
+                    }
                 }
-            })
+            }
+        );
+    }
+}
+
+export const userRegister = (username = 'Guest', password = null, email = null) => {
+
+    return dispatch => {
+        instance.post(`auth/register/`, { username: username, password: password, email: email })
             .then(res => {
                 if (res.status === 200) {
-                    dispatch({ type: LOGIN_SUCCESSFUL, data: res.data });
-                    return res.data;
-                } else if (res.status === 403 || res.status === 401) {
-                    dispatch({ type: AUTHENTICATION_ERROR, data: res.data });
-                    throw res.data;
+                    console.log(res.data);
+                    // console.log(res.data.token);
+                    dispatch(
+                        {
+                            type: LOGIN_SUCCESSFUL,
+                            payload: {
+                                user: {
+                                    user: res.data.user,
+                                    token: res.data.token,
+                                    isAuthenticated: true
+                                }
+                            }
+                        }
+                    );
+                    // return res.data;
+                } else if (res.status === 403 || res.status === 401 || res.status === 400) {
+                    // console.log(res);
+                    dispatch({ 
+                        type: SHOW_ERROR, 
+                        payload: {
+                            errors: {
+                                type: res.status,
+                                message:'Lo sentimos ha ocurrido un error, por favor vuelva a intentarlo'
+                            }
+                        } 
+                    });
+                    // throw res.data;
+                } else if (res.status < 500) {
+                    // console.log(res);
+                    // return res.json().then(data => {
+                    //     return { status: res.status, data };
+                    // })
                 } else {
-                    dispatch({ type: LOGIN_FAILED, data: res.data });
-                    throw res.data;
+                    // console.log(res);
+                    // throw res;
                 }
+            })
+            .catch(error => {
+                dispatch({ 
+                    type: SHOW_ERROR, 
+                    payload: {
+                        user: {
+                            user: { 
+                                id: null, 
+                                password: null, 
+                                last_login: null, 
+                                is_superuser: true, 
+                                username: "Guest", 
+                                first_name: null, 
+                                last_name: null, 
+                                email: null, 
+                                is_staff: null, 
+                                is_active: null, 
+                                date_joined: null 
+                            }, 
+                            errors: {
+                                type: error,
+                                message:'Lo sentimos el usuario o contraseña que introdujo no son correctos, por favor vuelva a intentarlo.'
+                            }
+                        }
+                    } 
+                }); 
             })
     }
 }
+
+export const userLogin = (username = 'Guest', password = null) => {
+
+    return dispatch => {
+        instance.post(`auth/login/`, { username: username, password: password })
+            .then(res => {
+                if (res.status === 200) {
+                    dispatch(
+                        {
+                            type: LOGIN_SUCCESSFUL,
+                            payload: {
+                                user: {
+                                    user: res.data.user,
+                                    token: res.data.token,
+                                    isAuthenticated: true
+                                }
+                            }
+                        }
+                    );
+                    // return res.data;
+                } else if ( res.status === 403 || res.status === 401 || res.status === 400 ) {
+                    // console.log(res);
+                    dispatch({ 
+                        type: SHOW_ERROR, 
+                        payload: {
+                            errors: {
+                                type: res.status,
+                                message:'Lo sentimos ha ocurrido un error, por favor vuelva a intentarlo'
+                            }
+                        } 
+                    }); 
+                    // throw res.data;
+                } else if (res.status < 500) {
+                    // console.log(res);
+                    // return res.json().then(data => {
+                    //     return { status: res.status, data };
+                    // })
+                } else {
+                    // console.log(res);
+                    // throw res;
+                }
+            })
+            .catch(error => {
+                dispatch({ 
+                    type: SHOW_ERROR, 
+                    payload: {
+                        user: {
+                            user: { 
+                                id: null, 
+                                password: null, 
+                                last_login: null, 
+                                is_superuser: true, 
+                                username: "Guest", 
+                                first_name: null, 
+                                last_name: null, 
+                                email: null, 
+                                is_staff: null, 
+                                is_active: null, 
+                                date_joined: null 
+                            }, 
+                            errors: {
+                                type: error,
+                                message:'Lo sentimos el nombre de usuario o correo electrónico que introdujo ya existe, por favor vuelva a intentarlo.'
+                            }
+                        }
+                    } 
+                }); 
+            })
+    }
+}
+
+export function apiRequest(id) {
+    return dispatch => {
+        instance.get(`users/${id}/`)
+            .then(res => {
+                const person = res.data;
+                console.log('SUCCESS');
+                dispatch(updateUser(person.name));
+            })
+            .catch(error => {
+                dispatch(showError('error'));
+            })
+    }
+};

@@ -14,24 +14,24 @@ import {
     LOGOUT_SUCCESSFUL,
 } from '../actions/user/userActions';
 
-// import data from '../../data';
-
 const initialUser = {
-    token: localStorage.getItem("token"),
-    refresh: localStorage.getItem('refresh'),
-    isAuthenticated: null,
+    user: {
+        id: null,
+        password: null,
+        last_login: null,
+        is_superuser: true,
+        username: "Guest",
+        first_name: null,
+        last_name: null,
+        email: null,
+        is_staff: null,
+        is_active: null,
+        date_joined: null
+    },
     isLoading: true,
-    user: null,
+    isAuthenticated: localStorage.getItem("isAuthenticated"),
+    token: localStorage.getItem("token"),
     errors: {},
-    last_login: null,
-    is_superuser: false,
-    username: "Guest",
-    first_name: "",
-    last_name: "",
-    email: null,
-    is_staff: false,
-    is_active: false,
-    date_joined: null
 };
 
 export default function userReducer (state = initialUser, { type, payload }) {
@@ -64,18 +64,16 @@ export default function userReducer (state = initialUser, { type, payload }) {
             return { ...state, isAuthenticated: true, isLoading: false, user: payload.user };
 
         case LOGIN_SUCCESSFUL:
-            localStorage.setItem("token", payload.data.token);
-            localStorage.setItem("refresh", payload.data.refresh);
-            return { ...state, ...payload.data, isAuthenticated: true, isLoading: false, errors: null };
+            localStorage.setItem("token", payload.user.token);
+            localStorage.setItem("isAuthenticated", payload.user.isAuthenticated);
+            return payload.user;
 
         case AUTHENTICATION_ERROR:
         case LOGIN_FAILED:
         case LOGOUT_SUCCESSFUL:
             localStorage.removeItem("token");
-            return {
-                ...state, errors: payload.data, token: null, user: null,
-                isAuthenticated: false, isLoading: false
-            };
+            localStorage.removeItem("isAuthenticated");
+            return { ...state, ...payload.user };
         
         default:
             return state;

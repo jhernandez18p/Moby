@@ -2,14 +2,10 @@ import React, { Component } from 'react';
 import { Route, Switch, Link, Redirect } from "react-router-dom";
 import Helmet from 'react-helmet';
 
-import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
-
 import Login from './Login';
 import Logout from './Logout';
 import Register from './Register';
 
-import { login } from '../../redux/actions/user/userActions';
 
 class Auth extends Component {
 
@@ -82,25 +78,4 @@ class Auth extends Component {
   }
 }
 
-const userSelector = createSelector(
-  state => state.user,
-  user => user
-)
-
-const mapStateToProps = createSelector(
-  userSelector,
-  (user) => (
-    {
-      user
-    }
-  )
-);
-
-const mapActionsToProps = {
-  // onUpdateUser: updateUser,
-  // onApiRequest: apiRequest
-  onUserLogin: login,
-  // onUserRegister: register
-};
-
-export default connect(mapStateToProps, mapActionsToProps)(Auth);
+export default Auth;

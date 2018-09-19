@@ -1,13 +1,14 @@
 // import fetch from 'cross-fetch';
 import axios from 'axios';
 
-export const ADD_BLOG_COMMENT = 'product:addProduct';
-export const AUTH_BLOG_COMMENT = 'product:authProduct';
-export const DELETE_BLOG_COMMENT = 'product:deleteProduct';
-export const INVALIDATE_BLOG_COMMENT = 'product:invalidateProduct';
-export const REQUEST_BLOG_COMMENT = 'product:requestProduct';
-export const SHOW_ERROR = 'product:showError';
-export const UPDATE_BLOG_COMMENT = 'product:updateProduct';
+export const ADD_BLOG_COMMENT = 'comment:addBlogComment';
+export const AUTH_BLOG_COMMENT = 'comment:authBlogComment';
+export const DELETE_BLOG_COMMENT = 'comment:deleteBlogComment';
+export const INVALIDATE_BLOG_COMMENT = 'comment:invalidateBlogComment';
+export const REQUEST_BLOG_COMMENT = 'comment:requestBlogComment';
+export const SHOW_ERROR = 'comment:showError';
+export const UPDATE_BLOG_COMMENT = 'comment:updateBlogComment';
+export const FETCH_BLOG_COMMENTS = 'comment:fetchBlogComment';
 
 const instance = axios.create({ baseURL: '/api/v2/', headers: {"Content-Type": "application/json"} });
 
@@ -30,38 +31,38 @@ const initialState = {
     ]
 }
 
-export function addUser(newUser) {
+export function addBlogComment(newBlogComment) {
     return {
         type: ADD_BLOG_COMMENT,
         payload: {
-            product: newUser
+            comment: newBlogComment
         },
     }
 };
 
-export function authUser(newUser) {
+export function authBlogComment(newBlogComment) {
     return {
         type: AUTH_BLOG_COMMENT,
         payload: {
-            product: newUser
+            comment: newBlogComment
         },
     }
 };
 
-export function updateUser(newUser) {
+export function updateBlogComment(newBlogComment) {
     return {
         type: UPDATE_BLOG_COMMENT,
         payload: {
-            product: newUser
+            comment: newBlogComment
         },
     }
 };
 
-export function deleteUser(User) {
+export function deleteBlogComment(BlogComment) {
     return {
         type: DELETE_BLOG_COMMENT,
         payload: {
-            product: User
+            comment: BlogComment
         },
     }
 };
@@ -70,38 +71,25 @@ export function showError(error){
     return {
         type: SHOW_ERROR,
         payload: {
-            product: initialState,
+            comment: initialState,
             error: [error]
         }
     }
 };
 
-export function apiRequest(){    
+export const fetchBlogCommensts = () => {
+
     return dispatch => {
-        instance.get(`users/1`)
+        instance.get(`comments/`)
             .then(res => {
-                const person = res.data;
-                console.log('SUCCESS');
-                dispatch(updateUser(person.name));
+                let comment = res.data;
+                return dispatch({
+                    type: FETCH_BLOG_COMMENTS,
+                    payload: {
+                        comment
+                    }
+                })
             })
             .catch(error => { dispatch(showError(error)); })
-            // .then(function () {
-            //     dispatch(requestUser());
-            //     console.log('Axios acction');
-            // });
     }
-};
-
-export function invalidateUser(user) {
-    return {
-        type: INVALIDATE_BLOG_COMMENT,
-        user
-    }
-};
-
-export function requestUser(user) {
-    return {
-        type: REQUEST_BLOG_COMMENT,
-        user
-    }
-};
+}

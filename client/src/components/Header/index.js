@@ -30,6 +30,7 @@ class Header extends Component {
 
   render() {
     let site = this.props.site;
+    let user = this.props.user;
     
     let sitePhone = site.results[0].phone || 'nada';
     
@@ -39,7 +40,8 @@ class Header extends Component {
           toggleMenu={this.toggleMenu} 
           showMenu={this.state.showMenu} 
           fixedMenu={this.state.fixedMenu}
-          sitePhone={sitePhone}/>
+          sitePhone={sitePhone}
+          isAuthenticated={user.isAuthenticated} />
       </div>
     );
   }

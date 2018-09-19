@@ -15,9 +15,7 @@ class Banner extends Component {
                                     <p className="title">
                                         {this.props.siteName}
                                     </p>
-                                    <p className="subtitle">
-                                        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(this.props.siteShortDesc) }}></div>
-                                    </p>
+                                    <div className="subtitle" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(this.props.siteShortDesc) }}></div>
                                 </div>
                             </div>
                         </div>

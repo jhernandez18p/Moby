@@ -27,7 +27,7 @@ app.disable('x-powered-by');
 if (server === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
   app.get('^/api/v2/$', function (req, res) { res.json({ "Tutorial": "Welcome to the APi" }); });
-  app.get('^/$', function (req, res) { res.sendFile(path.join(__dirname, '../client/build', 'index.html')); });
+  app.get('*', function (req, res) { res.sendFile(path.join(__dirname, '../client/build', 'index.html')); });
   app.get('^/service-worker.js', (req, res) => { res.sendFile(path.resolve(__dirname, '../client/build', 'service-worker.js')); });
 }
 

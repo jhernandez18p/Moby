@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-export const ADD_SUB_LINE = 'sublines:addProduct';
-export const UPDATE_SUB_LINE = 'sublines:updateProduct';
-export const DELETE_SUB_LINE = 'sublines:deleteProduct';
-export const REQUEST_SUB_LINE = 'sublines:requestProduct';
-export const FETCH_SUB_LINES = 'sublines:fetchProducts';
+export const ADD_SUB_LINE = 'sublines:addSubLine';
+export const UPDATE_SUB_LINE = 'sublines:updateSubLine';
+export const DELETE_SUB_LINE = 'sublines:deleteSubLine';
+export const REQUEST_SUB_LINE = 'sublines:requestSubLine';
+export const FETCH_SUB_LINES = 'sublines:fetchSubLines';
 export const SHOW_ERROR = 'sublines:showError';
 
 const instance = axios.create({ baseURL: '/api/v2/', headers: {"Content-Type": "application/json"} });
@@ -28,29 +28,29 @@ const initialState ={
     ]
 }
 
-export function addProduct(newProduct) {
+export function addSubLine(newSubLine) {
     return {
         type: ADD_SUB_LINE,
         payload: {
-            sublines: newProduct
+            sublines: newSubLine
         },
     }
 };
 
-export function updateProduct(newProduct) {
+export function updateSubLine(newSubLine) {
     return {
         type: UPDATE_SUB_LINE,
         payload: {
-            sublines: newProduct
+            sublines: newSubLine
         },
     }
 };
 
-export function deleteProduct(Product) {
+export function deleteSubLine(SubLine) {
     return {
         type: DELETE_SUB_LINE,
         payload: {
-            sublines: Product
+            sublines: SubLine
         },
     }
 };
@@ -65,16 +65,16 @@ export function showError(error){
     }
 };
 
-export const fetchProducts = () => {
+export const fetchSubLines = () => {
 
     return dispatch => {
         instance.get(`sublines/    `)
             .then(res => {
-                let products = res.data;
+                let SubLines = res.data;
                 return dispatch({
                     type: FETCH_SUB_LINES,
                     payload: {
-                        products
+                        SubLines
                     }
                 })
             })

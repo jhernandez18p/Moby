@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-export const ADD_PROVIDER = 'providers:addProduct';
-export const UPDATE_PROVIDER = 'providers:updateProduct';
-export const DELETE_PROVIDER = 'providers:deleteProduct';
-export const REQUEST_PROVIDER = 'providers:requestProduct';
-export const FETCH_PROVIDERS = 'providers:fetchProducts';
+export const ADD_PROVIDER = 'providers:addProvider';
+export const UPDATE_PROVIDER = 'providers:updateProvider';
+export const DELETE_PROVIDER = 'providers:deleteProvider';
+export const REQUEST_PROVIDER = 'providers:requestProvider';
+export const FETCH_PROVIDERS = 'providers:fetchProviders';
 export const SHOW_ERROR = 'providers:showError';
 
 const instance = axios.create({ baseURL: '/api/v2/', headers: {"Content-Type": "application/json"} });
@@ -28,29 +28,29 @@ const initialState ={
     ]
 }
 
-export function addProduct(newProduct) {
+export function addProvider(newProvider) {
     return {
         type: ADD_PROVIDER,
         payload: {
-            providers: newProduct
+            providers: newProvider
         },
     }
 };
 
-export function updateProduct(newProduct) {
+export function updateProvider(newProvider) {
     return {
         type: UPDATE_PROVIDER,
         payload: {
-            providers: newProduct
+            providers: newProvider
         },
     }
 };
 
-export function deleteProduct(Product) {
+export function deleteProvider(Provider) {
     return {
         type: DELETE_PROVIDER,
         payload: {
-            providers: Product
+            providers: Provider
         },
     }
 };
@@ -65,18 +65,18 @@ export function showError(error){
     }
 };
 
-export const fetchProducts = () => {
+export const fetchProviders = () => {
 
     return dispatch => {
         instance.get(`providers/    `)
             .then(res => {
-                let products = res.data;
-                // console.log(products);
-                // dispatch(requestcarousels(products));
+                let Providers = res.data;
+                // console.log(Providers);
+                // dispatch(requestcarousels(Providers));
                 return dispatch({
                     type: FETCH_PROVIDERS,
                     payload: {
-                        products
+                        Providers
                     }
                 })
             })

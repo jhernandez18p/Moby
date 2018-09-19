@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-export const ADD_DEPARTMENT = 'departments:addService';
-export const UPDATE_DEPARTMENT = 'departments:updateService';
-export const DELETE_DEPARTMENT = 'departments:deleteService';
-export const REQUEST_DEPARTMENT = 'departments:requestService';
-export const FETCH_DEPARTMENTS = 'departments:fetchServices';
+export const ADD_DEPARTMENT = 'departments:addDepartment';
+export const UPDATE_DEPARTMENT = 'departments:updateDepartment';
+export const DELETE_DEPARTMENT = 'departments:deleteDepartment';
+export const REQUEST_DEPARTMENT = 'departments:requestDepartment';
+export const FETCH_DEPARTMENTS = 'departments:fetchDepartments';
 export const SHOW_ERROR = 'departments:showError';
 
 const instance = axios.create({ baseURL: '/api/v2/', headers: {"Content-Type": "application/json"} });

@@ -71,19 +71,11 @@ export function requestTestimonial(Testimonial) {
 };
 
 export const fetchTestimonial = () => {
-
     return dispatch => {
         instance.get(`testimonials/`)
             .then(res => {
                 let Testimonial = res.data;
-                // console.log(Testimonial);
-                // dispatch(requestTestimonial(Testimonial));
-                return dispatch({
-                    type: FETCH_TESTIMONIAL,
-                    payload: {
-                        testimonials: Testimonial
-                    }
-                })
+                return dispatch({ type: FETCH_TESTIMONIAL, payload: { testimonials: Testimonial } })
             })
             .catch(error => { dispatch(showError( error )); })
     }

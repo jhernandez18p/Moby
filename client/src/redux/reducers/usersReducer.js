@@ -6,7 +6,7 @@ import {
     REQUEST_USER, 
     UPDATE_USER,
     SHOW_ERROR
-} from '../actions/userActions';
+} from '../actions/user/userActions';
 
 // import data from '../../data';
 

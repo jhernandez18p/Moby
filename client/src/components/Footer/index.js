@@ -46,9 +46,7 @@ class Footer extends Component {
 							<h2 className="is-size-4 has-text-white">
 								{siteName}
 							</h2>
-							<p className="has-text-white">
-								<div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(siteDescription) }}></div>
-							</p>
+							<div className="has-text-white" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(siteDescription) }}></div>
 						</div>
 						<div className="column">
 							<h2 className="is-size-4 has-text-white">Artículos recientes</h2>
@@ -88,33 +86,15 @@ class Footer extends Component {
 						</div>
 						<div className="column">
 							<h2 className="is-size-4 has-text-white">Contacto</h2>
-							<p className="has-text-white">
-								{siteAddress}
-							</p>
-							<p className="has-text-white">
-								{siteAddress1}
-							</p>
-							<p className="has-text-white">
-								{sitePhone}
-							</p>
-							<p className="has-text-white">
-								{sitePhone2}
-							</p>
-							<p className="has-text-white">
-								Abierto: {siteWorkday}
-							</p>
-							<p className="has-text-white">
-								{siteSchedule}
-							</p>
-							<p className="has-text-white">
-								{siteSchedule2}
-							</p>
-							<p className="has-text-white">
-								{siteEmail}
-							</p>
-							<p className="has-text-white">
-								{siteEmail2}
-							</p>
+							<p className="has-text-white">{siteAddress}</p>
+							<p className="has-text-white">{siteAddress1}</p>
+							<p className="has-text-white">{sitePhone}</p>
+							<p className="has-text-white">{sitePhone2}</p>
+							<p className="has-text-white">Abierto: {siteWorkday}</p>
+							<p className="has-text-white">{siteSchedule}</p>
+							<p className="has-text-white">{siteSchedule2}</p>
+							<p className="has-text-white">{siteEmail}</p>
+							<p className="has-text-white">{siteEmail2}</p>
 						</div>
 					</div>
 				</div>

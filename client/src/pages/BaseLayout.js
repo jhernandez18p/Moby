@@ -58,7 +58,7 @@ class Layout extends Component {
     this.props.onFetchPages();
     this.props.onFetchProducts();
     this.props.onFetchServices();
-    // this.props.onFetchSite();
+    this.props.onFetchSite();
     this.props.onFetchSocialMedia();
     this.props.onFetchTestimonial();
   }
@@ -83,6 +83,7 @@ class Layout extends Component {
     let site = this.props.site || 'Cargando ...';
     let social_media = this.props.social_media || 'Cargando ...';
     let testimonials = this.props.testimonials || 'Cargando ...';
+    let user = this.props.user || 'Cargando ...';
 
     let isUnderConstruction = site.results[0].is_undercostruction;
 
@@ -102,7 +103,7 @@ class Layout extends Component {
             <UnderConstruction isUnderCostruction={isUnderConstruction} />
           </div>
           <div className="site-wr">
-            <Header site={site} />
+            <Header site={site} user={user}/>
             <div className="content">
               <Switch>
                 <Route exact path="/" render={
@@ -212,7 +213,7 @@ const servicesSelector = createSelector( state => state.services, services => se
 const siteSelector = createSelector( state => state.site, site => site );                                         // site
 const socialMediaSelector = createSelector( state => state.social_media, social_media => social_media );          // Social media
 const testimonialsSelector = createSelector( state => state.testimonials, testimonials => testimonials );         // Testimonials
-// const userSelector = createSelector(   state => state.user,   user => user );                                     // user
+const userSelector = createSelector(   state => state.user,   user => user );                                     // user
 
 const mapStateToProps = createSelector(
   brandsSelector,
@@ -227,7 +228,8 @@ const mapStateToProps = createSelector(
   siteSelector,
   socialMediaSelector,
   testimonialsSelector,
-  (brands, blog_post, blog_tags, carrousel, img_carrousel, departments, pages, products, services, site, social_media, testimonials) => (
+  userSelector,
+  (brands, blog_post, blog_tags, carrousel, img_carrousel, departments, pages, products, services, site, social_media, testimonials, user) => (
     {
       brands,
       blog_post,
@@ -241,6 +243,7 @@ const mapStateToProps = createSelector(
       site,
       social_media,
       testimonials,
+      user,
     }
   )
 );

@@ -36,7 +36,7 @@ export function addCategory(newCategory) {
     }
 };
 
-export function updateUser(newCategory) {
+export function updateCategory(newCategory) {
     return {
         type: UPDATE_CATEGORY,
         payload: {

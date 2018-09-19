@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-export const ADD_TYPE = 'sublines:addProduct';
-export const UPDATE_TYPE = 'sublines:updateProduct';
-export const DELETE_TYPE = 'sublines:deleteProduct';
-export const REQUEST_TYPE = 'sublines:requestProduct';
-export const FETCH_TYPES = 'sublines:fetchProducts';
-export const SHOW_ERROR = 'sublines:showError';
+export const ADD_TYPE = 'types:addType';
+export const UPDATE_TYPE = 'types:updateType';
+export const DELETE_TYPE = 'types:deleteType';
+export const REQUEST_TYPE = 'types:requestType';
+export const FETCH_TYPES = 'types:fetchTypes';
+export const SHOW_ERROR = 'types:showError';
 
 const instance = axios.create({ baseURL: '/api/v2/', headers: {"Content-Type": "application/json"} });
 
@@ -28,29 +28,29 @@ const initialState ={
     ]
 }
 
-export function addProduct(newProduct) {
+export function addType(newType) {
     return {
         type: ADD_TYPE,
         payload: {
-            sublines: newProduct
+            types: newType
         },
     }
 };
 
-export function updateProduct(newProduct) {
+export function updateType(newType) {
     return {
         type: UPDATE_TYPE,
         payload: {
-            sublines: newProduct
+            types: newType
         },
     }
 };
 
-export function deleteProduct(Product) {
+export function deleteType(Type) {
     return {
         type: DELETE_TYPE,
         payload: {
-            sublines: Product
+            types: Type
         },
     }
 };
@@ -59,22 +59,22 @@ export function showError(error){
     return {
         type: SHOW_ERROR,
         payload: {
-            sublines: initialState,
+            types: initialState,
             error: [error]
         }
     }
 };
 
-export const fetchProducts = () => {
+export const fetchTypes = () => {
 
     return dispatch => {
         instance.get(`types/`)
             .then(res => {
-                let products = res.data;
+                let Types = res.data;
                 return dispatch({
                     type: FETCH_TYPES,
                     payload: {
-                        products
+                        Types
                     }
                 })
             })

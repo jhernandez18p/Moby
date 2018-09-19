@@ -75,67 +75,35 @@ export function showError(error){
 };
 
 export const fetchBlogPost = () => {
-    
     return dispatch => {
         instance.get(`posts/`)
             .then(res => {
                 let blog_post = res.data;
-                return dispatch({
-                    type: FETCH_BLOG_POST,
-                    payload: {
-                        blog_post
-                    }
-                })
+                return dispatch({ type: FETCH_BLOG_POST, payload: { blog_post } })
             })
             .catch(error => { dispatch(showError(error)); })
     }
 }
 
 
-export const fetchNextBlogPost = (next = '127.0.0.1:10500/api/v2/posts/?limit=16&offset=16') => {
-
-    // console.log(next);
-    
+export const fetchNextBlogPost = (next = '/api/v2/posts/?limit=16&offset=16') => {
     return dispatch => {
-        axios.get(next, {headers: {"Content-Type": "application/json"}})
+        instance.get(next)
             .then(res => {
                 let blog_post = res.data;
-                // console.log(blog_post);
-                // dispatch(requestSite(site));
-                return dispatch({
-                    type: FETCH_BLOG_POST,
-                    payload: {
-                        blog_post
-                    }
-                })
+                return dispatch({ type: FETCH_BLOG_POST, payload: {blog_post} })
             })
-            .catch(error => {
-                console.log('error!');
-                dispatch(showError('error'));
-            })
+            .catch(error => { dispatch(showError( error )); })
     }
 }
 
-export const fetchPrevBlogPost = (prev = '127.0.0.1:10500/api/v2/posts/') => {
-    
-    // let _url = url || '';
-    
+export const fetchPrevBlogPost = (prev = '/api/v2/posts/') => {
     return dispatch => {
-        axios.get(prev, {headers: {"Content-Type": "application/json"}})
+        instance.get(prev)
             .then(res => {
                 let blog_post = res.data;
-                // console.log(blog_post);
-                // dispatch(requestSite(site));
-                return dispatch({
-                    type: FETCH_BLOG_POST,
-                    payload: {
-                        blog_post
-                    }
-                })
+                return dispatch({ type: FETCH_BLOG_POST, payload: { blog_post } })
             })
-            .catch(error => {
-                console.log('error!');
-                dispatch(showError('error'));
-            })
+            .catch(error => { dispatch(showError( error )); })
     }
 }
