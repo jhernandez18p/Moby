@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Helmet from "react-helmet";
 
 import PanelHome from './Home';
@@ -21,6 +21,7 @@ class PanelLayout extends Component {
   }
 
   render() {
+    return <Redirect to="/" />
     return (
       <div className="intra">
         <Helmet
