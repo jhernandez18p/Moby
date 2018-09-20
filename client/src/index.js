@@ -29,4 +29,4 @@ ReactDOM.render((
         </CookiesProvider>
     </Provider>
 ), document.getElementById('wrapper'));
-registerServiceWorker();
+// registerServiceWorker();
