@@ -3,6 +3,10 @@ import React, { Component } from "react";
 class Pagination extends Component {
 
     render() {
+        let hasPrev = this.props.hasPrev;
+        let hasNext = this.props.hasNext;
+        // console.log('1 - hasPrev ', hasPrev, '1 - hasNext ', hasNext);
+        
         // console.log(this.props)
         // let postsCountLimit = this.props.postsCountLimit;
         // let postsCount = this.props.postsCount;
@@ -28,8 +32,17 @@ class Pagination extends Component {
         return (
             <div className="container" id="">
                 <nav className="pagination is-centered">
-                    <a className="pagination-previous" onClick={this.props.previousPage} disabled={ this.props.hasPrev } >Anterior</a>
-                    <a className="pagination-next" onClick={this.props.nextPage} disabled={ this.props.hasNext }>Siguiente</a>
+                    { 
+                        hasPrev 
+                        ? <a className="pagination-previous" onClick={this.props.previousPage} >Anterior</a> 
+                        : <a className="pagination-previous" disabled >Anterior</a> 
+                    }
+                    
+                    {
+                        hasNext
+                        ? <a className="pagination-next" onClick={this.props.nextPage}>Siguiente</a>
+                        : <a className="pagination-next" disabled>Siguiente</a>
+                    }
                     {/* <ul className="pagination-list">
                         <li onClick={() => this.props.click()}><a className="pagination-link">1</a></li>
                         <li><span className="pagination-ellipsis">&hellip;</span></li>

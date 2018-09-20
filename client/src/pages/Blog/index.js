@@ -12,103 +12,109 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
 // actions
-import { 
+import {
   fetchBlogPost,
   fetchNextBlogPost,
-  fetchPrevBlogPost 
+  fetchPrevBlogPost
 } from '../../redux/actions/blog'
 
 class Blog extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       currentPage: 1,
       limitPage: 16,
-      offsetPage: 16,
-      urlPage: '127.0.0.1:10500/api/v2/posts/',
-      nextPage: '127.0.0.1:10500/api/v2/posts/?limit=16&offset=16',
+      offsetPage: 0,
+      totalPages: Math.ceil(this.props.blog_post.count / 16),
+      urlPage: 'posts/',
+      nextPage: '',
       previousPage: null,
-      hasNext: false,
-      hasPrev: true
+      hasNext: true,
+      hasPrev: false
     }
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handlePrevClick = this.handlePrevClick.bind(this);
   }
-  
-  componentDidUpdate(prevProps, prevState){
-    if (this.props.blog_post.next !== prevProps.blog_post.next) {
-      // console.log(this.props.blog_post.next)
-      this.setState({
-        previousPage: this.props.blog_post.previous,
-        nextPage: this.props.blog_post.next,
-      })
-      if(this.props.blog_post.next !== null){
-        this.setState({
-          hasNext: false,
-        })
-      }
-      if(this.props.blog_post.previous === null){
-        this.setState({
-          hasPrev: true,
-        })
-      }
-    }
-    if (this.props.blog_post.previous !== prevProps.blog_post.previous) {
-      // console.log(this.props.blog_post.previous)
-      this.setState({
-        previousPage: this.props.blog_post.previous,
-        nextPage: this.props.blog_post.next,
-      })
-      if(this.props.blog_post.next === null){
-        this.setState({
-          hasNext: true,
-        })
-      }
-      if(this.props.blog_post.previous !== null){
-        this.setState({
-          hasPrev: false,
-        })
-      }
-    }
-    if(this.state !== prevState){
-      // console.log(this.state)
-    }
-  }
 
-  handleNextClick(e){
+  handleNextClick(e) {
     e.preventDefault();
-    if (this.state.nextPage !== null){
-      this.props.onFetchNextBlogPost(this.state.nextPage);
+
+    let currentPage = this.state.currentPage + 1; //Aumenta el numero de la pagina
+    let limitPage = this.state.limitPage || 16;
+    let pages = this.state.totalPages;
+    let offsetPage = Math.ceil(limitPage * (currentPage - 1));
+    
+    this.setState({
+      currentPage: currentPage,
+      offsetPage: offsetPage
+    })
+    
+    if (currentPage === pages) { // Validate if next is able
+      this.setState({
+        hasNext: false
+      })
     }
     
-  }
-  
-  handlePrevClick(e){
-    e.preventDefault();
-    if (this.state.previousPage !== null){
-      this.props.onFetchPrevBlogPost(this.state.previousPage)      
+    if (currentPage > 1) { // Validate if prev is able
+      this.setState({
+        hasPrev: true
+      })
     }
+    
+    if (currentPage > 1 && currentPage <= pages){
+      this.props.onFetchNextBlogPost(limitPage, offsetPage);
+    }
+    
+    // console.log('currentPage ->', currentPage, 'pages ->', pages, 'offset ->', offsetPage)
   }
   
+  handlePrevClick(e) {
+    e.preventDefault();
+    
+    let currentPage = this.state.currentPage - 1; //Decrementa el numero de la pagina
+    let limitPage = this.state.limitPage || 16;
+    let offsetPage = this.state.offsetPage - limitPage;
+    let pages = this.state.totalPages;
+
+    this.setState({
+      currentPage: currentPage,
+      offsetPage: offsetPage
+    })
+    if (currentPage === 1) {
+      this.setState({
+        hasPrev: false,
+        hasNext: true
+      })
+    }
+    if (currentPage >= 1 && currentPage <= pages){
+      this.props.onFetchPrevBlogPost(limitPage, offsetPage);
+    }
+    // console.log('currentPage ->', currentPage, 'pages ->', pages, 'offset ->', offsetPage)
+  }
+
   render() {
+    // console.log('currentPage ->', this.state.currentPage, 'pages ->', this.state.totalPages, 'offset ->', this.state.offsetPage)
+
     function* chunkArray(original, n, max) {
       let ary = [...original];
-      ary = ary.splice(0 , max);
+      ary = ary.splice(0, max);
       while (ary.length > 0)
         yield ary.splice(ary, n);
     }
 
-    let user = this.props.user || {name:'Guest', authenticated:false};
-    let posts = this.props.posts;
-    // let tags = this.props.tags;
-    
+    let user = this.props.user || { user: { first_name: 'Guest' }, isAuthenticated: false };
+    let posts = this.props.blog_post || this.props.posts;
+    let tags = this.props.blog_tags;
+
+
     let _posts = posts.results;
+
     let paginator = <div></div>;
     let postsCount = posts.count || undefined;
     let postsCountLimit = 16;
 
-    if (postsCount > 16){
-      
+    if (postsCount > 16) {
+
       let currentPage = this.state.currentPage;
       let limitPage = this.state.limitPage;
       let offsetPage = this.state.offsetPage;
@@ -117,23 +123,23 @@ class Blog extends Component {
       // let previousPage = this.state.previousPage;
 
       paginator = (
-        <Pagination 
-          postsCountLimit = {postsCountLimit}
-          postsCount = {postsCount}
-          currentPage = {currentPage}
-          limitPage = {limitPage}
-          offsetPage = {offsetPage}
-          urlPage = {urlPage}
-          nextPage = {this.handleNextClick}
-          previousPage = {this.handlePrevClick}
-          hasNext = {this.state.hasNext}
-          hasPrev = {this.state.hasPrev}
+        <Pagination
+          postsCountLimit={postsCountLimit}
+          postsCount={postsCount}
+          currentPage={currentPage}
+          limitPage={limitPage}
+          offsetPage={offsetPage}
+          urlPage={urlPage}
+          nextPage={this.handleNextClick}
+          previousPage={this.handlePrevClick}
+          hasNext={this.state.hasNext}
+          hasPrev={this.state.hasPrev}
         />
       )
     }
 
     let authBanner = <div></div>;
-    if (!user.authenticated) {
+    if (!user.isAuthenticated) {
       authBanner = (
         <div className="section has-background-light-green box-animation">
           <div className="columns">
@@ -157,23 +163,23 @@ class Blog extends Component {
     }
 
     let tagsItemns = <div></div>;
-    // if (tags.count >= 1){
-    //   let listTagsItems = tags.results.slice(0,8).map(
-    //     (tag) => {
-    //       let html = (
-    //         <li key={ tag.id.toString() }>
-    //           <Link to={`/blog?cat=${tag.slug}`} className="has-text-black">{tag.title}</Link>
-    //         </li>
-    //       )
-    //       return html;
-    //     }
-    //   )
-    //   tagsItemns = (
-    //     <ul>
-    //       {listTagsItems}
-    //     </ul>
-    //   )
-    // }
+    if (tags.count > 1) {
+      let listTagsItems = tags.results.slice(0, 8).map(
+        (tag) => {
+          let html = (
+            <li key={tag.id.toString()}>
+              <Link to={`/blog?cat=${tag.slug}`} className="has-text-black">{tag.title}</Link>
+            </li>
+          )
+          return html;
+        }
+      )
+      tagsItemns = (
+        <ul>
+          {listTagsItems}
+        </ul>
+      )
+    }
 
     return (
       <div>
@@ -187,14 +193,14 @@ class Blog extends Component {
           </div>
 
           <div className="blog-cat has-text-centered">
-            { tagsItemns }
+            {tagsItemns}
           </div>
 
           {authBanner}
 
           {Array.from(chunkArray(_posts, 4, postsCountLimit)).map(([one, two, three, four], y) => {
             const html = (
-              <div className="columns is-padding-top-30" key={ y.toString() }>
+              <div className="columns is-padding-top-30" key={y.toString()}>
                 {one ? <Post post={one}></Post> : <div className="column is-3"></div>}
                 {two ? <Post post={two}></Post> : <div className="column is-3"></div>}
                 {three ? <Post post={three}></Post> : <div className="column is-3"></div>}
@@ -245,4 +251,4 @@ const mapDispatchToProps = (dispatch, props) => {
   );
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Blog);
+export default connect(mapStateToProps, mapDispatchToProps)(Blog);

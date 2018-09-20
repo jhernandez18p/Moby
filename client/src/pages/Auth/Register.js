@@ -28,12 +28,6 @@ class Register extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
     
-    componentDidUpdate(prevState) {
-        if (this.state !== prevState) {
-            console.log
-        }
-    }
-    
     onChange(e) {
         e.preventDefault();
 
@@ -57,8 +51,9 @@ class Register extends Component {
             };
         }
         if (e.target.name === 'username') {
-            const value = e.target.value;
-            if (value.length >= 8) {
+            let value = e.target.value;
+            let validationRule = (/^\S{3,}$/);
+            if ( value.length >= 8 && value.match(validationRule) ) {
                 instance.post(`auth/check-username/?username=${ value }`,)
                     .then(res => {
                         if (res.status === 200) {
@@ -131,7 +126,7 @@ class Register extends Component {
                             <div className="">
                                 <div className="field">
                                     <label className="label">Nombre de usuario </label>
-                                    <div className="control has-icons-left has-icons-right">
+                                    <div className="control has-icons-left has-icons-right tooltip is-tooltip-bottom" data-tooltip="Nombre de usuario, no puede contener espacios en blanco.">
                                         <input className="input" type="text" placeholder="John" name="username" autoComplete="John" onChange={this.onChange}></input>
                                         <span className="icon is-small is-left"> <i className="fas fa-user"></i> </span>
                                         {

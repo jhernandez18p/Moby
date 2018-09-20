@@ -38,6 +38,13 @@ class Footer extends Component {
 			);
 		}
 
+		// let about = <div></div>;
+		// let cookies = <div></div>;
+		// let faq = <div></div>;
+		// let termn = <div></div>;
+		// let privacy = <div></div>;
+		// let staticPages = [about, faq, cookies, termn, privacy];
+
 		return (
 			<footer className="is-fullhd has-footer-background has-text-white">
 				<div className="container" id="overFooter">
@@ -60,27 +67,27 @@ class Footer extends Component {
 								<li className="navbar-item">
 									<Link to="/quienes-somos" className="is-uppercase has-text-white">
 										¿Quienes somos?
-									</Link>
+			</Link>
+								</li>
+								<li className="navbar-item">
+									<Link to="/contacto/cookies" className="is-uppercase has-text-white">
+										Política de cookies
+			</Link>
 								</li>
 								<li className="navbar-item">
 									<Link to="/contacto/f-a-q" className="is-uppercase has-text-white">
 										Preguntas Frecuentes
-									</Link>
+			</Link>
 								</li>
 								<li className="navbar-item">
-									<Link to="/contacto/terminos" className="is-uppercase has-text-white">
+									<Link to="/contacto/terminos-de-servicio" className="is-uppercase has-text-white">
 										Terminos y condiciones
-									</Link>
+			</Link>
 								</li>
 								<li className="navbar-item">
 									<Link to="/contacto/privacidad" className="is-uppercase has-text-white">
 										Política de privacidad
-									</Link>
-								</li>
-								<li className="navbar-item">
-									<Link to="/contacto/site.xml" className="is-uppercase has-text-white">
-										Mapa de sitio
-									</Link>
+			</Link>
 								</li>
 							</ul>
 						</div>

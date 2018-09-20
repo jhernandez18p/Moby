@@ -161,8 +161,9 @@ export const userLogout = () => {
                 payload: {
                     user: {
                         user: initialUser.user,
-                        token: initialUser.token,
-                        isAuthenticated: false
+                        token: null,
+                        isAuthenticated: false,
+                        errors: {}
                     }
                 }
             }
@@ -185,6 +186,7 @@ export const userRegister = (username = 'Guest', password = null, email = null) 
                                 user: {
                                     user: res.data.user,
                                     token: res.data.token,
+                                    errors: {},
                                     isAuthenticated: true
                                 }
                             }
@@ -196,9 +198,24 @@ export const userRegister = (username = 'Guest', password = null, email = null) 
                     dispatch({ 
                         type: SHOW_ERROR, 
                         payload: {
-                            errors: {
-                                type: res.status,
-                                message:'Lo sentimos ha ocurrido un error, por favor vuelva a intentarlo'
+                            user: {
+                                user: { 
+                                    id: null, 
+                                    password: null, 
+                                    last_login: null, 
+                                    is_superuser: true, 
+                                    username: "Guest", 
+                                    first_name: null, 
+                                    last_name: null, 
+                                    email: null, 
+                                    is_staff: null, 
+                                    is_active: null, 
+                                    date_joined: null 
+                                }, 
+                                errors: {
+                                    type: res.status,
+                                    message:'Lo sentimos el usuario o contraseña que introdujo no son correctos, por favor vuelva a intentarlo.'
+                                }
                             }
                         } 
                     });
@@ -255,6 +272,7 @@ export const userLogin = (username = 'Guest', password = null) => {
                                 user: {
                                     user: res.data.user,
                                     token: res.data.token,
+                                    errors: {},
                                     isAuthenticated: true
                                 }
                             }
@@ -266,11 +284,26 @@ export const userLogin = (username = 'Guest', password = null) => {
                     dispatch({ 
                         type: SHOW_ERROR, 
                         payload: {
-                            errors: {
-                                type: res.status,
-                                message:'Lo sentimos ha ocurrido un error, por favor vuelva a intentarlo'
+                            user: {
+                                user: { 
+                                    id: null, 
+                                    password: null, 
+                                    last_login: null, 
+                                    is_superuser: true, 
+                                    username: "Guest", 
+                                    first_name: null, 
+                                    last_name: null, 
+                                    email: null, 
+                                    is_staff: null, 
+                                    is_active: null, 
+                                    date_joined: null 
+                                }, 
+                                errors: {
+                                    type: res.status,
+                                    message:'Lo sentimos el nombre de usuario o correo electrónico que introdujo ya existe, por favor vuelva a intentarlo.'
+                                }
                             }
-                        } 
+                        }
                     }); 
                     // throw res.data;
                 } else if (res.status < 500) {

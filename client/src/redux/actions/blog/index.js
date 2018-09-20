@@ -76,33 +76,33 @@ export function showError(error){
 
 export const fetchBlogPost = () => {
     return dispatch => {
-        instance.get(`posts/`)
+        instance.get(`posts/?limit=16`)
             .then(res => {
                 let blog_post = res.data;
-                return dispatch({ type: FETCH_BLOG_POST, payload: { blog_post } })
+                return dispatch({ type: FETCH_BLOG_POST, payload: { blog_post: blog_post } })
             })
             .catch(error => { dispatch(showError(error)); })
     }
 }
 
 
-export const fetchNextBlogPost = (next = '/api/v2/posts/?limit=16&offset=16') => {
+export const fetchNextBlogPost = (limit = 16, offset=16) => {
+    let url = `posts/?limit=${limit}&offset=${offset}`;
     return dispatch => {
-        instance.get(next)
-            .then(res => {
-                let blog_post = res.data;
-                return dispatch({ type: FETCH_BLOG_POST, payload: {blog_post} })
+        instance.get(url)
+        .then(res => {
+                return dispatch({ type: FETCH_BLOG_POST, payload: {blog_post: res.data} })
             })
             .catch(error => { dispatch(showError( error )); })
     }
 }
 
-export const fetchPrevBlogPost = (prev = '/api/v2/posts/') => {
+export const fetchPrevBlogPost = (limit = 16, offset=0) => {
+    let url = `posts/?limit=${limit}&offset=${offset}`;
     return dispatch => {
-        instance.get(prev)
+        instance.get(url)
             .then(res => {
-                let blog_post = res.data;
-                return dispatch({ type: FETCH_BLOG_POST, payload: { blog_post } })
+                return dispatch({ type: FETCH_BLOG_POST, payload: { blog_post: res.data } })
             })
             .catch(error => { dispatch(showError( error )); })
     }

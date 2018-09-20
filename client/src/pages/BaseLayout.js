@@ -122,7 +122,7 @@ class Layout extends Component {
                 <Route exact path="/blog" render={
                   (props) => <Blog
                     posts={blog_post}
-                    tags={blog_tags} />
+                    user={user}/>
                 } />
 
                 <Route exact path="/contacto/f-a-q" render={

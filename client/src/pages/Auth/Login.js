@@ -23,7 +23,7 @@ class Login extends Component {
         e.preventDefault();
         if (e.target.name === 'email') {
             let value = e.target.value;
-            let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            let mailformat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             if (value.match(mailformat)) {
                 this.setState({ emailValid: true });
             };
@@ -44,9 +44,9 @@ class Login extends Component {
         let valid = <span className="icon is-small is-right has-text-success"><i className="fas fa-user-check"></i></span>;
         // let invalid = <span className="icon is-small is-right"><i className="fas fa-user"></i></span>;
         let isAuthenticated = user.isAuthenticated || false;
-
+        
         let toast = <div></div>;
-        if (user.errors.type){
+        if (user.errors.type !== undefined){
             toast = (
                 <div className="notification is-danger">
                     <button className="delete"></button>

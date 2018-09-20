@@ -2,13 +2,32 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 // import Helmet from 'react-helmet';
 
+import axios from 'axios';
+
+
 import DOMPurify from 'dompurify';
 
 class TopProducts extends Component {
     render() {
         const brand = this.props.product;
+        const instance = axios.create({ baseURL: '/api/v2/', headers: {"Content-Type": "application/json"} });
 
+        function getCategory(category){
+            instance.get(`categories/${category}/`)
+            .then(
+                (res) => {
+                    category = res.data.name;
+                    // console.log( category)
+                }
+            )
+        }
         // console.log(brand)
+        var category;
+        if (brand.department !== null && brand.category === null){
+            category = brand.department;
+        }else if(brand.department === null && brand.category !== null){
+            category = brand.category;
+        }
 
         return (
             <div className="column">
@@ -40,16 +59,8 @@ class TopProducts extends Component {
                     <div className="feed-leyend is-clearfix">
                         <p className="is-size-7 is-pulled-left">
                             <span className="icon"><i className="fas fa-folder-open"></i></span>
-                            <Link to={`/productos/todos?cat=${
-                                brand.department
-                                ?brand.department
-                                :brand.category
-                            }`} className="has-text-black">
-                                {
-                                    brand.department
-                                    ?brand.department
-                                    :brand.category
-                                }
+                            <Link to={`/productos/todos?cat=${ category }`} className="has-text-black">
+                                { category }
                             </Link>
                         </p>
                     </div>

@@ -104,3 +104,25 @@ export const fetchProducts = () => {
             .catch(error => {dispatch(showError( error ));})
     }
 }
+
+export const fetchNextProducts = (limit = 20, offset=20) => {
+    let url = `products/?limit=${limit}&offset=${offset}`;
+    return dispatch => {
+        instance.get(url)
+        .then(res => {
+                return dispatch({ type: FETCH_PRODUCTS, payload: { products: res.data } })
+            })
+            .catch(error => { dispatch(showError( error )); })
+    }
+}
+
+export const fetchPrevProducts = (limit = 20, offset=0) => {
+    let url = `products/?limit=${limit}&offset=${offset}`;
+    return dispatch => {
+        instance.get(url)
+            .then(res => {
+                return dispatch({ type: FETCH_PRODUCTS, payload: { products: res.data } })
+            })
+            .catch(error => { dispatch(showError( error )); })
+    }
+}
