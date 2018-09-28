@@ -29,9 +29,11 @@ class IntraHeader extends Component {
   }
 
   render() {
+    let breadcrumb = this.props.breadcrumb;
     return (
       <div ref="test">
         <IntraNav 
+          breadcrumb={breadcrumb}
           toggleMenu={this.toggleMenu} 
           showMenu={this.state.showMenu} 
           fixedMenu={this.state.fixedMenu}/>

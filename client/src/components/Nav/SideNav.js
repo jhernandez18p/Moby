@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 
 class SideNav extends Component {
@@ -16,74 +16,60 @@ class SideNav extends Component {
     componentWillReceiveProps(){};
 
     render() {
+        let user = this.props.user;
+        
+        let admItems = <div></div>;
+        if (user.user.is_staff) {
+            admItems = (
+                <div>
+                    <p className="menu-label">Administración </p>
+                    <ul className="menu-list">
+                        <li><NavLink to="/intra/administracion/usuarios">Usuarios</NavLink></li>
+                        <li><NavLink to="/intra/administracion/productos">Productos</NavLink></li>
+                        <li>
+                            <ul>
+                                <li><NavLink to="/intra/administracion/productos/top-10">Top 10 productos</NavLink></li>
+                                {/* <li><NavLink to="/intra/administracion/productos/cargar-fotos">Cargar fotos de productos</NavLink></li> */}
+                            </ul>
+                        </li>
+                        <li><NavLink to="/intra/administracion/sitio">Sitio web</NavLink></li>
+                        <li>
+                            <ul>
+                                <li><NavLink to="/intra/administracion/sitio/carrouseles">Carrouseles</NavLink></li>
+                                <li><NavLink to="/intra/administracion/sitio/suscriptores">SUSCRIPTORES</NavLink></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            );
+        }
+
         return (
-            <div className="">
+            <div>
                 <aside className="menu">
                     <p className="menu-label">
                         General
                     </p>
                     <ul className="menu-list">
-                        <li>
-                            <Link to={{
-                                pathname:"/intra",
-                                state:{url:'home'}
-                            }} className={this.current === '/intra' ? "is-active" : ''}>Inicio</Link>
-                        </li>
-                        <li>
-                            <Link to="/intra/perfil" className={this.current === '/intra/perfil' ? "is-active" : ''}>Mi Perfil</Link>
-                        </li>
-                        <li>
-                            <Link to="/intra/servicios" className={this.current === '/intra/servicios' ? "is-active" : ''}>Servicios</Link>
-                        </li>
-                        <li>
-                            <Link to="/intra/productos" className={this.current === '/intra/productos' ? "is-active" : ''}>Productos</Link>
-                        </li>
-                        <li>
-                            <Link to="/intra/blog" className={this.current === '/intra/blog' ? "is-active" : ''}>Blog</Link>
-                        </li>
+                        <li><NavLink to="/intra">Inicio</NavLink></li>
+                        <li><NavLink to="/intra/perfil">Mi Perfil</NavLink></li>
+                        <li><NavLink to="/intra/servicios" className="">Servicios</NavLink></li>
+                        <li><NavLink to="/intra/productos" className="">Productos</NavLink></li>
+                        <li><NavLink to="/intra/blog" className=''>Blog</NavLink></li>
                     </ul>
-                    <p className="menu-label">
-                        Administración
-                    </p>
-                    <ul className="menu-list">
-                        <li>
-                            <Link to="/intra/administracion/usuarios">Usuarios</Link>
-                        </li>
-                        <li>
-                            <Link to="/intra/administracion/productos">Productos</Link>
-                        </li>
-                        <li>
-                            <ul>
-                                <li>
-                                    <Link to="/intra/administracion/productos/top-10">Top 10 productos</Link>
-                                </li>
-                                <li>
-                                    <Link to="/intra/administracion/productos/cargar-fotos">Cargar fotos de productos</Link>
-                                </li>
-                                <li>
-                                    <Link to="/intra/administracion/productos/cargar-productos">Cargar productos</Link>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <Link to="/intra/administracion/sitio">Sitio web</Link>
-                        </li>
-                        <li>
-                            <Link to="/intra/administracion/suscripciones">Suscripciones</Link>
-                        </li>
-                    </ul>
+                    {admItems}
                     {/* <p className="menu-label">
                         Tickets
                     </p>
                     <ul className="menu-list">
                         <li>
-                            <Link to="/intra/tickets">Mis tickets</Link>
+                            <NavLink to="/intra/tickets">Mis tickets</NavLink>
                         </li>
                         <li>
-                            <Link to="/intra/tickets/abiertos">Abiertos</Link>
+                            <NavLink to="/intra/tickets/abiertos">Abiertos</NavLink>
                         </li>
                         <li>
-                            <Link to="/intra/tickets/cerrados">Cerrados</Link>
+                            <NavLink to="/intra/tickets/cerrados">Cerrados</NavLink>
                         </li>
                     </ul> */}
                 </aside>

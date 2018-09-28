@@ -1,12 +1,7 @@
-// import {
-//     ADD_BLOG,
-//     AUTH_BLOG,
-//     DELETE_BLOG,
-//     INVALIDATE_BLOG,
-//     REQUEST_BLOG,
-//     UPDATE_BLOG,
-//     SHOW_ERROR
-// } from '../actions/';
+import {
+    FETCH_COLORS,
+    SHOW_ERROR
+} from '../actions/product/color';
 
 // import data from '../../data';
 
@@ -27,20 +22,20 @@ const initialState = {
 
 export default function colorReducer(state = initialState, { type, payload }) {
     switch (type) {
-        // case ADD_BLOG:
+        // case ADD_COLOR:
         //     return payload.colors;
-        // case AUTH_BLOG:
+        // case AUTH_COLOR:
         //     return payload.colors;
-        // case UPDATE_BLOG:
+        // case UPDATE_COLOR:
         //     return payload.colors;
-        // case DELETE_BLOG:
+        // case DELETE_COLOR:
         //     return payload.colors;
-        // case SHOW_ERROR:
+        case SHOW_ERROR:
+            return payload.colors;
+        // case REQUEST_COLOR:
         //     return payload.colors;
-        // case REQUEST_BLOG:
-        //     return payload.colors;
-        // case INVALIDATE_BLOG:
-        //     return payload.colors;
+        case FETCH_COLORS:
+            return payload.colors;
         default:
             return state;
     }

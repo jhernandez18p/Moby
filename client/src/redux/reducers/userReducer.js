@@ -16,21 +16,21 @@ import {
 
 const initialUser = {
     user: {
-        id: null,
-        password: null,
-        last_login: null,
-        is_superuser: true,
-        username: "Guest",
-        first_name: null,
-        last_name: null,
-        email: null,
-        is_staff: null,
-        is_active: null,
-        date_joined: null
+        id: localStorage.getItem('user_id') || null,
+        password: localStorage.getItem('user_password') || null,
+        last_login: localStorage.getItem('user_last_login') || null,
+        is_superuser: localStorage.getItem('user_is_superuser') || true,
+        username: localStorage.getItem('user_username') || "Guest",
+        first_name: localStorage.getItem('user_first_name') || null,
+        last_name: localStorage.getItem('user_last_name') || null,
+        email: localStorage.getItem('user_email') || null,
+        is_staff: localStorage.getItem('user_is_staff') || null,
+        is_active: localStorage.getItem('user_is_active') || null,
+        date_joined: localStorage.getItem('user_date_joined') || null
     },
     isLoading: true,
-    isAuthenticated: localStorage.getItem("isAuthenticated"),
-    token: localStorage.getItem("token"),
+    isAuthenticated: localStorage.getItem("isAuthenticated") || false,
+    token: localStorage.getItem("token") || null,
     errors: {},
 };
 

@@ -23,6 +23,7 @@ class Login extends Component {
         e.preventDefault();
         if (e.target.name === 'email') {
             let value = e.target.value;
+            // eslint-disable-next-line
             let mailformat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             if (value.match(mailformat)) {
                 this.setState({ emailValid: true });
@@ -35,12 +36,11 @@ class Login extends Component {
         let username = e.target.email.value;
         let password = e.target.password.value;
         this.props.onSubmitUser(username, password);
-        // console.log(this.props.user);
     }
 
     render() {
         let user = this.props.user;
-        
+
         let valid = <span className="icon is-small is-right has-text-success"><i className="fas fa-user-check"></i></span>;
         // let invalid = <span className="icon is-small is-right"><i className="fas fa-user"></i></span>;
         let isAuthenticated = user.isAuthenticated || false;
@@ -115,19 +115,6 @@ class Login extends Component {
     }
 }
 
-// const blogSelector = createSelector( state => state.blog_post, blog_post => blog_post );                          // blog_post
-// const blogTagSelector = createSelector( state => state.blog_tags, blog_tags => blog_tags );                       // blog_tags
-// const brandsSelector = createSelector( state => state.brands, brands => brands );                                 // brands
-// const carrouselSelector = createSelector( state => state.carrousel, carrousel => carrousel );                     // carrousel 
-// // const categoriesSelector = createSelector(   state => state.categories,   categories => categories );             // categories
-// const departmentSelector = createSelector( state => state.departments, departments => departments );              // Department
-// const imageCarrouselSelector = createSelector( state => state.img_carrousel, img_carrousel => img_carrousel );    // img_carrousel 
-// const pagesSelector = createSelector( state => state.pages, pages => pages );                                     // Pages 
-// const productsSelector = createSelector( state => state.products, products => products );                         // products
-// const servicesSelector = createSelector( state => state.services, services => services );                         // services
-// const siteSelector = createSelector( state => state.site, site => site );                                         // site
-// const socialMediaSelector = createSelector( state => state.social_media, social_media => social_media );          // Social media
-// const testimonialsSelector = createSelector( state => state.testimonials, testimonials => testimonials );         // Testimonials
 const userSelector = createSelector(state => state.user, user => user);                                     // user
 
 const mapStateToProps = createSelector(
@@ -148,6 +135,3 @@ const mapDispatchToProps = (dispatch, props) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
-// export default connect(mapStateToProps, mapActionsToProps)(Login);
-// export default connect(Login);
-// export default Login;

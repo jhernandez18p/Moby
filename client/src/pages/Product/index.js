@@ -35,6 +35,7 @@ class Product extends Component {
     let pages = this.props.pages;
     let products = this.props.products;
     let testimonials = this.props.testimonials.results;
+    let user = this.props.user;
 
     let productPage;
     let productCarrousel;
@@ -45,7 +46,7 @@ class Product extends Component {
       productPage = filter(pages.results, 'name', 'productos')
       productCarrousel = filter(carrousels.results, 'page', productPage[0].id)
       productCarrouselImgs = filter(carrouselImgs.results, 'Carousel', productCarrousel[0].id);
-      siteHeaderCarrousel = <ProductPage imgs={productCarrouselImgs} />;
+      siteHeaderCarrousel = <ProductPage imgs={productCarrouselImgs} user={user}/>;
     }
 
     var topProducts = products.results;

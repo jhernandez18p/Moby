@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-export const ADD_CATEGORY = 'category:addCategory';
-export const REQUEST_CATEGORY = 'category:requestCategory';
-export const UPDATE_CATEGORY = 'category:updateCategory';
-export const DELETE_CATEGORY = 'category:deleteCategory';
-export const FETCH_CATEGORIES = 'category:fetchCategories';
-export const SHOW_ERROR = 'category:showError';
+export const ADD_CATEGORY = 'categories:addCategory';
+export const REQUEST_CATEGORY = 'categories:requestCategory';
+export const UPDATE_CATEGORY = 'categories:updateCategory';
+export const DELETE_CATEGORY = 'categories:deleteCategory';
+export const FETCH_CATEGORIES = 'categories:fetchCategories';
+export const SHOW_ERROR = 'categories:showError';
 
 const instance = axios.create({ baseURL: '/api/v2/', headers: {"Content-Type": "application/json"} });
 
@@ -31,7 +31,7 @@ export function addCategory(newCategory) {
     return {
         type: ADD_CATEGORY,
         payload: {
-            category: newCategory
+            categories: newCategory
         },
     }
 };
@@ -40,7 +40,7 @@ export function updateCategory(newCategory) {
     return {
         type: UPDATE_CATEGORY,
         payload: {
-            category: newCategory
+            categories: newCategory
         },
     }
 };
@@ -49,7 +49,7 @@ export function deleteUser(category) {
     return {
         type: DELETE_CATEGORY,
         payload: {
-            category: category
+            categories: category
         },
     }
 };
@@ -58,7 +58,7 @@ export function showError(error){
     return {
         type: SHOW_ERROR,
         payload: {
-            category: initialState,
+            categories: initialState,
             error: [error]
         }
     }
@@ -70,11 +70,11 @@ export const fetchCategories = () => {
     return dispatch => {
         instance.get(`categories/`)
             .then(res => {
-                let services = res.data;
+                let categories = res.data;
                 return dispatch({
                     type: FETCH_CATEGORIES,
                     payload: {
-                        services
+                        categories: categories
                     }
                 })
             })

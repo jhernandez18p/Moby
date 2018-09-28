@@ -57,11 +57,11 @@ class Nav extends Component {
                                 </div>
                                 <div id="navMenu" className={this.props.showMenu ? "navbar-menu" : "navbar-menu is-active"}>
                                     <div className="navbar-end is-hidden-touch ">
-                                        <NavLink data-target="navMenu" to="/" className="is-uppercase navbar-item is-nav-link">Inicio</NavLink>
-                                        <NavLink data-target="navMenu" to="/servicios" className="is-uppercase navbar-item is-nav-link">Servicios</NavLink>
-                                        <NavLink data-target="navMenu" to="/productos" className="is-uppercase navbar-item is-nav-link">Productos</NavLink>
-                                        <NavLink data-target="navMenu" to="/blog" className="is-uppercase navbar-item is-nav-link">Blog</NavLink>
-                                        <NavLink data-target="navMenu" to="/contacto" className="is-uppercase navbar-item is-nav-link">Contacto</NavLink>
+                                        <NavLink activeClassName="selected" exact data-target="navMenu" to="/" className="is-uppercase navbar-item is-nav-link">Inicio</NavLink>
+                                        <NavLink activeClassName="selected"  data-target="navMenu" to="/servicios" className="is-uppercase navbar-item is-nav-link">Servicios</NavLink>
+                                        <NavLink activeClassName="selected"  data-target="navMenu" to="/productos" className="is-uppercase navbar-item is-nav-link">Productos</NavLink>
+                                        <NavLink activeClassName="selected"  data-target="navMenu" to="/blog" className="is-uppercase navbar-item is-nav-link">Blog</NavLink>
+                                        <NavLink activeClassName="selected"  data-target="navMenu" to="/contacto" className="is-uppercase navbar-item is-nav-link">Contacto</NavLink>
                                     </div>
                                     <div className="navbar-end is-hidden-desktop">
                                         <Link onClick={this.props.toggleMenu} to="/" className="navbar-item">
@@ -148,11 +148,11 @@ class Nav extends Component {
                             </div>
                             <div id="navMenu" className={this.props.showMenu ? "navbar-menu" : "navbar-menu is-active"}>
                                 <div className="navbar-end is-hidden-touch ">
-                                    <NavLink data-target="navMenu" to="/" className="is-uppercase navbar-item is-nav-link">Inicio</NavLink>
-                                    <NavLink data-target="navMenu" to="/servicios" className="is-uppercase navbar-item is-nav-link">Servicios</NavLink>
-                                    <NavLink data-target="navMenu" to="/productos" className="is-uppercase navbar-item is-nav-link">Productos</NavLink>
-                                    <NavLink data-target="navMenu" to="/blog" className="is-uppercase navbar-item is-nav-link">Blog</NavLink>
-                                    <NavLink data-target="navMenu" to="/contacto" className="is-uppercase navbar-item is-nav-link">Contacto</NavLink>
+                                    <NavLink activeClassName="selected" exact data-target="navMenu" to="/" className="is-uppercase navbar-item is-nav-link">Inicio</NavLink>
+                                    <NavLink activeClassName="selected"  data-target="navMenu" to="/servicios" className="is-uppercase navbar-item is-nav-link">Servicios</NavLink>
+                                    <NavLink activeClassName="selected"  data-target="navMenu" to="/productos" className="is-uppercase navbar-item is-nav-link">Productos</NavLink>
+                                    <NavLink activeClassName="selected"  data-target="navMenu" to="/blog" className="is-uppercase navbar-item is-nav-link">Blog</NavLink>
+                                    <NavLink activeClassName="selected"  data-target="navMenu" to="/contacto" className="is-uppercase navbar-item is-nav-link">Contacto</NavLink>
                                 </div>
                                 <div className="navbar-end is-hidden-desktop">
                                     <Link onClick={this.props.toggleMenu} to="/" className="navbar-item">

@@ -1,15 +1,20 @@
 {
-  "main.css": "static/css/main.92b38537.css",
-  "main.css.map": "static/css/main.92b38537.css.map",
-  "main.js": "static/js/main.170b2516.js",
-  "main.js.map": "static/js/main.170b2516.js.map",
+  "main.css": "static/css/main.a2ff51f6.css",
+  "main.css.map": "static/css/main.a2ff51f6.css.map",
+  "main.js": "static/js/main.d1483bd2.js",
+  "main.js.map": "static/js/main.d1483bd2.js.map",
   "static\\media\\android-icon-192x192.png": "static/media/android-icon-192x192.dc4171cc.png",
   "static\\media\\apple-icon-144x144.png": "static/media/apple-icon-144x144.3018d746.png",
   "static\\media\\apple-icon-152x152.png": "static/media/apple-icon-152x152.f2855e53.png",
   "static\\media\\apple-icon-180x180.png": "static/media/apple-icon-180x180.c5044b2b.png",
+  "static\\media\\base.jpg": "static/media/base.abf6490f.jpg",
+  "static\\media\\blog.jpg": "static/media/blog.d6b22e5c.jpg",
   "static\\media\\logo.png": "static/media/logo.9f489cc8.png",
+  "static\\media\\products.jpg": "static/media/products.84934905.jpg",
+  "static\\media\\services.jpg": "static/media/services.7abeb1bf.jpg",
   "static\\media\\slick.eot": "static/media/slick.ced611da.eot",
   "static\\media\\slick.svg": "static/media/slick.f97e3bbf.svg",
   "static\\media\\slick.ttf": "static/media/slick.d41f55a7.ttf",
-  "static\\media\\slick.woff": "static/media/slick.b7c9e1e4.woff"
+  "static\\media\\slick.woff": "static/media/slick.b7c9e1e4.woff",
+  "static\\media\\users.jpg": "static/media/users.0615e08c.jpg"
 }

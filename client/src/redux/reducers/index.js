@@ -2,6 +2,7 @@
 import answerReducer from './answerReducer';                // Answers
 import blogCommentReducer from './blogCommentReducer';      // blog_comments
 import blogReducer from './blogReducer';                    // blog_post
+import postReducer from './postReducer';                    // blog_post
 import blogTagsReducer from './blogTagsReducer';            // blog_post
 import brandReducer from './brandReducer';                  // brands
 import carrouselReducer from './carrouselReducer';          // carrousel
@@ -14,9 +15,11 @@ import lineReducer from './lineReducer';                    // lines
 import pagePositionReducer from './pagePositionReducer';    // page_position
 import pagesReducer from './pagesReducer';                  // pages
 import productReducer from './productReducer';              // products
+import productsReducer from './productsReducer';            // products
 import providerReducer from './providerReducer';            // providers
 import questionReducer from './questionReducer';            // Questions
 import serviceReducer from './serviceReducer';              // services
+import servicesReducer from './servicesReducer';            // services
 import siteReducer from './siteReducer';                    // site
 import socialMediaReducer from './socialMediaReducer';      // Social Media
 import subLineReducer from './subLineReducer';              // sub_lines
@@ -29,6 +32,7 @@ export {
   answerReducer,                // Answers
   blogCommentReducer,           // blog_comments
   blogReducer,                  // blog_post
+  postReducer,                  // blog_post
   blogTagsReducer,              // blog_post
   brandReducer,                 // brands
   carrouselReducer,             // carrousel
@@ -41,9 +45,11 @@ export {
   pagePositionReducer,          // page_position
   pagesReducer,                 // pages
   productReducer,               // products
+  productsReducer,               // products
   providerReducer,              // providers
   questionReducer,              // Questions
   serviceReducer,               // services
+  servicesReducer,              // services
   siteReducer,                  // site
   socialMediaReducer,           // Social Media
   subLineReducer,               // sub_lines

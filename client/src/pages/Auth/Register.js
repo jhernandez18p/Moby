@@ -35,6 +35,7 @@ class Register extends Component {
 
         if (e.target.name === 'email') {
             let value = e.target.value;
+            // eslint-disable-next-line
             let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
             if (value.match(mailformat)) {
                 instance.post(`auth/check-email/?email=${ value }`)

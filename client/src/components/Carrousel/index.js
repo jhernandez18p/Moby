@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-
-// Apps
 import Slider from "react-slick";
 
+// import BaseImg from '../../assets/images/base.jpg';
 
 class Carrousel extends Component {
     constructor(props) {
@@ -13,25 +12,32 @@ class Carrousel extends Component {
         this.next = this.next.bind(this);
         this.previous = this.previous.bind(this);
     }
-    
-    componentDidMount(){
+
+
+    componentDidMount() {
+
         setTimeout(() => {
-                const _imgs = this.props.imgs;
-                // console.log(_imgs)
-                const imgs = _imgs;
-                // console.log(listItems);
-                const listItems = imgs.map(
-                    (img) => {
-                        return (
-                            // console.log(img)
-                            <div key={img.id.toString()}>
-                                <img  src={ img.image } alt={ img.alt } />
-                            </div>
-                        )
-                    }
-                );
-                return this.setState({listItems: listItems})
-            }, 750
+            const _imgs = this.props.imgs;
+            const listItems = _imgs.map(
+                (img) => {
+                    // let image = img.image.split('10500')                    
+                    // let status = 200;
+                    // let s = fetch(image[1])
+                    //     .then(res => status = res.status)
+                    // setTimeout(() => {
+                        
+                    //     console.log(s);
+                    // }, 200);
+                    
+                    return (
+                        <div key={img.id.toString()}>
+                            <img src={img.image} alt={img.alt} />
+                        </div>
+                    )
+                }
+            );
+            return this.setState({ listItems: listItems })
+        }, 750
         )
     }
 
@@ -58,7 +64,7 @@ class Carrousel extends Component {
         return (
             <div className="slider">
                 <Slider ref={c => (this.slider = c)} {...settings}>
-                    { this.state.listItems }
+                    {this.state.listItems}
                 </Slider>
             </div>
         );

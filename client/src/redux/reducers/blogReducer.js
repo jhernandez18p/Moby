@@ -1,11 +1,6 @@
 import {
-    ADD_BLOG_POST,
-    AUTH_BLOG_POST,
-    DELETE_BLOG_POST,
-    REQUEST_BLOG_POST,
-    UPDATE_BLOG_POST,
-    FETCH_BLOG_POST,
-    SHOW_ERROR
+    FETCH_BLOG_POSTS,
+    SHOW_BLOG_POSTS_ERROR
 } from '../actions/blog';
 
 // import data from '../../data';
@@ -37,20 +32,10 @@ const initialState = {
 
 export default function blogReducer(state = initialState, { type, payload }) {
     switch (type) {
-        case ADD_BLOG_POST:
-            return payload.blog_post;
-        case AUTH_BLOG_POST:
-            return payload.blog_post;
-        case UPDATE_BLOG_POST:
-            return payload.blog_post;
-        case DELETE_BLOG_POST:
-            return payload.blog_post;
-        case SHOW_ERROR:
-            return payload.blog_post;
-        case REQUEST_BLOG_POST:
-            return payload.blog_post;
-        case FETCH_BLOG_POST:
-            return payload.blog_post;
+        case SHOW_BLOG_POSTS_ERROR:
+            return payload.blog_posts;
+        case FETCH_BLOG_POSTS:
+            return payload.blog_posts;
         default:
             return state;
     }

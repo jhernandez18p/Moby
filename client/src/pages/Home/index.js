@@ -10,6 +10,13 @@ import Carrousel from "../../components/Carrousel";
 
 class Home extends Component {
 
+  constructor(props) {
+		super(props);
+		this.state = {
+			posts: this.props.blog_posts.results || 'Cargando ...'
+		}
+	}
+
   render() {
 
     const filter = (array, key, val) => {
@@ -22,7 +29,7 @@ class Home extends Component {
       return filtered_array;
     };
 
-    let blogPost = this.props.blog_post.results || 'Cargando ...';
+    let blogPosts = this.state.posts || 'Cargando ...';
     let carrouselImg = this.props.imgs || 'Cargando ...';
     let carrousels = this.props.carrousel || 'Cargando ...';
     let departments = this.props.departments || 'Cargando ...';
@@ -37,8 +44,8 @@ class Home extends Component {
 
     let blogItems = <div> Cargando ... </div>;
 
-    if (blogPost !== 'Cargando ...'){
-      blogItems = blogPost.slice(0, 4).map( (post) => { return <div key={post.id.toString()}><Post post={post} /></div>; } );
+    if (blogPosts !== 'Cargando ...'){
+      blogItems = blogPosts.slice(0, 4).map( (post) => { return <div key={post.id.toString()}><Post post={post} /></div>; } );
     }
 
     var homeCarrousel = <div> Cargando ... </div>

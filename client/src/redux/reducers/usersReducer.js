@@ -11,21 +11,23 @@ import {
 // import data from '../../data';
 
 const initialUser = {
-    token: localStorage.getItem("token"),
-    refresh: localStorage.getItem('refresh'),
-    isAuthenticated: null,
+    user: {
+        id: null,
+        password: null,
+        last_login: null,
+        is_superuser: true,
+        username: "Guest",
+        first_name: null,
+        last_name: null,
+        email: null,
+        is_staff: null,
+        is_active: null,
+        date_joined: null
+    },
     isLoading: true,
-    user: null,
+    isAuthenticated: localStorage.getItem("isAuthenticated") || false,
+    token: localStorage.getItem("token") || null,
     errors: {},
-    last_login: null,
-    is_superuser: false,
-    username: "Guest",
-    first_name: "",
-    last_name: "",
-    email: null,
-    is_staff: false,
-    is_active: false,
-    date_joined: null
 };
 
 export default function usersReducer (state = initialUser, { type, payload }) {

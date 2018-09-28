@@ -39,6 +39,7 @@ class ProductsHeader extends Component {
     let previousPage=this.props.handlePrevClick;
     let hasNext=this.props.hasNext;
     let hasPrev=this.props.hasPrev;
+    let haveFilters=this.props.haveFilters || false;
 
     return (
       <div ref="test">
@@ -46,7 +47,9 @@ class ProductsHeader extends Component {
           toggleMenu={this.toggleMenu} 
           showMenu={this.state.showMenu} 
           fixedMenu={this.state.fixedMenu}
-
+          
+          haveFilters={haveFilters}
+          getFilter={this.props.getFilter}
           postsCountLimit={postsCountLimit}
           postsCount={postsCount}
           currentPage={currentPage}
@@ -57,6 +60,13 @@ class ProductsHeader extends Component {
           previousPage={previousPage}
           hasNext={hasNext}
           hasPrev={hasPrev}
+          brands={this.props.brands}
+          categories={this.props.categories}
+          colors={this.props.colors}
+          department={this.props.department}
+          lines={this.props.lines}
+          hasSearch={this.props.hasSearch || false}
+          getSearch={this.props.getSearch}
           />
       </div>
     );

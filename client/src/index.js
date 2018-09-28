@@ -3,11 +3,9 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router} from 'react-router-dom'
 import { CookiesProvider } from 'react-cookie';
 
-import ScrollToTop from './routes/scrollTop';
-
 import './assets/styles/index.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
 
 // Apps
 import ReactGA from 'react-ga';
@@ -22,9 +20,7 @@ ReactDOM.render((
     <Provider store={ configureStore }>
         <CookiesProvider>
             <Router>
-                <ScrollToTop>
-                    <App/>
-                </ScrollToTop>
+                <App/>
             </Router>
         </CookiesProvider>
     </Provider>

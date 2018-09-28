@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 // import Helmet from 'react-helmet';
 
-import axios from 'axios';
+// import axios from 'axios';
 
 
 import DOMPurify from 'dompurify';
@@ -10,18 +10,11 @@ import DOMPurify from 'dompurify';
 class TopProducts extends Component {
     render() {
         const brand = this.props.product;
-        const instance = axios.create({ baseURL: '/api/v2/', headers: {"Content-Type": "application/json"} });
-
-        function getCategory(category){
-            instance.get(`categories/${category}/`)
-            .then(
-                (res) => {
-                    category = res.data.name;
-                    // console.log( category)
-                }
-            )
-        }
+        
+        // const instance = axios.create({ baseURL: '/api/v2/', headers: {"Content-Type": "application/json"} });
+        // function getCategory(category){instance.get(`categories/${category}/`).then((res) => { category = res.data.name;})}
         // console.log(brand)
+
         var category;
         if (brand.department !== null && brand.category === null){
             category = brand.department;

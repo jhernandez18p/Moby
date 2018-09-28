@@ -11,11 +11,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
-import {
-  fetchNextProducts,
-  fetchPrevProducts,
-  fetchProducts
-} from '../../../redux/actions/product';
+// Actions
+import { fetchBrands } from "../../../redux/actions/brand";
+import { fetchCategories } from "../../../redux/actions/category";
+import { fetchColors } from '../../../redux/actions/product/color';
+import { fetchDepartments } from '../../../redux/actions/department';
+import { fetchLines } from '../../../redux/actions/product/line';
+import { fetchProducts } from '../../../redux/actions/product';
 
 class ProductDetail extends Component {
   constructor(props) {
@@ -26,6 +28,7 @@ class ProductDetail extends Component {
       offsetPage: 0,
       totalPages: 0,
       urlPage: 'products/',
+      params: '',
       nextPage: '',
       previousPage: null,
       hasNext: true,
@@ -33,77 +36,105 @@ class ProductDetail extends Component {
     }
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handlePrevClick = this.handlePrevClick.bind(this);
+    this.getFilter = this.getFilter.bind(this);
+    this.getURL = this.getURL.bind(this);
+    this.getSearch = this.getSearch.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
+    this.getURL(this.props.location.search);
+    this.props.onFetchCategories();
+    this.props.onFetchDepartment();
     this.props.onFetchProducts();
+    this.props.onFetchBrands();
+    this.props.onFetchColor();
+    this.props.onFetchLines();
   }
-  
-  componentDidUpdate(prevProps){
-    if (this.props.products !== prevProps.products){
+
+  componentDidUpdate(prevProps) {
+    if (this.props.products !== prevProps.products) {
       let totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
-      this.setState({
-        totalPages: totalPages
-      })
+      this.setState({ totalPages: totalPages })
     }
   }
-  
-  handleNextClick(e) {
-    e.preventDefault();
+
+  getURL(url){
+    // if(url !== ''){
+    //   let _url = url.split('?');
+    //   // eslint-disable-next-line
+    //   let newCurrentPage = '';
+    //   _url = _url[1].split('&');
+    //   for (var x=0; x < _url.length; x++){
+    //     if (_url[x].split('=')[0] === 'page'){
+    //       console.log(_url[x].split('=')[1]);
+    //       this.setState({ currentPage: _url[x].split('=')[1] })
+    //     }
+    //   }
+    // }
+    let _url = `?${url}&`;
+    console.log(_url);
     
-    let currentPage = this.state.currentPage + 1; //Aumenta el numero de la pagina
+    this.props.onFetchProducts(_url);
+    this.setState({params:_url})
+  }
+
+  getFilter(e, arg, id, filter){
+    if (filter === 'color') {
+      this.getURL(`color=${id}`)
+    }
+    if (filter === 'line') {
+      this.getURL(`line=${id}`)
+    }
+    if (filter === 'category') {
+      this.getURL(`category=${id}`)
+    }
+    if (filter === 'department') {
+      this.getURL(`department=${id}`)
+    }
+    if (filter === 'brand') {
+      this.getURL(`brand=${id}`)
+    }
+  }
+
+  getSearch(e){
+    e.preventDefault();
+    let valu = e.target.value;
+    console.log(valu);
+    this.getURL(`search=${valu}`);
+  }
+
+  handleNextClick(e, page = this.state.currentPage) {
+    e.preventDefault();
+    window.scrollTo(0, 0)
+    let currentPage = page; //Aumenta el numero de la pagina
+    if (page < this.state.currentPage){
+      currentPage = page - 1; //Aumenta el numero de la pagina
+    }
     let limitPage = this.state.limitPage || 20;
     let pages = this.state.totalPages;
     let offsetPage = Math.ceil(limitPage * (currentPage - 1));
-    
-    this.setState({
-      currentPage: currentPage,
-      offsetPage: offsetPage
-    })
-    
-    if (currentPage === pages) { // Validate if next is able
-      this.setState({
-        hasNext: false
-      })
-    }
-    
-    if (currentPage > 1) { // Validate if prev is able
-      this.setState({
-        hasPrev: true
-      })
-    }
-    
-    if (currentPage > 1 && currentPage <= pages){
-      this.props.onFetchNextProducts(limitPage, offsetPage);
-    }
-    
+    this.setState({ currentPage: currentPage, offsetPage: offsetPage })
+    if (currentPage === pages) { this.setState({ hasNext: false }) }
+    if (currentPage > 1) { this.setState({ hasPrev: true, currentPage: currentPage }) }
+    if (currentPage > 1 && currentPage <= pages) { this.props.onFetchProducts(this.state.params,currentPage - 1); }
     // console.log('currentPage ->', currentPage, 'pages ->', pages, 'offset ->', offsetPage)
   }
-  
-  handlePrevClick(e) {
+
+  handlePrevClick(e, page = this.state.currentPage) {
     e.preventDefault();
-    
-    let currentPage = this.state.currentPage - 1; //Decrementa el numero de la pagina
+    window.scrollTo(0, 0)
+    //Decrementa el numero de la pagina
+    let currentPage = page; //Aumenta el numero de la pagina
+
     let limitPage = this.state.limitPage || 20;
     let offsetPage = this.state.offsetPage - limitPage;
     let pages = this.state.totalPages;
-    
-    this.setState({
-      currentPage: currentPage,
-      offsetPage: offsetPage
-    })
-    if (currentPage === 1) {
-      this.setState({
-        hasPrev: false,
-        hasNext: true
-      })
-    }
-    if (currentPage >= 1 && currentPage <= pages){
-      this.props.onFetchPrevProducts(limitPage, offsetPage);
-    }
-    console.log('currentPage ->', currentPage, 'pages ->', pages, 'offset ->', offsetPage)
+    this.setState({ currentPage: currentPage, offsetPage: offsetPage });
+    if (currentPage === 1) { this.setState({ hasPrev: false, hasNext: true }); }
+    if (currentPage >= 1 && currentPage <= pages) { this.props.onFetchProducts(this.state.params, currentPage-1); }
+    // console.log('currentPage ->', currentPage, 'pages ->', pages, 'offset ->', offsetPage)
   }
-  
+
   render() {
     // console.log(this.state.totalPages);
     function* chunkArray(original, n) {
@@ -112,8 +143,19 @@ class ProductDetail extends Component {
         yield ary.splice(ary, n);
     }
 
-    
+    // brands
+    let brands = this.props.brands
+    // categories
+    let categories = this.props.categories;
+    // colors
+    let colors = this.props.colors
+    // department
+    let department = this.props.department;
+    // lines
+    let lines = this.props.lines;
+    // products
     let products = this.props.products;
+    // console.log(brands,categories,colors,department,lines);
 
     let paginator = <div></div>;
     let postsCount = products.count || undefined;
@@ -140,52 +182,43 @@ class ProductDetail extends Component {
           previousPage={this.handlePrevClick}
           hasNext={this.state.hasNext}
           hasPrev={this.state.hasPrev}
+          pages={this.state.totalPages}
         />
       )
     }
 
     return (
-      <div>
-        <ProductsHeader />
+      <div className="product-list">
+        <ProductsHeader 
+          haveFilters={true} 
+          getFilter={this.getFilter} 
+          brands={brands}
+          categories={categories}
+          colors={colors}
+          department={department}
+          lines={lines}
+          hasSearch={true}
+          getSearch={this.getSearch}/>
         <div className="container is-padding-top-60" id="productsSite">
           <div>
             <div className="columns is-variable is-1">
-
               {/* <div className="column is-3">
                 <ProductsSearch />
               </div> */}
-
               <div className="column is-padding-top-30" id="feeds">
                 {Array.from(chunkArray(products.results, 4)).map(([one, two, three, four], y) => {
                   const html = (
                     <div className="columns" key={y.toString()}>
-                      {
-                        one
-                        ?<TopProducts product={one}></TopProducts>
-                        :<div className="column"></div>
-                      }
-                      {
-                        two
-                        ?<TopProducts product={two}></TopProducts>
-                        :<div className="column"></div>
-                      }
-                      {
-                        three
-                        ?<TopProducts product={three}></TopProducts>
-                        :<div className="column"></div>
-                      }
-                      {
-                        four
-                        ?<TopProducts product={four}></TopProducts>
-                        :<div className="column"></div>
-                      }
+                      {one ? <TopProducts product={one}></TopProducts> : <div className="column"></div>}
+                      {two ? <TopProducts product={two}></TopProducts> : <div className="column"></div>}
+                      {three ? <TopProducts product={three}></TopProducts> : <div className="column"></div>}
+                      {four ? <TopProducts product={four}></TopProducts> : <div className="column"></div>}
                     </div>
                   );
                   return html
                 })
                 }
               </div>
-
             </div>
             <div className="is-padding-bottom-60">
               {paginator}
@@ -204,26 +237,53 @@ const brandsSelector = createSelector(
   brands => brands
 );
 
-// products
-const productsSelector = createSelector(
-  state => state.products,
-  products => products
-);
-
 // categories
 const categoriesSelector = createSelector(
   state => state.categories,
   categories => categories
 );
 
+// Color
+const colorSelector = createSelector(
+  state => state.colors,
+  colors => colors
+);
+
+// Departments
+const departmentSelector = createSelector(
+  state => state.department,
+  department => department
+);
+
+// lines
+const linesSelector = createSelector(
+  state => state.lines,
+  lines => lines
+);
+
+
+// products
+const productsSelector = createSelector(
+  state => state.products,
+  products => products
+);
+
+
+
 const mapStateToProps = createSelector(
   brandsSelector,
   categoriesSelector,
+  colorSelector,
+  departmentSelector,
+  linesSelector,
   productsSelector,
-  (brands, categories, products) => (
+  (brands, categories, colors, department, lines, products,) => (
     {
       brands,
       categories,
+      colors,
+      department,
+      lines,
       products,
     }
   )
@@ -232,8 +292,11 @@ const mapStateToProps = createSelector(
 const mapDispatchToProps = (dispatch, props) => {
   return bindActionCreators(
     {
-      onFetchNextProducts: fetchNextProducts,
-      onFetchPrevProducts: fetchPrevProducts,
+      onFetchBrands: fetchBrands,
+      onFetchCategories: fetchCategories,
+      onFetchColor: fetchColors,
+      onFetchDepartment: fetchDepartments,
+      onFetchLines: fetchLines,
       onFetchProducts: fetchProducts,
     }, dispatch
   );

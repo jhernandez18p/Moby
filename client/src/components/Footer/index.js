@@ -5,11 +5,18 @@ import DOMPurify from 'dompurify';
 
 class Footer extends Component {
 
+	constructor(props) {
+		super(props);
+		this.state = {
+			posts: this.props.blog_posts.results || 'Cargando ...'
+		}
+	}
+
 	render() {
 
 		let year = new Date().getFullYear();
 		let site = this.props.site.results[0] || 'Cargando ...';
-		let posts = this.props.blog_post.results || 'Cargando ...';
+		let posts = this.state.posts || 'Cargando ...';
 
 		let siteName = site.name || 'Moby Supply';
 		let siteDescription = site.description || 'Cargando ...';
@@ -65,29 +72,19 @@ class Footer extends Component {
 							<h2 className="is-size-4 has-text-white">Enlaces</h2>
 							<ul>
 								<li className="navbar-item">
-									<Link to="/quienes-somos" className="is-uppercase has-text-white">
-										¿Quienes somos?
-			</Link>
+									<Link to="/quienes-somos" className="is-uppercase has-text-white">¿Quienes somos?</Link>
 								</li>
 								<li className="navbar-item">
-									<Link to="/contacto/cookies" className="is-uppercase has-text-white">
-										Política de cookies
-			</Link>
+									<Link to="/contacto/cookies" className="is-uppercase has-text-white">Política de cookies</Link>
 								</li>
 								<li className="navbar-item">
-									<Link to="/contacto/f-a-q" className="is-uppercase has-text-white">
-										Preguntas Frecuentes
-			</Link>
+									<Link to="/contacto/f-a-q" className="is-uppercase has-text-white">Preguntas Frecuentes</Link>
 								</li>
 								<li className="navbar-item">
-									<Link to="/contacto/terminos-de-servicio" className="is-uppercase has-text-white">
-										Terminos y condiciones
-			</Link>
+									<Link to="/contacto/terminos-de-servicio" className="is-uppercase has-text-white">Terminos y condiciones</Link>
 								</li>
 								<li className="navbar-item">
-									<Link to="/contacto/privacidad" className="is-uppercase has-text-white">
-										Política de privacidad
-			</Link>
+									<Link to="/contacto/privacidad" className="is-uppercase has-text-white">Política de privacidad</Link>
 								</li>
 							</ul>
 						</div>

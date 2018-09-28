@@ -14,7 +14,7 @@ class NotFound extends Component {
     };
     render() {
         return (
-            <div>
+            <div id="errorNotFound">
                 <section className="hero has-background-grey-light is-fullheight">
                     <div className="hero-body">
                         <div className="container has-text-centered">
@@ -23,7 +23,7 @@ class NotFound extends Component {
                                     Error <span className="is-size-1">404</span>
                                 </h1>
                                 <h2 className="subtitle">
-                                    Página no encontrada <code>{this.props.location.pathname}</code>
+                                    Página no encontrada <code>{this.props.path || this.props.location.pathname}</code>
                                 </h2>
                                 <p className="is-size-5" onClick={this.goBack}>
                                     <span className="icon has-text-black">

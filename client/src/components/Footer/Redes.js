@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 class RedesLine extends Component {
 
     render() {
+
+        // console.log(this.state.isBotton);
+        
         
         let sm = this.props.redes.results;
         let smCount = this.props.redes.count;
@@ -16,8 +19,8 @@ class RedesLine extends Component {
                     let html = (
                         <div className="level-item has-text-white" key={re.id.toString()} >
                             <a href={re.url} target="_blank">
-                                <span className="icon has-text-white">
-                                    <i className={`fab ${re.icon} has-text-white`}></i>
+                                <span className="icon is-large has-text-white">
+                                    <i className={`fab ${re.icon} fa-2x has-text-white`}></i>
                                 </span>
                             </a>
                         </div>
@@ -28,20 +31,16 @@ class RedesLine extends Component {
         }
 
         return (
-            <div className="has-footer-background-dark is-fullhd" id="redes">
-                <div className="container">
-                    <nav className="level">
-                        <div className="level-left">
-                            <div className="level-item">
-                                <p className="navbar-item is-size-6 has-text-white">
-                                    Síguenos en nuestras redes sociales!
-                                </p>
-                            </div>
-                        </div>
-                        <div className="level-right">
-                            {redesItems}
-                        </div>
-                    </nav>
+            <div className="is-social-media level">
+                <div className="level-left">
+                    <div className="level-item">
+                        <p className="navbar-item is-size-6 has-text-white">
+                            Síguenos en nuestras redes sociales!
+                        </p>
+                    </div>
+                </div>
+                <div className="level-right">
+                    {redesItems}
                 </div>
             </div>
         );

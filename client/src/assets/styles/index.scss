@@ -949,10 +949,10 @@ height: 99.9vh;
 
 
 #intra{
-  padding-top: 75px;
+  padding-top: 65px;
 }
 #intra #verticalNav{
-  height: calc(100vh - 63px);
+  height: calc(100vh - 53px);
   padding-left: 15px
 }
 #intra #verticalNav aside{
@@ -963,7 +963,11 @@ height: 99.9vh;
   text-transform: capitalize
 }
 
-
+.intra #errorNotFound .hero.is-fullheight {
+  height: calc(80vh) !important;
+  min-height: unset;
+  background-color: unset !important;
+}
 
 #productsNavBar .field:not(:last-child){
   margin-bottom: 0 !important;
@@ -1050,6 +1054,58 @@ height: 99.9vh;
 	-webkit-animation: ping 1.8s ease-in-out infinite backwards;
 	        animation: ping 1.8s ease-in-out infinite backwards;
 }
+
+.content li + li {
+  margin-top: unset
+}
+
+.breadcrumb li {
+  padding-top: 1em !important;
+}
+
+.breadcrumb .is-active {
+  border-bottom: solid #1f9cee;
+}
+
+.intra-panel{
+  max-height: 75vh;
+  overflow-x: auto
+}
+
+.control-disable::after{
+  content: ""; // ::before and ::after both require content
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: whitesmoke;
+  border-color: whitesmoke;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  color: #7a7a7a;
+  opacity: .7;
+  cursor: not-allowed;
+}
+
+
+.is-social-media {
+  background-color: rgba(47, 47, 47, 0.94);
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.fixed-bottom{
+  position: fixed;
+  bottom: 0;
+  width: 100% !important;
+  z-index: 2;
+}
+
+#navMenu {margin-top:15px;}
+.intra #navMenu, .product-list #navMenu {margin-top:0;}
+#navMenu .selected {border-bottom: solid rgb(200, 179, 129) !important;}
+
 
 @-webkit-keyframes ping {
   0% {

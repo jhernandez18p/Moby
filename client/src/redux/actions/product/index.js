@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export const ADD_PRODUCT = 'products:addProduct';
-export const UPDATE_PRODUCT = 'products:updateProduct';
-export const DELETE_PRODUCT = 'products:deleteProduct';
-export const REQUEST_PRODUCT = 'products:requestProduct';
+export const ADD_PRODUCT = 'product:addProduct';
+export const REQUEST_PRODUCT = 'product:fetchSingleProduct';
+export const UPDATE_PRODUCT = 'product:updateProduct';
+export const DELETE_PRODUCT = 'product:deleteProduct';
 export const FETCH_PRODUCTS = 'products:fetchProducts';
 export const SHOW_ERROR = 'products:showError';
 
@@ -51,10 +51,46 @@ const initialState = {
     ]
 }
 
+const singleProduct = {
+    id: 0,
+    code: null,
+    model: null,
+    name: null,
+    origin: null,
+    sales_unit: null,
+    ref: null,
+    description: null,
+    slug: null,
+    stock: null,
+    views: null,
+    picture: null,
+    price_1: null,
+    price_2: null,
+    price_3: null,
+    price_4: null,
+    price_5: null,
+    updated: null,
+    created_at: null,
+    img: null,
+    active: null,
+    featured: null,
+    imported: null,
+    is_shipping_required: null,
+    item_type: null,
+    line: null,
+    category: null,
+    color: null,
+    department: null,
+    brand: null,
+    provider: null,
+    sub_line: null,
+}
+
 export function addProduct(newProduct) {
     return {
         type: ADD_PRODUCT,
         payload: {
+            product: singleProduct,
             products: newProduct
         },
     }
@@ -64,7 +100,7 @@ export function updateProduct(newProduct) {
     return {
         type: UPDATE_PRODUCT,
         payload: {
-            products: newProduct
+            product: newProduct
         },
     }
 };
@@ -73,6 +109,7 @@ export function deleteProduct(Product) {
     return {
         type: DELETE_PRODUCT,
         payload: {
+            product: singleProduct,
             products: Product
         },
     }
@@ -82,22 +119,54 @@ export function showError(error){
     return {
         type: SHOW_ERROR,
         payload: {
+            product: singleProduct,
             products: initialState,
             error: [error]
         }
     }
 };
 
-export const fetchProducts = () => {
+export const fetchSingleProduct = (slug) => {
 
     return dispatch => {
-        instance.get(`products/`)
+        instance.get(`products/${slug}/`)
+            .then(res => {
+                let product = res.data;
+                return dispatch({
+                    type: REQUEST_PRODUCT,
+                    payload: {
+                        product: product
+                    }
+                })
+            })
+            .catch(error => {dispatch(showError( error ));})
+    }
+}
+
+export const fetchProducts = ( params = '', offset = 0 ) => {
+
+    let _offset = offset;
+    let page = '';
+    let hasParams = '';
+    if (_offset >= 1){
+        _offset = offset * 20;
+        page = `&offset=${_offset}`;
+    }
+    let url = 'products/';
+    if (params !== ''){
+        let newUrl = params.split('?');
+        hasParams = newUrl[1];
+    }
+    let _url = `${url}?${hasParams}${page}`;
+
+    return dispatch => {
+        instance.get(_url)
             .then(res => {
                 let products = res.data;
                 return dispatch({
                     type: FETCH_PRODUCTS,
                     payload: {
-                        products
+                        products: products
                     }
                 })
             })

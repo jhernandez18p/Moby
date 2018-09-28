@@ -11,17 +11,12 @@ import { userLogout } from '../../redux/actions/user/userActions';
 
 class Logout extends Component {
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.onUserLogout()
     }
 
     render() {
-        // let user = this.props.user;
-        // if (user.isAuthrnticated){
-            return <Redirect to='/'/>
-        // }else{
-            // return <Redirect to='/auth/registro'/>
-        // }
+        return <Redirect to='/' />
     };
 }
 
@@ -45,4 +40,3 @@ const mapDispatchToProps = (dispatch, props) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Logout);
-// export default Logout;

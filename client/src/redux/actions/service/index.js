@@ -1,11 +1,12 @@
 import axios from 'axios';
 
-export const ADD_SERVICE = 'services:addService';
-export const UPDATE_SERVICE = 'services:updateService';
-export const DELETE_SERVICE = 'services:deleteService';
-export const REQUEST_SERVICE = 'services:requestService';
+export const ADD_SERVICE = 'service:addService';
+export const UPDATE_SERVICE = 'service:updateService';
+export const DELETE_SERVICE = 'service:deleteService';
+export const REQUEST_SERVICE = 'service:requestService';
+export const SHOW_ERROR = 'service:showError';
 export const FETCH_SERVICES = 'services:fetchServices';
-export const SHOW_ERROR = 'services:showError';
+export const SHOW_SERVICES_ERROR = 'services:showServicesError';
 
 const instance = axios.create({ baseURL: '/api/v2/', headers: {"Content-Type": "application/json"} });
 
@@ -32,7 +33,7 @@ export function addService(newUser) {
     return {
         type: ADD_SERVICE,
         payload: {
-            services: newUser
+            service: newUser
         },
     }
 };
@@ -41,7 +42,7 @@ export function updateService(newService) {
     return {
         type: UPDATE_SERVICE,
         payload: {
-            services: newService
+            service: newService
         },
     }
 };
@@ -50,14 +51,23 @@ export function deleteService(service) {
     return {
         type: DELETE_SERVICE,
         payload: {
-            services: service
+            service: service
         },
     }
 };
 
 export function showError(error){
     return {
-        type: SHOW_ERROR,
+        type: SHOW_SERVICES_ERROR,
+        payload: {
+            service: initialState,
+            error: [error]
+        }
+    }
+};
+export function showServicesError(error){
+    return {
+        type: SHOW_SERVICES_ERROR,
         payload: {
             services: initialState,
             error: [error]
@@ -76,7 +86,7 @@ export const fetchServices = () => {
                 return dispatch({
                     type: FETCH_SERVICES,
                     payload: {
-                        services
+                        services: services
                     }
                 })
             })

@@ -25,7 +25,7 @@ class Blog extends Component {
       currentPage: 1,
       limitPage: 16,
       offsetPage: 0,
-      totalPages: Math.ceil(this.props.blog_post.count / 16),
+      totalPages: Math.ceil(this.props.blog_posts.count / 16),
       urlPage: 'posts/',
       nextPage: '',
       previousPage: null,
@@ -103,7 +103,7 @@ class Blog extends Component {
     }
 
     let user = this.props.user || { user: { first_name: 'Guest' }, isAuthenticated: false };
-    let posts = this.props.blog_post || this.props.posts;
+    let posts = this.props.blog_posts || 'Cargando ...';
     let tags = this.props.blog_tags;
 
 
@@ -220,8 +220,8 @@ class Blog extends Component {
 
 // blog_post
 const blogSelector = createSelector(
-  state => state.blog_post,
-  blog_post => blog_post
+  state => state.blog_posts,
+  blog_posts => blog_posts
 );
 
 // blog_tags
@@ -233,9 +233,9 @@ const blogTagSelector = createSelector(
 const mapStateToProps = createSelector(
   blogSelector,
   blogTagSelector,
-  (blog_post, blog_tags) => (
+  (blog_posts, blog_tags) => (
     {
-      blog_post,
+      blog_posts,
       blog_tags,
     }
   )

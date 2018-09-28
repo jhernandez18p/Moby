@@ -19,7 +19,7 @@ import favicon96x96 from './assets/images/logo/favicon-96x96.png';
 
 // Components
 import SiteAllCookie from './components/Cookies';
-import NotFound from './components/Errors';
+import ScrollToTop from './routes/scrollTop';
 
 // Pages
 import BaseLayout from './pages/BaseLayout';
@@ -28,11 +28,7 @@ import ProductDetail from './pages/Product/details';
 import SingleDetail from './pages/Product/details/SingleDetails';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+
   render() {
     return (
       <div>
@@ -44,10 +40,15 @@ class App extends Component {
             { name: 'keywords', content: 'ebanisteria, ebanista, madera, marmol, cortes en madera, Panamá' },
           ]}
           script={[
-            { 'src': 'https://use.fontawesome.com/releases/v5.0.4/js/all.js'},
+            {
+              'src': 'https://use.fontawesome.com/releases/v5.3.1/js/all.js',
+              'integrity': 'sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB',
+              'crossorigin': 'anonymous'
+            },
           ]}
           link={
             [
+              { 'rel': "apple-touch-icon", 'sizes': "114x114", 'href': appleicon114x114 },
               { 'rel': "apple-touch-icon", 'sizes': "114x114", 'href': appleicon114x114 },
               { 'rel': "apple-touch-icon", 'sizes': "120x120", 'href': appleicon120x120 },
               { 'rel': "apple-touch-icon", 'sizes': "144x144", 'href': appleicon144x144 },
@@ -64,19 +65,20 @@ class App extends Component {
               { 'rel': 'stylesheet', 'href': 'https://fonts.googleapis.com/css?family=Raleway:400,400i' },
             ]
           }
-        />
-        <SiteAllCookie/>
-        <Switch>
-          <Route path="/productos/todos?:slug" component={ ProductDetail } />
-          <Route path="/productos/todos" component={ ProductDetail } />
-          <Route path="/producto/:slug" component={ SingleDetail } />
-          <Route path="/intra" component={ PanelLayout } />
-          <Route path="/" component={ BaseLayout } />
-          <Route path="" component={ NotFound } />
-        </Switch>
+          />
+        <SiteAllCookie />
+        <ScrollToTop>
+          <Switch>
+            <Route path="/productos/todos?:slug" component={ProductDetail}/>
+            <Route path="/productos/todos" component={ProductDetail}/>
+            <Route path="/producto/:slug" component={SingleDetail}/>
+            <Route path="/intra" component={PanelLayout} />
+            <Route path="/" component={BaseLayout} />
+          </Switch>
+        </ScrollToTop>
       </div>
     );
-  } 
+  }
 }
 
 export default App;

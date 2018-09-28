@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 
+import LogoImg from '../../assets/images/logo/ms-icon-70x70.png';
+
 export class Maps extends Component {
   
   constructor(props) {
@@ -45,7 +47,7 @@ export class Maps extends Component {
     ];
 
     if (!this.props.google) {
-      return <div>Loading...</div>;
+      return <div><img src={LogoImg} alt="Moby Supply" id="preloadImg" className="ping" /></div>;
     }
 
     const style = {

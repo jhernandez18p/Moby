@@ -5,6 +5,7 @@ import {
     INVALIDATE_BLOG_COMMENT, 
     REQUEST_BLOG_COMMENT, 
     UPDATE_BLOG_COMMENT,
+    FETCH_BLOG_COMMENTS,
     SHOW_ERROR
 } from '../actions/blog/comment';
 
@@ -42,6 +43,8 @@ export default function blogCommentReducer (state = initialState, { type, payloa
         case REQUEST_BLOG_COMMENT:
             return payload.blog_comments;
         case INVALIDATE_BLOG_COMMENT:
+            return payload.blog_comments;
+        case FETCH_BLOG_COMMENTS:
             return payload.blog_comments;
         default:
             return state;

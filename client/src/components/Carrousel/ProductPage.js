@@ -18,7 +18,8 @@ class ProductPage extends Component {
         this.slider.slickPrev();
     }
     render() {
-        let user = this.props.user || {name:'Guest',authenticated:false}
+        let user = this.props.user || {name:'Guest',authenticated:false};
+        
         const settings = {
             dots: false,
             arrows: false,
@@ -45,7 +46,7 @@ class ProductPage extends Component {
             }
         );
         let listItemsAuth = <div></div>;
-        if (!user.authenticated){
+        if (!user.isAuthenticated){
             listItemsAuth = (
                 <div className="box-animation">
                     <div className="columns has-background-grey-lighter">

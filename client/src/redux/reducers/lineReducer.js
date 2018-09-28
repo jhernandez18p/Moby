@@ -1,12 +1,12 @@
-// import {
+import {
 //     ADD_BLOG,
 //     AUTH_BLOG,
 //     DELETE_BLOG,
 //     INVALIDATE_BLOG,
 //     REQUEST_BLOG,
-//     UPDATE_BLOG,
-//     SHOW_ERROR
-// } from '../actions/';
+    FETCH_LINES,
+    SHOW_ERROR
+} from '../actions/product/line';
 
 const initialState = {
     count: 0,
@@ -26,19 +26,19 @@ const initialState = {
 export default function lineReducer(state = initialState, { type, payload }) {
     switch (type) {
         // case ADD_BLOG:
-        //     return payload.colors;
+        //     return payload.lines;
         // case AUTH_BLOG:
-        //     return payload.colors;
+        //     return payload.lines;
         // case UPDATE_BLOG:
-        //     return payload.colors;
+        //     return payload.lines;
         // case DELETE_BLOG:
-        //     return payload.colors;
-        // case SHOW_ERROR:
-        //     return payload.colors;
+        //     return payload.lines;
+        case SHOW_ERROR:
+            return payload.lines;
         // case REQUEST_BLOG:
-        //     return payload.colors;
-        // case INVALIDATE_BLOG:
-        //     return payload.colors;
+        //     return payload.lines;
+        case FETCH_LINES:
+            return payload.lines;
         default:
             return state;
     }

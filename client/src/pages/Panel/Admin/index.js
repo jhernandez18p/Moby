@@ -5,17 +5,21 @@ class PanelAdmin extends Component {
         return(
             <div>
                 <div className="columns is-padding-top-60" id="">
-                    <div className="column is-8 is-offset-2 box-animation card" id="">
-                        <div className="columns is-variable is-0 is-marginless">
-                            <div className="column has-background-info">
+                    <div className="column is-10 is-offset-1 box-animation card">
+                        <div className="columns is-variable is-2 ">
 
-                            </div>
                             <div className="column has-background-info">
+                                <h3 className="is-uppercase is-merginless is-size-5 has-text-left has-text-white">Panel de Administración</h3>
+                            </div>
 
-                            </div>
                             <div className="column has-background-info">
-                                {/* <h3 className="is-size-5 "></h3> */}
+                                <h3 className="is-uppercase is-merginless is-size-5 has-text-centered has-text-white">Inicio</h3>
                             </div>
+
+                            <div className="column is-3 has-background-info">
+                                <h3 className="is-uppercase is-merginless is-size-5 has-text-right has-text-white">Inicio</h3>
+                            </div>
+
                         </div>
                         <div className="columns is-variable is-0 is-marginless">
                             <div className="column is-padding-y-30">

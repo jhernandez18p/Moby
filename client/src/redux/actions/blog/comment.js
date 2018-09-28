@@ -1,14 +1,14 @@
 // import fetch from 'cross-fetch';
 import axios from 'axios';
 
-export const ADD_BLOG_COMMENT = 'comment:addBlogComment';
-export const AUTH_BLOG_COMMENT = 'comment:authBlogComment';
-export const DELETE_BLOG_COMMENT = 'comment:deleteBlogComment';
-export const INVALIDATE_BLOG_COMMENT = 'comment:invalidateBlogComment';
-export const REQUEST_BLOG_COMMENT = 'comment:requestBlogComment';
-export const SHOW_ERROR = 'comment:showError';
-export const UPDATE_BLOG_COMMENT = 'comment:updateBlogComment';
-export const FETCH_BLOG_COMMENTS = 'comment:fetchBlogComment';
+export const ADD_BLOG_COMMENT = 'blog_comments:addBlogComment';
+export const AUTH_BLOG_COMMENT = 'blog_comments:authBlogComment';
+export const DELETE_BLOG_COMMENT = 'blog_comments:deleteBlogComment';
+export const INVALIDATE_BLOG_COMMENT = 'blog_comments:invalidateBlogComment';
+export const REQUEST_BLOG_COMMENT = 'blog_comments:requestBlogComment';
+export const SHOW_ERROR = 'blog_comments:showError';
+export const UPDATE_BLOG_COMMENT = 'blog_comments:updateBlogComment';
+export const FETCH_BLOG_COMMENTS = 'blog_comments:fetchBlogCommensts';
 
 const instance = axios.create({ baseURL: '/api/v2/', headers: {"Content-Type": "application/json"} });
 
@@ -35,7 +35,7 @@ export function addBlogComment(newBlogComment) {
     return {
         type: ADD_BLOG_COMMENT,
         payload: {
-            comment: newBlogComment
+            blog_comments: newBlogComment
         },
     }
 };
@@ -44,7 +44,7 @@ export function authBlogComment(newBlogComment) {
     return {
         type: AUTH_BLOG_COMMENT,
         payload: {
-            comment: newBlogComment
+            blog_comments: newBlogComment
         },
     }
 };
@@ -53,7 +53,7 @@ export function updateBlogComment(newBlogComment) {
     return {
         type: UPDATE_BLOG_COMMENT,
         payload: {
-            comment: newBlogComment
+            blog_comments: newBlogComment
         },
     }
 };
@@ -62,7 +62,7 @@ export function deleteBlogComment(BlogComment) {
     return {
         type: DELETE_BLOG_COMMENT,
         payload: {
-            comment: BlogComment
+            blog_comments: BlogComment
         },
     }
 };
@@ -71,22 +71,23 @@ export function showError(error){
     return {
         type: SHOW_ERROR,
         payload: {
-            comment: initialState,
+            blog_comments: initialState,
             error: [error]
         }
     }
 };
 
-export const fetchBlogCommensts = () => {
-
+export const fetchBlogCommensts = (post = null) => {
+    let url = 'comments/';
+    if ( post !== null ) { url = `comments/?post=${post}`; };
     return dispatch => {
-        instance.get(`comments/`)
+        instance.get(url)
             .then(res => {
                 let comment = res.data;
                 return dispatch({
                     type: FETCH_BLOG_COMMENTS,
                     payload: {
-                        comment
+                        blog_comments: comment
                     }
                 })
             })
