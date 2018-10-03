@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Paginator from '../../../components/Paginator';
+
 class PanelServices extends Component {
     render(){
         return(
@@ -35,6 +37,15 @@ class PanelServices extends Component {
                     <div className="columns is-variable is-0 is-marginless">
                         <div className="column is-padding-y-30">
 
+                        </div>
+                    </div>
+                </div>
+                <div className="columns is-padding-top-30" >
+                    <div className="column is-10 is-offset-1 box-animation card">
+                        <div className="columns is-variable is-0 is-marginless">
+                            
+                            <Paginator/>
+                            
                         </div>
                     </div>
                 </div>

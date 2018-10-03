@@ -8,7 +8,7 @@ class Post extends Component {
     let post = this.props.post;
 
     return (
-      <div className="column">
+      <div>
         <div className="recent-feed">
           <div className="feed-img">
             <Link to={`/blog/${post.slug ? post.slug : post.id}`}>

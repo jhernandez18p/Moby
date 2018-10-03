@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 
 class FAQ extends Component {
@@ -23,25 +24,20 @@ class FAQ extends Component {
             <div className="container">
                 <div className="columns">
                     <div className="column">
-
                         <div className="accordions">
                             <button className="accordion">Pregunta 1</button>
                             <div className="panel">
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                             </div>
-
                             <button className="accordion">Pregunta 2</button>
                             <div className="panel">
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                             </div>
-
                             <button className="accordion">Pregunta 3</button>
                             <div className="panel">
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -49,4 +45,8 @@ class FAQ extends Component {
     }
 }
 
-export default FAQ;
+const mapStateToProps = {
+    
+}
+
+export default connect(mapStateToProps)(FAQ);

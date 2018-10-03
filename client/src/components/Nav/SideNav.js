@@ -24,19 +24,19 @@ class SideNav extends Component {
                 <div>
                     <p className="menu-label">Administración </p>
                     <ul className="menu-list">
-                        <li><NavLink to="/intra/administracion/usuarios">Usuarios</NavLink></li>
-                        <li><NavLink to="/intra/administracion/productos">Productos</NavLink></li>
+                        <li><NavLink activeClassName="selected" exact to="/intra/administracion/usuarios">Usuarios</NavLink></li>
+                        <li><NavLink activeClassName="selected" exact to="/intra/administracion/productos">Productos</NavLink></li>
                         <li>
                             <ul>
-                                <li><NavLink to="/intra/administracion/productos/top-10">Top 10 productos</NavLink></li>
-                                {/* <li><NavLink to="/intra/administracion/productos/cargar-fotos">Cargar fotos de productos</NavLink></li> */}
+                                <li><NavLink activeClassName="selected" exact to="/intra/administracion/productos/top-10">Top 10 productos</NavLink></li>
+                                {/* <li><NavLink activeClassName="selected" exact to="/intra/administracion/productos/cargar-fotos">Cargar fotos de productos</NavLink></li> */}
                             </ul>
                         </li>
-                        <li><NavLink to="/intra/administracion/sitio">Sitio web</NavLink></li>
+                        <li><NavLink activeClassName="selected" exact to="/intra/administracion/sitio">Sitio web</NavLink></li>
                         <li>
                             <ul>
-                                <li><NavLink to="/intra/administracion/sitio/carrouseles">Carrouseles</NavLink></li>
-                                <li><NavLink to="/intra/administracion/sitio/suscriptores">SUSCRIPTORES</NavLink></li>
+                                <li><NavLink activeClassName="selected" exact to="/intra/administracion/sitio/carrouseles">Carrouseles</NavLink></li>
+                                <li><NavLink activeClassName="selected" exact to="/intra/administracion/sitio/suscriptores">Suscriptores</NavLink></li>
                             </ul>
                         </li>
                     </ul>
@@ -51,11 +51,11 @@ class SideNav extends Component {
                         General
                     </p>
                     <ul className="menu-list">
-                        <li><NavLink to="/intra">Inicio</NavLink></li>
-                        <li><NavLink to="/intra/perfil">Mi Perfil</NavLink></li>
-                        <li><NavLink to="/intra/servicios" className="">Servicios</NavLink></li>
-                        <li><NavLink to="/intra/productos" className="">Productos</NavLink></li>
-                        <li><NavLink to="/intra/blog" className=''>Blog</NavLink></li>
+                        <li><NavLink activeClassName="selected" exact to="/intra">Inicio</NavLink></li>
+                        <li><NavLink activeClassName="selected" exact to="/intra/perfil">Mi Perfil</NavLink></li>
+                        <li><NavLink activeClassName="selected" exact to="/intra/servicios" className="">Servicios</NavLink></li>
+                        <li><NavLink activeClassName="selected" exact to="/intra/productos" className="">Productos</NavLink></li>
+                        <li><NavLink activeClassName="selected" exact to="/intra/blog" className=''>Blog</NavLink></li>
                     </ul>
                     {admItems}
                     {/* <p className="menu-label">
@@ -63,13 +63,13 @@ class SideNav extends Component {
                     </p>
                     <ul className="menu-list">
                         <li>
-                            <NavLink to="/intra/tickets">Mis tickets</NavLink>
+                            <NavLink activeClassName="selected" exact to="/intra/tickets">Mis tickets</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/intra/tickets/abiertos">Abiertos</NavLink>
+                            <NavLink activeClassName="selected" exact to="/intra/tickets/abiertos">Abiertos</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/intra/tickets/cerrados">Cerrados</NavLink>
+                            <NavLink activeClassName="selected" exact to="/intra/tickets/cerrados">Cerrados</NavLink>
                         </li>
                     </ul> */}
                 </aside>

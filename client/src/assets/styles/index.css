@@ -8051,8 +8051,7 @@ header, .content, footer {
   -webkit-mask-size: 200%;
   mask-size: 200%;
   color: #272727;
-  animation: shine 2s infinite;
-  margin-top: 5px; }
+  animation: shine 2s infinite; }
 
 @keyframes shine {
   from {
@@ -8350,7 +8349,8 @@ header, .content, footer {
   margin-bottom: 50px; }
 
 #serviceSlide {
-  padding-top: 30%; }
+  vertical-align: middle;
+  display: table-cell; }
 
 #serviceSlide .slider-btn {
   top: -23vh; }
@@ -9040,6 +9040,10 @@ header, .content, footer {
     -webkit-transform: scale(2.2);
     transform: scale(2.2);
     opacity: 0; } }
+
+#verticalNav .selected {
+  background-color: whitesmoke;
+  color: #363636; }
 
 @media screen and (max-width: 800px) {
   #blogDetails .is-blog-content {

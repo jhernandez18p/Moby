@@ -134,7 +134,6 @@ header, .content, footer {flex-shrink: 0;}
   mask-size: 200%;
   color: rgb(39, 39, 39);
   animation: shine 2s infinite;
-  margin-top: 5px;
 }
 
 @keyframes shine {
@@ -443,7 +442,8 @@ header, .content, footer {flex-shrink: 0;}
   margin-bottom: 50px;
 }
 #serviceSlide {
-  padding-top: 30%;
+  vertical-align:middle;
+  display: table-cell;
 }
 #serviceSlide .slider-btn {
   top: -23vh;
@@ -1140,6 +1140,11 @@ height: 99.9vh;
             transform: scale(2.2);
     opacity: 0;
   }
+}
+
+#verticalNav .selected{
+  background-color: whitesmoke;
+  color: #363636;
 }
 
 @media screen and (max-width: 800px){

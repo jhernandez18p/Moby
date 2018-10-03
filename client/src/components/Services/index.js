@@ -57,7 +57,7 @@ class Services extends Component {
     return (
       <div className="container-fluid has-background-moby">
         <div className="container">
-          <div className="columns">
+          <div className="columns is-centered">
             <div className="column is-half">
               <div id="whatWeDo">
                 <div className="">

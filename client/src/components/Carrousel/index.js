@@ -18,6 +18,8 @@ class Carrousel extends Component {
 
         setTimeout(() => {
             const _imgs = this.props.imgs;
+            console.log(_imgs);
+            
             const listItems = _imgs.map(
                 (img) => {
                     // let image = img.image.split('10500')                    

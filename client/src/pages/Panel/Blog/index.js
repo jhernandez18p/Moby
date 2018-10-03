@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+
+import Paginator from '../../../components/Paginator';
+
 class PanelBlog extends Component {
     render(){
         return(
@@ -16,6 +19,7 @@ class PanelBlog extends Component {
                             </div>
 
                             <div className="column is-3 has-background-info">
+                                <h3 className="is-size-5 has-text-right has-text-white is-uppercase is-marginless">Mis comentarios</h3>
                             </div>
 
                         </div>
@@ -34,7 +38,16 @@ class PanelBlog extends Component {
                     </div>
                     <div className="columns is-variable is-0 is-marginless">
                         <div className="column is-padding-y-30">
-
+                            
+                        </div>
+                    </div>
+                </div>
+                <div className="columns is-padding-top-30" >
+                    <div className="column is-10 is-offset-1 box-animation card">
+                        <div className="columns is-variable is-0 is-marginless">
+                            
+                            <Paginator/>
+                            
                         </div>
                     </div>
                 </div>

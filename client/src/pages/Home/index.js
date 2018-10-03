@@ -45,7 +45,7 @@ class Home extends Component {
     let blogItems = <div> Cargando ... </div>;
 
     if (blogPosts !== 'Cargando ...'){
-      blogItems = blogPosts.slice(0, 4).map( (post) => { return <div key={post.id.toString()}><Post post={post} /></div>; } );
+      blogItems = blogPosts.slice(0, 4).map( (post) => { return <div className="column is-3" key={post.id.toString()}><Post post={post} /></div>; } );
     }
 
     var homeCarrousel = <div> Cargando ... </div>

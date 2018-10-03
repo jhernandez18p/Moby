@@ -43,8 +43,8 @@ class Testimonial extends Component {
                                         <span className="icon quote-left">
                                             <i className="fas fa-quote-left"></i>
                                         </span>
-                                        &nbsp; {img.name} - { img.company } &nbsp;
-                                    <span className="icon quote-left">
+                                        &nbsp; { img.company } &nbsp;
+                                        <span className="icon quote-left">
                                             <i className="fas fa-quote-right"></i>
                                         </span>
                                     </h3>

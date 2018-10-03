@@ -31,13 +31,13 @@ class ServicesCarousel extends Component {
             slidesToScroll: 1
         };
         const _imgs = this.props.imgs;
-        const size = 8;
-        const listItems = _imgs.slice(0, size).map(
+        
+        const listItems = _imgs.map(
             (img) => {
                 return (
                     // console.log(img)
                     <div key={img.id.toString()}>
-                        <img  src={ img.url } alt={ img.alt } />
+                        <img  src={ img.image } alt={ img.alt } />
                     </div>
                 )
             }
