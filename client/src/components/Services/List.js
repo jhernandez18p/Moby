@@ -15,38 +15,36 @@ class ServicesList extends Component {
         return (
             <div>
                 <div className="container" id="feeds">
-                    <div id="categories">
-                        {Array.from(chunkArray(this.props.services, 4)).map(
-                            ([one, two, three, four], y) => {
-                                let html = (
-                                    <div className="columns is-home-categories" key={y.toString()} >
-                                        {
-                                            one === undefined
-                                            ?<div className="column is-3"></div>
-                                            :<DetailService service={one} ></DetailService>
-                                        }
-                                        {
-                                            two === undefined
-                                            ?<div className="column is-3"></div>
-                                            :<DetailService service={two} ></DetailService>
-                                        }
-                                        {
-                                            three === undefined
-                                            ?<div className="column is-3"></div>
-                                            :<DetailService service={three} ></DetailService>
-                                        }
-                                        {
-                                            four === undefined
-                                            ?<div className="column is-3"></div>
-                                            :<DetailService service={four} ></DetailService>
-                                        }
-                                    </div>
-                                )
-                                return html
-                            }
-                        )
+                    {Array.from(chunkArray(this.props.services, 4)).map(
+                        ([one, two, three, four], y) => {
+                            let html = (
+                                <div className="columns is-home-categories is-centered" id="categories" key={y.toString()} >
+                                    {
+                                        one === undefined
+                                        ?<div></div>
+                                        :<DetailService service={one} ></DetailService>
+                                    }
+                                    {
+                                        two === undefined
+                                        ?<div></div>
+                                        :<DetailService service={two} ></DetailService>
+                                    }
+                                    {
+                                        three === undefined
+                                        ?<div></div>
+                                        :<DetailService service={three} ></DetailService>
+                                    }
+                                    {
+                                        four === undefined
+                                        ?<div></div>
+                                        :<DetailService service={four} ></DetailService>
+                                    }
+                                </div>
+                            )
+                            return html
                         }
-                    </div>
+                    )
+                    }
                 </div>
             </div>
         );

@@ -8352,6 +8352,9 @@ header, .content, footer {
   vertical-align: middle;
   display: table-cell; }
 
+#serviceSlide .slider {
+  max-width: 700px; }
+
 #serviceSlide .slider-btn {
   top: -23vh; }
 
@@ -8512,7 +8515,6 @@ header, .content, footer {
   height: 99.9vh; }
 
 #productPage .slider .column {
-  padding: 45px;
   min-height: 500px;
   height: 500px; }
 
@@ -8798,7 +8800,7 @@ header, .content, footer {
   background-color: #fff;
   padding: 30px 25px; }
 
-.box-animation {
+.text-green-animation {
   -webkit-animation: shadow-drop-2-bottom 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   animation: shadow-drop-2-bottom 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
 
@@ -8826,7 +8828,6 @@ header, .content, footer {
   min-height: 80px; }
 
 #testimonials .column {
-  padding: 45px;
   min-height: auto !important;
   height: auto !important; }
 
@@ -8947,6 +8948,10 @@ header, .content, footer {
 .is-margin-botton-50 {
   margin-bottom: 50px; }
 
+.is-padding-y-30 {
+  padding-top: 30px;
+  padding-bottom: 30px; }
+
 #brandCarrouselImg {
   max-height: 150px; }
 
@@ -9004,14 +9009,11 @@ header, .content, footer {
   width: 100% !important;
   z-index: 2; }
 
-#navMenu {
-  margin-top: 15px; }
-
 .intra #navMenu, .product-list #navMenu {
   margin-top: 0; }
 
 #navMenu .selected {
-  border-bottom: solid #c8b381 !important; }
+  border-bottom: solid #00c851 !important; }
 
 @-webkit-keyframes ping {
   0% {
@@ -9045,11 +9047,41 @@ header, .content, footer {
   background-color: whitesmoke;
   color: #363636; }
 
+.text-green {
+  transition: 0.5s;
+  cursor: pointer;
+  -webkit-transition: 0.5s; }
+
+.text-green:hover {
+  border-bottom: 2px solid rgba(0, 160, 80, 0);
+  color: #FFF; }
+
+.text-green::before, .text-green::after {
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  -webkit-transform: scale(0);
+  transition: 0.5s; }
+
+.curmudgeon::before {
+  border-bottom: 5px solid #FFF;
+  border-left: 0;
+  -webkit-transform-origin: 0% 100%; }
+
+.curmudgeon::after {
+  border-top: 0;
+  border-right: 0;
+  -webkit-transform-origin: 50% 50%; }
+
 @media screen and (max-width: 800px) {
   #blogDetails .is-blog-content {
     padding: 25px; }
   #testimonials .column {
-    padding: 45px;
     min-height: auto !important;
     height: auto !important; }
   #productPage .columns {
@@ -9060,8 +9092,6 @@ header, .content, footer {
     padding-top: 0; }
   #serviceSlide .slider-btn {
     top: -20vh; }
-  .column .card {
-    margin: 25px; }
   .content-details {
     top: 50%;
     left: 50%;

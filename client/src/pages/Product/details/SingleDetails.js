@@ -38,7 +38,7 @@ class SingleDetail extends Component {
     let authenticated = <div></div>;
     if (!this.props.user.isAuthenticated) {
       authenticated = (
-        <div className="columns is-variable is-2">
+        <div className="columns">
           <div className="column">
             <div className="section has-background-grey-light box-animation">
               <div className="columns">

@@ -1,17 +1,19 @@
 import axios from 'axios';
 
-export const ADD_CATEGORY = 'categories:addCategory';
-export const REQUEST_CATEGORY = 'categories:requestCategory';
-export const UPDATE_CATEGORY = 'categories:updateCategory';
-export const DELETE_CATEGORY = 'categories:deleteCategory';
+export const ADD_CATEGORY = 'category:addCategory';
+export const REQUEST_CATEGORY = 'category:requestCategory';
+export const UPDATE_CATEGORY = 'category:updateCategory';
+export const DELETE_CATEGORY = 'category:deleteCategory';
+export const SHOW_ERROR = 'category:showError';
+export const FETCH_CATEGORY = 'category:fetchCategory';
+export const SHOW_CATEGORIES_ERROR = 'categories:showCategoriesError';
 export const FETCH_CATEGORIES = 'categories:fetchCategories';
-export const SHOW_ERROR = 'categories:showError';
 
 const instance = axios.create({ baseURL: '/api/v2/', headers: {"Content-Type": "application/json"} });
 
 const initialState = {
     count: 0,
-    next: "127.0.0.1:10500/api/v2/categories/?limit=20&offset=20",
+    next: null,
     previous: null,
     results: [
         {
@@ -31,7 +33,7 @@ export function addCategory(newCategory) {
     return {
         type: ADD_CATEGORY,
         payload: {
-            categories: newCategory
+            category: newCategory
         },
     }
 };
@@ -40,16 +42,16 @@ export function updateCategory(newCategory) {
     return {
         type: UPDATE_CATEGORY,
         payload: {
-            categories: newCategory
+            category: newCategory
         },
     }
 };
 
-export function deleteUser(category) {
+export function deleteCategory(category) {
     return {
         type: DELETE_CATEGORY,
         payload: {
-            categories: category
+            category: category
         },
     }
 };
@@ -57,6 +59,35 @@ export function deleteUser(category) {
 export function showError(error){
     return {
         type: SHOW_ERROR,
+        payload: {
+            category: initialState,
+            error: [error]
+        }
+    }
+};
+
+export const fetchCategory = (catID) => {
+
+    return dispatch => {
+        instance.get(`categories/${catID}/`)
+            .then(res => {
+                let category = res.data;
+                console.log(catID);
+                
+                return dispatch({
+                    type: FETCH_CATEGORY,
+                    payload: {
+                        category: category
+                    }
+                })
+            })
+            .catch(error => { dispatch(showError(error)); })
+    }
+}
+
+export function showCategoriesError(error){
+    return {
+        type: SHOW_CATEGORIES_ERROR,
         payload: {
             categories: initialState,
             error: [error]

@@ -17,9 +17,7 @@ class Carrousel extends Component {
     componentDidMount() {
 
         setTimeout(() => {
-            const _imgs = this.props.imgs;
-            console.log(_imgs);
-            
+            const _imgs = this.props.imgs;            
             const listItems = _imgs.map(
                 (img) => {
                     // let image = img.image.split('10500')                    
@@ -30,12 +28,7 @@ class Carrousel extends Component {
                         
                     //     console.log(s);
                     // }, 200);
-                    
-                    return (
-                        <div key={img.id.toString()}>
-                            <img src={img.image} alt={img.alt} />
-                        </div>
-                    )
+                    return <div key={img.id.toString()}><img src={img.image} alt={img.alt}/></div>;
                 }
             );
             return this.setState({ listItems: listItems })
@@ -43,12 +36,9 @@ class Carrousel extends Component {
         )
     }
 
-    next() {
-        this.slider.slickNext();
-    }
-    previous() {
-        this.slider.slickPrev();
-    }
+    next() { this.slider.slickNext(); }
+    previous() { this.slider.slickPrev(); }
+    
     render() {
         const settings = {
             dots: true,

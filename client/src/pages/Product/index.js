@@ -9,7 +9,30 @@ import BrandsCarrousel from "../../components/Carrousel/BrandsCarrousel";
 import TopDepartments from './details/TopDepartments';
 import TopProducts from './details/TopProducts';
 
+// Redux
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
+
+// Actions 
+// import { fetchBrands } from '../redux/actions/brand';
+// import { fetchBlogPost } from '../redux/actions/blog';
+// import { fetchBlogTags } from '../redux/actions/blog/tags';
+// import { fetchCarrousels } from '../redux/actions/carrousel';
+// import { fetchDepartments } from '../redux/actions/department';
+// import { fetchImageCarrousels } from '../redux/actions/carrousel/images';
+// import { fetchPages } from '../redux/actions/pages';
+import { fetchProducts } from '../../redux/actions/product';
+// import { fetchServices } from '../redux/actions/service';
+// import { fetchSite } from '../redux/actions/site';
+// import { fetchSocialMedia } from '../redux/actions/site/socialMedia';
+// import { fetchTestimonial } from '../redux/actions/testimonial';
+
 class Product extends Component {
+
+  componentDidMount() {
+    this.props.onFetchProducts();
+  }
 
   render() {
     function* chunkArray(original, n) {
@@ -46,7 +69,7 @@ class Product extends Component {
       productPage = filter(pages.results, 'name', 'productos')
       productCarrousel = filter(carrousels.results, 'page', productPage[0].id)
       productCarrouselImgs = filter(carrouselImgs.results, 'Carousel', productCarrousel[0].id);
-      siteHeaderCarrousel = <ProductPage imgs={productCarrouselImgs} user={user}/>;
+      siteHeaderCarrousel = <ProductPage imgs={productCarrouselImgs} user={user} />;
     }
 
     var topProducts = products.results;
@@ -74,66 +97,34 @@ class Product extends Component {
             {siteHeaderCarrousel}
           </div>
           <div className="is-padding-top-30">
-            {Array.from(chunkArray(topDepartments, 4)).map(([one, two, three, four], y) => {
-              const html = (
-                <div className="columns is-variable bd-klmn-columns is-1" key={y.toString()}>
-                  {
-                    one
-                      ? <TopDepartments department={one} ></TopDepartments>
-                      : <div className="column is-3"></div>
-                  }
-                  {
-                    two
-                      ? <TopDepartments department={two} ></TopDepartments>
-                      : <div className="column is-3"></div>
-                  }
-                  {
-                    three
-                      ? <TopDepartments department={three} ></TopDepartments>
-                      : <div className="column is-3"></div>
-                  }
-                  {
-                    four
-                      ? <TopDepartments department={four} ></TopDepartments>
-                      : <div className="column is-3"></div>
-                  }
-                </div>
-              );
-              return html;
-            })
+            {
+              Array.from(chunkArray(topDepartments, 4)).map(([one, two, three, four], y) => {
+                return (
+                  <div className="columns bd-klmn-columns" key={y.toString()}>
+                    {one ? <div className="column is-3"><TopDepartments department={one}></TopDepartments></div> : <div></div>}
+                    {two ? <div className="column is-3"><TopDepartments department={two}></TopDepartments></div> : <div></div>}
+                    {three ? <div className="column is-3"><TopDepartments department={three}></TopDepartments></div> : <div></div>}
+                    {four ? <div className="column is-3"><TopDepartments department={four}></TopDepartments></div> : <div></div>}
+                  </div>
+                )
+              })
             }
           </div>
           <div id="feeds">
             <div className="is-padding-top-60 has-text-centered">
               <h2 className="is-size-2">Nuestros productos</h2>
             </div>
-            {Array.from(chunkArray(topProducts, 4)).map(([one, two, three, four], y) => {
-              const html = (
-                <div className="columns" key={y.toString()}>
-                  {
-                    one
-                      ? <TopProducts product={one}></TopProducts>
-                      : <div className="column is-3"></div>
-                  }
-                  {
-                    two
-                      ? <TopProducts product={two}></TopProducts>
-                      : <div className="column is-3"></div>
-                  }
-                  {
-                    three
-                      ? <TopProducts product={three}></TopProducts>
-                      : <div className="column is-3"></div>
-                  }
-                  {
-                    four
-                      ? <TopProducts product={four}></TopProducts>
-                      : <div className="column is-3"></div>
-                  }
-                </div>
-              );
-              return html
-            })
+            {
+              Array.from(chunkArray(topProducts, 4)).map(([one, two, three, four], y) => {
+                return (
+                  <div className="columns" key={y.toString()}>
+                    {one ? <div><TopProducts product={one}></TopProducts></div> : <div></div>}
+                    {two ? <div><TopProducts product={two}></TopProducts></div> : <div></div>}
+                    {three ? <div><TopProducts product={three}></TopProducts></div> : <div></div>}
+                    {four ? <div><TopProducts product={four}></TopProducts></div> : <div></div>}
+                  </div>
+                )
+              })
             }
             <div className="has-text-centered is-padding-top-60">
               <Link to="/productos/todos" className="button is-fullwidth is-light  is-size-4 has-text-black">
@@ -153,4 +144,73 @@ class Product extends Component {
   }
 }
 
-export default Product;
+
+// const blogSelector = createSelector(state => state.blog_posts, blog_posts => blog_posts);                           // blog_post
+// const blogTagSelector = createSelector(state => state.blog_tags, blog_tags => blog_tags);                           // blog_tags
+// const brandsSelector = createSelector(state => state.brands, brands => brands);                                     // brands
+// const carrouselSelector = createSelector(state => state.carrousel, carrousel => carrousel);                         // carrousel 
+// const categoriesSelector = createSelector(   state => state.categories,   categories => categories );            // categories
+// const departmentSelector = createSelector(state => state.departments, departments => departments);                  // Department
+// const imageCarrouselSelector = createSelector(state => state.img_carrousel, img_carrousel => img_carrousel);        // img_carrousel 
+// const pagesSelector = createSelector(state => state.pages, pages => pages);                                         // Pages 
+const productsSelector = createSelector(state => state.products, products => products);                             // products
+// const servicesSelector = createSelector(state => state.services, services => services);                             // services
+// const siteSelector = createSelector(state => state.site, site => site);                                             // site
+// const socialMediaSelector = createSelector(state => state.social_media, social_media => social_media);              // Social media
+// const testimonialsSelector = createSelector(state => state.testimonials, testimonials => testimonials);             // Testimonials
+// const userSelector = createSelector(state => state.user, user => user);                                             // user
+
+const mapStateToProps = createSelector(
+  // brandsSelector,
+  // blogSelector,
+  // blogTagSelector,
+  // carrouselSelector,
+  // imageCarrouselSelector,
+  // departmentSelector,
+  // pagesSelector,
+  productsSelector,
+  // servicesSelector,
+  // siteSelector,
+  // socialMediaSelector,
+  // testimonialsSelector,
+  // userSelector,
+  //(brands, blog_posts, blog_tags, carrousel, img_carrousel, departments, pages, products, services, site, social_media, testimonials, user) => (
+  (products) => (
+    {
+      // brands,
+      // blog_posts,
+      // blog_tags,
+      // carrousel,
+      // img_carrousel,
+      // departments,
+      // pages,
+      products,
+      // services,
+      // site,
+      // social_media,
+      // testimonials,
+      // user,
+    }
+  )
+);
+
+const mapDispatchToProps = (dispatch, props) => {
+  return bindActionCreators(
+    {
+      // onFetchBrands: fetchBrands,
+      // onFetchBlogPost: fetchBlogPost,
+      // onFetchBlogTags: fetchBlogTags,
+      // onFetchCarrousels: fetchCarrousels,
+      // onFetchImageCarrousels: fetchImageCarrousels,
+      // onFetchDepartments: fetchDepartments,
+      // onFetchPages: fetchPages,
+      onFetchProducts: fetchProducts,
+      // onFetchServices: fetchServices,
+      // onFetchSite: fetchSite,
+      // onFetchSocialMedia: fetchSocialMedia,
+      // onFetchTestimonial: fetchTestimonial,
+    }, dispatch
+  );
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

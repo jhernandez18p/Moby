@@ -16,7 +16,7 @@ import {
   fetchBlogPost,
   fetchNextBlogPost,
   fetchPrevBlogPost
-} from '../../redux/actions/blog'
+} from '../../redux/actions/blog';
 
 class Blog extends Component {
   constructor(props) {
@@ -200,11 +200,11 @@ class Blog extends Component {
 
           {Array.from(chunkArray(_posts, 4, postsCountLimit)).map(([one, two, three, four], y) => {
             const html = (
-              <div className="columns is-padding-top-30" key={y.toString()}>
-                {one ? <Post post={one}></Post> : <div className="column is-3"></div>}
-                {two ? <Post post={two}></Post> : <div className="column is-3"></div>}
-                {three ? <Post post={three}></Post> : <div className="column is-3"></div>}
-                {four ? <Post post={four}></Post> : <div className="column is-3"></div>}
+              <div className="columns is-padding-top-30 is-centered" key={y.toString()}>
+                {one ? <div className="column is-3"><Post post={one}></Post></div> : <div></div>}
+                {two ? <div className="column is-3"><Post post={two}></Post></div> : <div></div>}
+                {three ? <div className="column is-3"><Post post={three}></Post></div> : <div></div>}
+                {four ? <div className="column is-3"><Post post={four}></Post></div> : <div></div>}
               </div>
             );
             return html

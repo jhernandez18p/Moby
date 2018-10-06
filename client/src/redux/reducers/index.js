@@ -3,10 +3,12 @@ import answerReducer from './answerReducer';                // Answers
 import blogCommentReducer from './blogCommentReducer';      // blog_comments
 import blogReducer from './blogReducer';                    // blog_post
 import postReducer from './postReducer';                    // blog_post
+import blogTagReducer from './blogTagReducer';            // blog_post
 import blogTagsReducer from './blogTagsReducer';            // blog_post
 import brandReducer from './brandReducer';                  // brands
 import carrouselReducer from './carrouselReducer';          // carrousel
 import categoryReducer from './categoryReducer';            // categories
+import categoriesReducer from './categoriesReducer';            // categories
 import colorReducer from './colorReducer';                  // Colors
 import departmentReducer from './departmentReducer';        // departments
 import flatpageReducer from './flatpageReducer';            // Flatpage
@@ -33,10 +35,12 @@ export {
   blogCommentReducer,           // blog_comments
   blogReducer,                  // blog_post
   postReducer,                  // blog_post
-  blogTagsReducer,              // blog_post
+  blogTagReducer,               // blog_tag
+  blogTagsReducer,              // blog_tags
   brandReducer,                 // brands
   carrouselReducer,             // carrousel
-  categoryReducer,              // categories
+  categoryReducer,              // category
+  categoriesReducer,            // categories
   colorReducer,                 // Colors
   departmentReducer,            // departments
   flatpageReducer,              // Flatpage

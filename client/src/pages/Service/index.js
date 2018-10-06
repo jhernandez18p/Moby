@@ -6,7 +6,6 @@ import ServicesList from '../../components/Services/List';
  
 class Service extends Component {
   render() {
-
     const filter = (array, key, val) => {
       let filtered_array = [];
       array.forEach(function (element) {
@@ -22,13 +21,10 @@ class Service extends Component {
     let carrousels = this.props.carrousel;
     let pages = this.props.pages;
 
-    var _notFeaturedServices = '';
-    var _featuredServices = '';
+    var _notFeaturedServices = <div></div>;
+    var _featuredServices = <div></div>;
 
-    if (services.count <= 0){
-      _notFeaturedServices = <div></div>;
-      _featuredServices = <div></div>;
-    }else{
+    if (services.count >= 1){
       let featuredServiceArray = filter(services.results, 'featured', true);
       let notFeaturedServiceArray = filter(services.results, 'featured', false);
 
@@ -50,12 +46,8 @@ class Service extends Component {
         <Helmet
           title="Moby Supply - Servicios"
         />
-        <div className="">
-          { _featuredServices }
-        </div>
-        <div className="">
-          { _notFeaturedServices }
-        </div>
+        <div>{ _featuredServices }</div>
+        <div>{ _notFeaturedServices }</div>
       </div>
     );
   }

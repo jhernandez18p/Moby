@@ -7,7 +7,7 @@ const DetailCategory = (props) => {
         return <div></div>;
     } else {
         return (
-            <div className="column is-6">
+            <div>
                 <div className="card is-centered overlayer">
                     <div className="content-overlay"></div>
                     <img className="content-image" alt="Productos de moby" src={props.category.background}></img>

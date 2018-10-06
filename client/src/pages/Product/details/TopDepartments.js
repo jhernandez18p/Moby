@@ -10,7 +10,7 @@ class TopDepartments extends Component {
         const department = this.props.department;
         // console.log(this.props);
         return (
-            <div className="column is-3">
+            <div>
                 <div className="has-background-grey-lighter">
                     <div className="card is-centered overlayer">
                         <div className="content-overlay"></div>

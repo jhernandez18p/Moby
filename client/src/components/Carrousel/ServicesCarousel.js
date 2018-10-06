@@ -31,13 +31,13 @@ class ServicesCarousel extends Component {
             slidesToScroll: 1
         };
         const _imgs = this.props.imgs;
-        
+
         const listItems = _imgs.map(
             (img) => {
                 return (
                     // console.log(img)
                     <div key={img.id.toString()}>
-                        <img  src={ img.image } alt={ img.alt } />
+                        <img src={img.image} alt={img.alt} />
                     </div>
                 )
             }
@@ -46,7 +46,7 @@ class ServicesCarousel extends Component {
         return (
             <div className="slider">
                 <Slider ref={c => (this.slider = c)} {...settings}>
-                    { listItems }
+                    {listItems}
                 </Slider>
                 <div className="slider-btn" style={{ textAlign: "center" }}>
                     <button className="slide-button-prev button has-background-transparent" onClick={this.previous}>

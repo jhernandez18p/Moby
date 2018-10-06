@@ -1,11 +1,6 @@
 import {
-    ADD_BLOG_TAG,
-    AUTH_BLOG_TAG,
-    DELETE_BLOG_TAG,
-    REQUEST_BLOG_TAG,
-    UPDATE_BLOG_TAG,
     FETCH_BLOG_TAGS,
-    SHOW_ERROR
+    SHOW_TAGS_ERROR
 } from '../actions/blog/tags';
 
 const initialState = {
@@ -26,17 +21,7 @@ const initialState = {
 
 export default function blogTagsReducer(state = initialState, { type, payload }) {
     switch (type) {
-        case ADD_BLOG_TAG:
-            return payload.blog_tags;
-        case AUTH_BLOG_TAG:
-            return payload.blog_tags;
-        case UPDATE_BLOG_TAG:
-            return payload.blog_tags;
-        case DELETE_BLOG_TAG:
-            return payload.blog_tags;
-        case SHOW_ERROR:
-            return payload.blog_tags;
-        case REQUEST_BLOG_TAG:
+        case SHOW_TAGS_ERROR:
             return payload.blog_tags;
         case FETCH_BLOG_TAGS:
             return payload.blog_tags;

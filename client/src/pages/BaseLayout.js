@@ -136,7 +136,6 @@ class Layout extends Component {
                   (props) => <Product
                     brands={brands}
                     site={site}
-                    products={products}
                     departments={departments}
                     testimonials={testimonials}
                     carrousel={carrousel}

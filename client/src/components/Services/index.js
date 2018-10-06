@@ -55,21 +55,25 @@ class Services extends Component {
     );
 
     return (
-      <div className="container-fluid has-background-moby">
-        <div className="container">
-          <div className="columns is-centered">
-            <div className="column is-half">
-              <div id="whatWeDo">
-                <div className="">
-                  <h2 className="is-size-1">Nuestros servicios</h2>
+      <div>
+        <div className="container-fluid has-background-moby">
+          <div className="container">
+            <div className="columns is-centered">
+              <div className="column is-half">
+                <div id="whatWeDo">
+                  <div className="">
+                    <h2 className="is-size-1"><Link to="/servicios" className="has-text-black">Nuestros servicios</Link></h2>
+                  </div>
+                  <div className="">
+                    <h3 className="is-size-3">Queremos ofrecer soluciones a sus necesidades.</h3>
+                  </div>
+                  {serviceItems}
                 </div>
-                <div className="">
-                  <h3 className="is-size-3">Queremos ofrecer soluciones a sus necesidades.</h3>
-                </div>
-                {serviceItems}
+              </div>
+              <div className="is-hidden-touch">
+                {servicesCarrousel}
               </div>
             </div>
-            {servicesCarrousel}
           </div>
         </div>
       </div>

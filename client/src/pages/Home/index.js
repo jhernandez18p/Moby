@@ -105,7 +105,7 @@ class Home extends Component {
           </div>
         </div>
         <div className="container" id="feeds">
-          <div className="columns">
+          <div className="columns is-centered">
             {blogItems}
           </div>
         </div>

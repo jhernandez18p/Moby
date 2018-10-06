@@ -13,7 +13,7 @@ class Form extends Component {
 
     submitHandler = (event) => {
         event.preventDefault();
-        const apiBaseUrl = "http://localhost:9000/api/v2/contact/email";        
+        const apiBaseUrl = "http://localhost:9000/api/contact/email";        
         const name = event.target.name.value;
         const email = event.target.email.value;
         const phone = event.target.phone.value;

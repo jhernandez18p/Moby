@@ -3,9 +3,23 @@ import { Link } from 'react-router-dom';
 
 import DOMPurify from 'dompurify';
 
+// Redux
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
+
+// action
+import { fetchBlogSingleTag } from '../../redux/actions/blog/tags';
+
 class Post extends Component {
+  
+  componentDidMount(){
+    this.props.onFetchBlogTag(this.props.post.tag);
+  }
+
   render() {
     let post = this.props.post;
+    let tag = this.props.blog_tag.title;
 
     return (
       <div>
@@ -27,8 +41,8 @@ class Post extends Component {
               <span className="icon">
                 <i className="fas fa-folder-open"></i>
               </span>
-              <Link to={`/blog?tag=${post.tag ? post.tag : 'Evanistería'}`} className="has-text-black">
-                {post.tag ? post.tag : 'Evanistería'}
+              <Link to={`/blog?tag=${tag}`} className="has-text-black">
+                {tag}
               </Link>
             </p>
             <p className="is-size-7 is-pulled-right">
@@ -47,4 +61,27 @@ class Post extends Component {
   }
 }
 
-export default Post;
+// blog_tags
+const blogTagSelector = createSelector(
+  state => state.blog_tag,
+  blog_tag => blog_tag
+);
+
+const mapStateToProps = createSelector(
+  blogTagSelector,
+  (blog_tag) => (
+    {
+      blog_tag,
+    }
+  )
+);
+
+const mapDispatchToProps = (dispatch, props) => {
+  return bindActionCreators(
+    {
+      onFetchBlogTag: fetchBlogSingleTag,
+    }, dispatch
+  );
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post);
