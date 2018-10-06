@@ -27,13 +27,13 @@ class Services extends Component {
 
     var servicesCarrousel;
     if (pages.count <= 1) {
-      servicesCarrousel = <div></div>
+      servicesCarrousel = <div className="is-hidden-touch"></div>
     } else {
       let servicePage = filter(pages.results, 'name', 'servicios');
       let carrousel = filter(carrousels.results, 'page', servicePage[0].id);
       let imgs = filter(carrouselImg.results, 'Carousel', carrousel[0].id)
       // console.log(imgs);
-      servicesCarrousel = <div className="column is-half" id="serviceSlide"><ServicesCarousel imgs={ imgs } /></div>
+      servicesCarrousel = <div className="column is-half is-hidden-touch" id="serviceSlide"><ServicesCarousel imgs={ imgs } /></div>
     }
 
     let _featuredServiceArray = filter(services, 'featured', true);
@@ -70,9 +70,7 @@ class Services extends Component {
                   {serviceItems}
                 </div>
               </div>
-              <div className="is-hidden-touch">
-                {servicesCarrousel}
-              </div>
+              {servicesCarrousel}
             </div>
           </div>
         </div>

@@ -8330,7 +8330,7 @@ header, .content, footer {
 
 .slider-btn {
   position: relative;
-  top: -40vh;
+  top: -50%;
   width: 100%; }
 
 .slider-btn .slide-button-prev {
@@ -8353,10 +8353,7 @@ header, .content, footer {
   display: table-cell; }
 
 #serviceSlide .slider {
-  max-width: 700px; }
-
-#serviceSlide .slider-btn {
-  top: -23vh; }
+  max-width: 400px; }
 
 #categories {
   margin-top: 100px;
@@ -9090,8 +9087,6 @@ header, .content, footer {
     padding-top: 40px; }
   #serviceSlide {
     padding-top: 0; }
-  #serviceSlide .slider-btn {
-    top: -20vh; }
   .content-details {
     top: 50%;
     left: 50%;

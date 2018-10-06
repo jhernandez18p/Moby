@@ -422,7 +422,7 @@ header, .content, footer {flex-shrink: 0;}
 }
 .slider-btn{
   position: relative;
-  top: -40vh;
+  top: -50%;
   width: 100%;
 }
 .slider-btn .slide-button-prev{
@@ -446,10 +446,10 @@ header, .content, footer {flex-shrink: 0;}
   display: table-cell;
 }
 #serviceSlide .slider {
-  max-width: 700px
+  max-width: 400px
 }
 #serviceSlide .slider-btn {
-  top: -23vh;
+  // top: -23vh;
 }
 
 #categories{
@@ -1217,7 +1217,7 @@ height: 99.9vh;
     padding-top: 0;
   }
   #serviceSlide .slider-btn {
-    top: -20vh;
+    // top: -20vh;
   }
   .content-details{
     top: 50%;
