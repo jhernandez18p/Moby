@@ -4,6 +4,7 @@ import React, { Component } from "react";
 // import ProductsSearch from './Searcher';
 import Pagination from '../../../components/Paginator';
 import ProductsHeader from '../../../components/Header/ProductsHeader';
+import RedesLine from '../../../components/Footer/Redes';
 import TopProducts from './TopProducts';
 
 // Redux
@@ -18,67 +19,115 @@ import { fetchColors } from '../../../redux/actions/product/color';
 import { fetchDepartments } from '../../../redux/actions/department';
 import { fetchLines } from '../../../redux/actions/product/line';
 import { fetchProducts } from '../../../redux/actions/product';
+import { fetchSocialMedia } from '../../../redux/actions/site/socialMedia';
 
 class ProductDetail extends Component {
   constructor(props) {
     super(props);
+    this.handleNextClick = this.handleNextClick.bind(this); this.handlePrevClick = this.handlePrevClick.bind(this);
+    this.getFilter = this.getFilter.bind(this); this.getSearch = this.getSearch.bind(this);
+    this.getURL = this.getURL.bind(this);
     this.state = {
       currentPage: 1,
       limitPage: 20,
       offsetPage: 0,
       totalPages: 0,
-      urlPage: 'products/',
+      urlPage: '/productos/todos',
       params: '',
+      paramsURL: '',
+      urlPageNumber: '',
       nextPage: '',
+      color: '',
+      brand: '',
+      category: '',
+      line: '',
+      department: '',
+      loading: true,
       previousPage: null,
+      hasUrlParams: false,
       hasNext: true,
       hasPrev: false
     }
-    this.handleNextClick = this.handleNextClick.bind(this);
-    this.handlePrevClick = this.handlePrevClick.bind(this);
-    this.getFilter = this.getFilter.bind(this);
-    this.getURL = this.getURL.bind(this);
-    this.getSearch = this.getSearch.bind(this);
   }
 
   componentDidMount() {
+    this.props.onFetchProducts('',1);
     this.getURL(this.props.location.search);
     this.props.onFetchCategories();
     this.props.onFetchDepartment();
-    this.props.onFetchProducts();
     this.props.onFetchBrands();
     this.props.onFetchColor();
     this.props.onFetchLines();
+    this.props.onFetchSocialMedia();
   }
-
-  componentDidUpdate(prevProps) {
+  
+  componentDidUpdate(prevProps, prevState) {
     if (this.props.products !== prevProps.products) {
       let totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
-      this.setState({ totalPages: totalPages })
+      this.setState({ totalPages: totalPages });
     }
-  }
-
-  getURL(url){
-    // if(url !== ''){
-    //   let _url = url.split('?');
-    //   // eslint-disable-next-line
-    //   let newCurrentPage = '';
-    //   _url = _url[1].split('&');
-    //   for (var x=0; x < _url.length; x++){
-    //     if (_url[x].split('=')[0] === 'page'){
-    //       console.log(_url[x].split('=')[1]);
-    //       this.setState({ currentPage: _url[x].split('=')[1] })
-    //     }
-    //   }
-    // }
-    let _url = `?${url}&`;
-    console.log(_url);
+    if (this.state.currentPage !== prevState.currentPage){
+      console.log('------',this.state.currentPage , prevState.currentPage);
+      this.props.onFetchProducts('', this.state.currentPage); 
+    }
+    if (this.state.params !== prevState.params){
+      console.log('------',this.state.params , prevState.params);
+    }
     
-    this.props.onFetchProducts(_url);
-    this.setState({params:_url})
+    setTimeout(() => {
+      this.setState({loading:false})
+    }, 400);
   }
 
-  getFilter(e, arg, id, filter){
+  getURL(url) {
+    // console.log(this.props);
+    // console.log(url);
+    
+    // let _url = '';
+    let _urlParams = '';
+    let totalPages =  Math.ceil(this.props.products.count / this.state.limitPage);
+    this.setState({ totalPages: totalPages });
+    
+    let argUrl = url.split('?')[1];
+    argUrl = argUrl.split('&');
+    for (let x in argUrl ){
+      if (argUrl[x].split('=')[0] === 'page'){
+        // console.log(url[x].split('?')[0]);
+        _urlParams = `${_urlParams}`;
+        // eslint-disable-next-line
+        this.setState({ currentPage: parseInt(argUrl[x].split('=')[1]) });
+      }
+      if (argUrl[x].split('=')[0] === 'line'){
+        _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+      }
+      if (argUrl[x].split('=')[0] === 'category'){
+        _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+      }
+      if (argUrl[x].split('=')[0] === 'department'){
+        _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+      }
+      if (argUrl[x].split('=')[0] === 'brand'){
+        _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+      }
+      if (argUrl[x].split('=')[0] === 'color'){
+        _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+      }
+        
+        // _urlParams = `${this.state.params}?${url.split('?')[1]}`; 
+      
+        // console.log(url[x].split('?')[0], '----');
+    }
+    // console.log(url);
+    // console.log(_urlParams);
+    
+
+    this.setState({
+      params: _urlParams,
+      hasUrlParams: true
+    });
+  }
+
+  getFilter(e, arg, id, filter) {
     if (filter === 'color') {
       this.getURL(`color=${id}`)
     }
@@ -96,7 +145,7 @@ class ProductDetail extends Component {
     }
   }
 
-  getSearch(e){
+  getSearch(e) {
     e.preventDefault();
     let valu = e.target.value;
     console.log(valu);
@@ -104,10 +153,12 @@ class ProductDetail extends Component {
   }
 
   handleNextClick(e, page = this.state.currentPage) {
-    e.preventDefault();
+    // e.preventDefault();
     window.scrollTo(0, 0)
+    // console.log(page);
+
     let currentPage = page; //Aumenta el numero de la pagina
-    if (page < this.state.currentPage){
+    if (page < this.state.currentPage) {
       currentPage = page - 1; //Aumenta el numero de la pagina
     }
     let limitPage = this.state.limitPage || 20;
@@ -116,22 +167,27 @@ class ProductDetail extends Component {
     this.setState({ currentPage: currentPage, offsetPage: offsetPage })
     if (currentPage === pages) { this.setState({ hasNext: false }) }
     if (currentPage > 1) { this.setState({ hasPrev: true, currentPage: currentPage }) }
-    if (currentPage > 1 && currentPage <= pages) { this.props.onFetchProducts(this.state.params,currentPage - 1); }
+    if (currentPage > 1 && currentPage <= pages) {
+      let urlPage = `page=${currentPage}`;
+      this.getURL(urlPage); 
+    }
     // console.log('currentPage ->', currentPage, 'pages ->', pages, 'offset ->', offsetPage)
   }
 
   handlePrevClick(e, page = this.state.currentPage) {
-    e.preventDefault();
+    // e.preventDefault();
     window.scrollTo(0, 0)
     //Decrementa el numero de la pagina
     let currentPage = page; //Aumenta el numero de la pagina
-
     let limitPage = this.state.limitPage || 20;
     let offsetPage = this.state.offsetPage - limitPage;
     let pages = this.state.totalPages;
     this.setState({ currentPage: currentPage, offsetPage: offsetPage });
     if (currentPage === 1) { this.setState({ hasPrev: false, hasNext: true }); }
-    if (currentPage >= 1 && currentPage <= pages) { this.props.onFetchProducts(this.state.params, currentPage-1); }
+    if (currentPage >= 1 && currentPage <= pages) {
+      let urlPage = `page=${currentPage}`;
+      this.getURL(urlPage); 
+    }
     // console.log('currentPage ->', currentPage, 'pages ->', pages, 'offset ->', offsetPage)
   }
 
@@ -143,25 +199,22 @@ class ProductDetail extends Component {
         yield ary.splice(ary, n);
     }
 
-    // brands
-    let brands = this.props.brands
-    // categories
-    let categories = this.props.categories;
-    // colors
-    let colors = this.props.colors
-    // department
-    let department = this.props.department;
-    // lines
-    let lines = this.props.lines;
-    // products
-    let products = this.props.products;
-    // console.log(brands,categories,colors,department,lines);
+    let brands = this.props.brands || 'Cargando ...';
+    let categories = this.props.categories || 'Cargando ...';
+    let colors = this.props.colors || 'Cargando ...';
+    let department = this.props.department || 'Cargando ...';
+    let lines = this.props.lines || 'Cargando ...';
+    let products = this.props.products || 'Cargando ...';
+    let social_media = this.props.social_media || 'Cargando ...';
 
-    let paginator = <div></div>;
+    // console.log(products);
+    // console.log(this.state.params);
+
+    let paginator, urlParamsHTML, colorUrlHTML, brandUrlHTML, categoryUrlHTML, lineUrlHTML, departmentUrlHTML = <span></span>;
     let postsCount = products.count || undefined;
     let postsCountLimit = 20;
 
-    if (postsCount > 20) {
+    if (postsCount >= 21) {
 
       let currentPage = this.state.currentPage;
       let limitPage = this.state.limitPage;
@@ -178,97 +231,177 @@ class ProductDetail extends Component {
           limitPage={limitPage}
           offsetPage={offsetPage}
           urlPage={urlPage}
+          urlParams={this.state.urlParams}
           nextPage={this.handleNextClick}
           previousPage={this.handlePrevClick}
           hasNext={this.state.hasNext}
           hasPrev={this.state.hasPrev}
           pages={this.state.totalPages}
         />
-      )
+      );
     }
 
-    return (
-      <div className="product-list">
-        <ProductsHeader 
-          haveFilters={true} 
-          getFilter={this.getFilter} 
-          brands={brands}
-          categories={categories}
-          colors={colors}
-          department={department}
-          lines={lines}
-          hasSearch={true}
-          getSearch={this.getSearch}/>
-        <div className="container is-padding-top-60" id="productsSite">
-          <div>
-            <div className="columns is-variable is-1">
-              {/* <div className="column is-3">
-                <ProductsSearch />
-              </div> */}
-              <div className="column is-padding-top-30" id="feeds">
-                {Array.from(chunkArray(products.results, 4)).map(([one, two, three, four], y) => {
-                  const html = (
-                    <div className="columns" key={y.toString()}>
-                      {one ? <TopProducts product={one}></TopProducts> : <div className="column"></div>}
-                      {two ? <TopProducts product={two}></TopProducts> : <div className="column"></div>}
-                      {three ? <TopProducts product={three}></TopProducts> : <div className="column"></div>}
-                      {four ? <TopProducts product={four}></TopProducts> : <div className="column"></div>}
-                    </div>
-                  );
-                  return html
-                })
-                }
-              </div>
-            </div>
-            <div className="is-padding-bottom-60">
-              {paginator}
+    if (this.state.hasUrlParams) {
+      if (this.state.color !== '') {
+        colorUrlHTML = (
+          <a className="button is-outlined is-dark is-rounded">
+            <span>Color: {this.state.color}</span>
+            <span className="icon is-small">
+              <i className="fas fa-times"></i>
+            </span>
+          </a>
+        );
+      };
+      if (this.state.brand !== '') {
+        brandUrlHTML = (
+          <a className="button is-outlined is-dark is-rounded">
+            <span>Marca: {this.state.brand}</span>
+            <span className="icon is-small">
+              <i className="fas fa-times"></i>
+            </span>
+          </a>
+        );
+      };
+      if (this.state.category !== '') {
+        categoryUrlHTML = (
+          <a className="button is-outlined is-dark is-rounded">
+            <span>Categoría: {this.state.category}</span>
+            <span className="icon is-small">
+              <i className="fas fa-times"></i>
+            </span>
+          </a>
+        );
+      };
+      if (this.state.line !== '') {
+        lineUrlHTML = (
+          <a className="button is-outlined is-dark is-rounded">
+            <span>Linea: {this.state.line}</span>
+            <span className="icon is-small">
+              <i className="fas fa-times"></i>
+            </span>
+          </a>
+        );
+      };
+      if (this.state.department !== '') {
+        departmentUrlHTML = (
+          <a className="button is-outlined is-dark is-rounded">
+            <span>Departamento: {this.state.department}</span>
+            <span className="icon is-small">
+              <i className="fas fa-times"></i>
+            </span>
+          </a>
+        );
+      };
+      urlParamsHTML = (
+        <div className="container is-padding-top-30">
+          <div className="columns is-centered">
+            <div className="column">
+              <p className="buttons">
+                {lineUrlHTML} {categoryUrlHTML} {departmentUrlHTML} {brandUrlHTML} {colorUrlHTML}
+              </p>
             </div>
           </div>
         </div>
-      </div>
-    );
+      )
+    }
+
+    if (this.state.loading){
+      return (
+        <div className="product-list">
+          <ProductsHeader
+            haveFilters={true}
+            getFilter={this.getFilter}
+            brands={brands}
+            categories={categories}
+            colors={colors}
+            department={department}
+            lines={lines}
+            hasSearch={true}
+            getSearch={this.getSearch} >
+          </ProductsHeader>
+          <div className="is-padding-top-60" >
+            {urlParamsHTML}
+            <div className="container is-padding-top-20" id="productsSite">
+              <div className="columns is-variable is-1">
+                {/* <div className="column is-3">
+                    <ProductsSearch />
+                  </div> */}
+                <div className="column is-padding-top-30" id="feeds">
+                  <div className="columns">
+                    <TopProducts />
+                    <TopProducts />
+                    <TopProducts />
+                    <TopProducts />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div><RedesLine redes={social_media} /></div>
+        </div>
+      );
+    }else{
+      return (
+        <div className="product-list">
+          <ProductsHeader
+            haveFilters={true}
+            getFilter={this.getFilter}
+            brands={brands}
+            categories={categories}
+            colors={colors}
+            department={department}
+            lines={lines}
+            hasSearch={true}
+            getSearch={this.getSearch} >
+          </ProductsHeader>
+          <div className="is-padding-top-60" >
+            {urlParamsHTML}
+            <div className="container is-padding-top-20" id="productsSite">
+              <div className="columns is-variable is-1">
+                {/* <div className="column is-3">
+                    <ProductsSearch />
+                  </div> */}
+                <div className="column is-padding-top-30" id="feeds">
+                  {Array.from(chunkArray(products.results, 4)).map(
+                    ([one, two, three, four], y) => {
+                      return (
+                        <div className="columns" key={y.toString()}>
+                          {one ? <TopProducts product={one}></TopProducts> : <div className="column"></div>}
+                          {two ? <TopProducts product={two}></TopProducts> : <div className="column"></div>}
+                          {three ? <TopProducts product={three}></TopProducts> : <div className="column"></div>}
+                          {four ? <TopProducts product={four}></TopProducts> : <div className="column"></div>}
+                        </div>
+                      )
+                    })
+                  }
+                </div>
+              </div>
+              <div className="is-padding-bottom-60">
+                {paginator}
+              </div>
+            </div>
+          </div>
+          <div><RedesLine redes={social_media} /></div>
+        </div>
+      );
+    }
   }
 }
 
-
 // brands
-const brandsSelector = createSelector(
-  state => state.brands,
-  brands => brands
-);
-
+const brandsSelector = createSelector(state => state.brands, brands => brands);
 // categories
-const categoriesSelector = createSelector(
-  state => state.categories,
-  categories => categories
-);
-
+const categoriesSelector = createSelector(state => state.categories, categories => categories);
 // Color
-const colorSelector = createSelector(
-  state => state.colors,
-  colors => colors
-);
-
+const colorSelector = createSelector(state => state.colors, colors => colors);
 // Departments
-const departmentSelector = createSelector(
-  state => state.department,
-  department => department
-);
-
+const departmentSelector = createSelector(state => state.department, department => department);
 // lines
-const linesSelector = createSelector(
-  state => state.lines,
-  lines => lines
-);
-
-
+const linesSelector = createSelector(state => state.lines, lines => lines);
 // products
-const productsSelector = createSelector(
-  state => state.products,
-  products => products
-);
-
-
+const productsSelector = createSelector(state => state.products, products => products);
+// Social media
+const socialMediaSelector = createSelector(state => state.social_media, social_media => social_media);
 
 const mapStateToProps = createSelector(
   brandsSelector,
@@ -277,7 +410,8 @@ const mapStateToProps = createSelector(
   departmentSelector,
   linesSelector,
   productsSelector,
-  (brands, categories, colors, department, lines, products,) => (
+  socialMediaSelector,
+  (brands, categories, colors, department, lines, products, social_media) => (
     {
       brands,
       categories,
@@ -285,6 +419,7 @@ const mapStateToProps = createSelector(
       department,
       lines,
       products,
+      social_media
     }
   )
 );
@@ -298,9 +433,9 @@ const mapDispatchToProps = (dispatch, props) => {
       onFetchDepartment: fetchDepartments,
       onFetchLines: fetchLines,
       onFetchProducts: fetchProducts,
+      onFetchSocialMedia: fetchSocialMedia,
     }, dispatch
   );
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);

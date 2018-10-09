@@ -31,39 +31,61 @@ class TopProducts extends Component {
 
     render() {
         
-        let product = this.props.product;
+        let product = this.props.product || undefined;
         
         let category = "this.getCat()";
 
-        return (
-            <div className="column">
-                <div className="recent-feed">
-                    <div className="feed-img">
-                        <Link to={`/producto/${product.slug ? product.slug : product.code}`}>
-                            <img src={product.img} alt={product.code} className="image is-128-256" ></img>
-                        </Link>
-                    </div>
-                    <div className="feed-title">
-                        <h3 className="is-size-4">
-                            <Link to={`/producto/${product.slug ? product.slug : product.code}`} className="has-text-black">
-                                {product.name ? product.name : product.code}
-                            </Link>
-                        </h3>
-                    </div>
-                    <div className="feed-leyend is-clearfix">
-                        <p className="is-size-7 is-pulled-left">
-                            <span className="icon"><i className="fas fa-folder-open"></i></span>
-                            <Link to={`/productos/todos?cat=${category}`} className="has-text-black">
-                                {category}
-                            </Link>
-                        </p>
-                    </div>
-                    <div className="feed-content">
-                        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(product.description) }}></div>
+        if (product === undefined){
+            return (
+                <div className="column">
+                    <div className="recent-feed">
+                        <div className="feed-img">
+                        </div>
+                        <div className="feed-title">
+                            <h3 className="is-size-4">
+                            </h3>
+                        </div>
+                        <div className="feed-leyend is-clearfix">
+                            <p className="is-size-7 is-pulled-left">
+                                <span className="icon"><i className="fas fa-folder-open"></i></span>
+                            </p>
+                        </div>
+                        <div className="feed-content">
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
+            )
+        }else{
+            return (
+                <div className="column">
+                    <div className="recent-feed">
+                        <div className="feed-img">
+                            <Link to={`/producto/${product.slug ? product.slug : product.code}`}>
+                                <img src={product.img} alt={product.code} className="image is-128-256" ></img>
+                            </Link>
+                        </div>
+                        <div className="feed-title">
+                            <h3 className="is-size-4">
+                                <Link to={`/producto/${product.slug ? product.slug : product.code}`} className="has-text-black">
+                                    {product.name ? product.name : product.code}
+                                </Link>
+                            </h3>
+                        </div>
+                        <div className="feed-leyend is-clearfix">
+                            <p className="is-size-7 is-pulled-left">
+                                <span className="icon"><i className="fas fa-folder-open"></i></span>
+                                <Link to={`/productos/todos?cat=${category}`} className="has-text-black">
+                                    {category}
+                                </Link>
+                            </p>
+                        </div>
+                        <div className="feed-content">
+                            <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(product.description) }}></div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
     }
 }
 

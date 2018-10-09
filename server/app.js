@@ -1,4 +1,5 @@
 // Main CONF.
+const proxy = require('http-proxy-middleware');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -22,11 +23,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(helmet());
 app.disable('x-powered-by');
+// app.use('/api/v2/', proxy({
+//   target: 'http://some-hosted-api-server.com',
+// }));
+app.use('^/api/v2/*', proxy('https://api.moby-group.com'));
 
 // React App
 if (server === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
-  app.get('^/api/v2/$', function (req, res) { res.json({ "Tutorial": "Welcome to the APi" }); });
+  // app.get('^/api/v2/$', function (req, res) { res.json({ "Tutorial": "Welcome to the APi" }); });
   app.get('*', function (req, res) { res.sendFile(path.join(__dirname, '../client/build', 'index.html')); });
   app.get('^/service-worker.js', (req, res) => { res.sendFile(path.resolve(__dirname, '../client/build', 'service-worker.js')); });
 }

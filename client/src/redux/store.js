@@ -8,9 +8,10 @@ import {
     blogCommentReducer,           // blog_comments
     blogReducer,                  // blog_post
     postReducer,                  // blog_post
-    blogTagReducer,               // blog_post
-    blogTagsReducer,              // blog_post
-    brandReducer,                 // brands
+    blogTagReducer,               // tag
+    blogTagsReducer,              // tags
+    brandReducer,                 // brand
+    brandsReducer,                // brands
     carrouselReducer,             // carrousel
     categoryReducer,              // category
     categoriesReducer,            // categories
@@ -44,7 +45,8 @@ const allReducers = combineReducers(
         blog_posts: blogReducer,                    // blog_post
         blog_tag: blogTagReducer,                   // blog_tag
         blog_tags: blogTagsReducer,                 // blog_tags
-        brands: brandReducer,                       // brands
+        brand: brandReducer,                        // brands
+        brands: brandsReducer,                      // brands
         carrousel: carrouselReducer,                // carrousel
         category: categoryReducer,                  // category
         categories: categoriesReducer,              // categories

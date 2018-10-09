@@ -145,20 +145,24 @@ export const fetchSingleProduct = (slug) => {
 
 export const fetchProducts = ( params = '', offset = 0 ) => {
 
-    let _offset = offset;
+    let url = 'products/';
     let page = '';
     let hasParams = '';
-    if (_offset >= 1){
-        _offset = offset * 20;
+    let _offset = offset;
+
+    if (_offset > 1){
+        _offset = (offset - 1) * 20;
         page = `&offset=${_offset}`;
+    }else{
+        page = ``;
     }
-    let url = 'products/';
     if (params !== ''){
-        let newUrl = params.split('?');
-        hasParams = newUrl[1];
+        // let newUrl = params.split('?');
+        hasParams = params;
     }
     let _url = `${url}?${hasParams}${page}`;
-
+    
+    console.log(_url);
     return dispatch => {
         instance.get(_url)
             .then(res => {
