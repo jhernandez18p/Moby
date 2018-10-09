@@ -88,34 +88,38 @@ class ProductDetail extends Component {
     let totalPages =  Math.ceil(this.props.products.count / this.state.limitPage);
     this.setState({ totalPages: totalPages });
     
-    let argUrl = url.split('?')[1];
-    argUrl = argUrl.split('&');
-    for (let x in argUrl ){
-      if (argUrl[x].split('=')[0] === 'page'){
-        // console.log(url[x].split('?')[0]);
-        _urlParams = `${_urlParams}`;
-        // eslint-disable-next-line
-        this.setState({ currentPage: parseInt(argUrl[x].split('=')[1]) });
-      }
-      if (argUrl[x].split('=')[0] === 'line'){
-        _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
-      }
-      if (argUrl[x].split('=')[0] === 'category'){
-        _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
-      }
-      if (argUrl[x].split('=')[0] === 'department'){
-        _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
-      }
-      if (argUrl[x].split('=')[0] === 'brand'){
-        _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
-      }
-      if (argUrl[x].split('=')[0] === 'color'){
-        _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
-      }
-        
-        // _urlParams = `${this.state.params}?${url.split('?')[1]}`; 
+    let argUrl = '';
+    if (url.split('?')[1] !== undefined){
+      argUrl = url.split('?')[1];
       
-        // console.log(url[x].split('?')[0], '----');
+      if (argUrl.split('&') !== undefined){
+        argUrl = argUrl.split('&');
+        for (let x in argUrl ){
+          if (argUrl[x].split('=')[0] === 'page'){
+            // console.log(url[x].split('?')[0]);
+            _urlParams = `${_urlParams}`;
+            // eslint-disable-next-line
+            this.setState({ currentPage: parseInt(argUrl[x].split('=')[1]) });
+          }
+          if (argUrl[x].split('=')[0] === 'line'){
+            _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+          }
+          if (argUrl[x].split('=')[0] === 'category'){
+            _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+          }
+          if (argUrl[x].split('=')[0] === 'department'){
+            _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+          }
+          if (argUrl[x].split('=')[0] === 'brand'){
+            _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+          }
+          if (argUrl[x].split('=')[0] === 'color'){
+            _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+          }
+            // _urlParams = `${this.state.params}?${url.split('?')[1]}`; 
+            // console.log(url[x].split('?')[0], '----');
+        }
+      }
     }
     // console.log(url);
     // console.log(_urlParams);

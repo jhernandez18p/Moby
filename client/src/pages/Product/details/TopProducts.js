@@ -22,18 +22,47 @@ class TopProducts extends Component {
         }
     }
 
+    componentDidMount(){
+        // this.getCat(this.props.product)
+        if (this.props.product !== undefined){
+            if (this.props.product.category !== null){
+                // console.log(this.props.product.category)
+            }
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.product !== prevProps.product){
+            // console.log(this.props.product.category);
+        }
+        if (this.props.category !== prevProps.category) {
+            // console.log(this.props.category !== prevProps.category)
+        }
+        
+        setTimeout(() => {
+            this.setState({loading:false})
+        }, 400);
+    }
+    
     getCat(catId){
         this.props.onFetchCategory(catId);
-
+        
         console.log( this.props.category.name)
         return this.props.category.name
     }
-
+    
     render() {
         
         let product = this.props.product || undefined;
+        let categoryID = '';
+        if (this.props.product !== undefined){
+            if (this.props.product.category !== null){
+                // console.log(this.props.product.category)
+                categoryID = this.props.product.category || 1;
+            }
+        }
         
-        let category = "this.getCat()";
+        let categoryName = this.state.categoryName || '';
 
         if (product === undefined){
             return (
@@ -74,8 +103,8 @@ class TopProducts extends Component {
                         <div className="feed-leyend is-clearfix">
                             <p className="is-size-7 is-pulled-left">
                                 <span className="icon"><i className="fas fa-folder-open"></i></span>
-                                <Link to={`/productos/todos?cat=${category}`} className="has-text-black">
-                                    {category}
+                                <Link to={`/productos/todos?cat=${categoryID}`} className="has-text-black">
+                                    {categoryName}
                                 </Link>
                             </p>
                         </div>
