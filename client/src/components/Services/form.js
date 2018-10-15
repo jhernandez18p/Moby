@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-
 import axios from 'axios';
 
-
-class Form extends Component {
+class FormServices extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -49,12 +47,7 @@ class Form extends Component {
         );
         const html = (
             <div>
-                <div className="title">
-                    <p className="is-size-4" >
-                        Contáctanos
-                    </p>
-                </div>
-                <form onSubmit={ this.submitHandler } className="contact-form box-animation">
+                <form onSubmit={ this.submitHandler } className="contact-form box-animation is-margin-botton-50">
                     <div className="">
                         <div className="field">
                             <label className="label">Nombre Completo</label>
@@ -77,20 +70,18 @@ class Form extends Component {
                         <div className="field">
                             <label className="label">Asunto</label>
                             <div className="control">
-                                <input className="input" type="text" placeholder="Contacto" autoComplete="Contacto" name="subject"></input>
+                                <input className="input" type="text" value={`Servicio ${this.props.service}`} autoComplete="Contacto" name="subject" disabled></input>
                             </div>
                         </div>
                         <div className="field">
                             <label className="label">Mensaje</label>
                             <div className="control">
-                                <textarea className="textarea" placeholder="Saludos cordiales" name="message"></textarea>
+                                <textarea className="textarea" placeholder="Escriba su petición de servicio aquí" name="message"></textarea>
                             </div>
                         </div>
 
-                        <div className="field is-grouped">
-                            <div className="control">
-                                <button className="button is-text">Enviar</button>
-                            </div>
+                        <div className="field">
+                            <button className="button is-info is-outlined is-fullwidth">Enviar</button>
                         </div>
                     </div>
                 </form>
@@ -110,4 +101,4 @@ class Form extends Component {
     }
 }
 
-export default Form;
+export default FormServices;

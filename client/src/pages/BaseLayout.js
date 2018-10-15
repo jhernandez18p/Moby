@@ -20,6 +20,7 @@ import FAQ from './Contact/details/FAQ';
 import Home from './Home';
 import Product from './Product';
 import Service from './Service';
+import ServiceDetail from './Service/details';
 
 // Components
 import Footer from '../components/Footer';
@@ -100,8 +101,8 @@ class Layout extends Component {
             title="Moby Supply - Inicio"
             meta={
               [
-                {name:'description',content:'Moby Panamá, S.A. fue fundada en Panamá en el año 2011 estructurada en forma sociedad anónima. Actualmente, con más de 30 colaboradores, hacemos presencia en Panamá.'},
-                {name:'keywords',content:'ebanisteria, ebanista, madera, marmol, cortes en madera, Panamá'},
+                { name: 'description', content: 'Moby Panamá, S.A. fue fundada en Panamá en el año 2011 estructurada en forma sociedad anónima. Actualmente, con más de 30 colaboradores, hacemos presencia en Panamá.' },
+                { name: 'keywords', content: 'ebanisteria, ebanista, madera, marmol, cortes en madera, Panamá' },
               ]
             }
           />
@@ -122,8 +123,8 @@ class Layout extends Component {
                 } />
                 <Route exact path="/blog/:slug" component={BlogDetail} />
                 <Route exact path="/blog" render={(props) => <Blog user={user} />} />
-                <Route exact path="/contacto/f-a-q" render={(props) => <FAQ />} />
                 <Route exact path="/quienes-somos" render={(props) => <Contact />} />
+                <Route exact path="/contacto/f-a-q" render={(props) => <FAQ />} />
                 <Route exact path="/contacto/:slug" render={(props) => <Contact />} />
                 <Route exact path="/contacto" render={(props) => <Contact />} />
                 <Route exact path="/productos/categoria/:slug" render={(props) => <CategoryDetail />} />
@@ -143,13 +144,7 @@ class Layout extends Component {
                     imgs={img_carrousel}
                     user={user} />
                 } />
-                <Route exact path="/servicios/:slug" render={
-                  (props) => <Service
-                    services={services}
-                    carrousel={carrousel}
-                    pages={pages}
-                    imgs={img_carrousel} />
-                } />
+                <Route path="/servicios/:slug" component={ServiceDetail} />
                 <Route exact path="/servicios" render={
                   (props) => <Service
                     services={services}

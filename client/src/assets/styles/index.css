@@ -8150,9 +8150,6 @@ header, .content, footer {
   color: #fff;
   text-align: right; }
 
-.is-auth-pg .title {
-  margin-top: 80px; }
-
 .is-auth-pg .next {
   border-radius: 5px;
   vertical-align: middle;
@@ -8353,7 +8350,11 @@ header, .content, footer {
   display: table-cell; }
 
 #serviceSlide .slider {
+  margin: 0 auto;
   max-width: 400px; }
+
+#serviceSlide .slider-btn {
+  top: -50%; }
 
 #categories {
   margin-top: 100px;
@@ -8997,6 +8998,7 @@ header, .content, footer {
 
 .is-social-media {
   background-color: rgba(47, 47, 47, 0.94);
+  margin-top: 40px;
   padding-left: 60px;
   padding-right: 60px; }
 

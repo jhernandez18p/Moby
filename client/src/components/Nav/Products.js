@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 
 class ProductsNav extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor(props, context) {
+        super(props, context);
         this.state = {
             color: false,
             colorName: 'Color',
@@ -128,6 +128,8 @@ class ProductsNav extends Component {
     getSearch(e){
         e.preventDefault();
         this.setState({keyToSearch: e.target.value});
+        console.log(e.target.value);
+        this.props.history.push(`/productos/todos?search=${this.state.keyToSearch}`);
     }
 
     changeFilter(e, arg, filter) {
@@ -329,7 +331,7 @@ class ProductsNav extends Component {
                                     <div className="control has-background-white">
                                         {
                                             this.props.hasSearch
-                                                ?<input className="input" type="text" placeholder="Buscar un producto" onChange={this.props.getSearch}></input>
+                                                ?<input className="input" type="text" placeholder="Buscar un producto" onChange={this.getSearch}></input>
                                                 :<input className="input" type="text" placeholder="Buscar un producto" onChange={this.getSearch}></input>
                                         }
                                     </div>

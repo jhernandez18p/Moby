@@ -5,6 +5,15 @@ export const UPDATE_SERVICE = 'service:updateService';
 export const DELETE_SERVICE = 'service:deleteService';
 export const REQUEST_SERVICE = 'service:requestService';
 export const SHOW_ERROR = 'service:showError';
+
+// Images 
+export const ADD_IMG_SERVICE = 'service_image:addImgService';
+export const UPDATE_IMG_SERVICE = 'service_image:updateImgService';
+export const DELETE_IMG_SERVICE = 'service_image:deleteImgService';
+export const REQUEST_IMG_SERVICE = 'service_image:requestImgService';
+export const SHOW_IMG_ERROR = 'service_image:showImgError';
+
+// Services 
 export const FETCH_SERVICES = 'services:fetchServices';
 export const SHOW_SERVICES_ERROR = 'services:showServicesError';
 
@@ -65,6 +74,24 @@ export function showError(error){
         }
     }
 };
+
+export const requestService = (slug) => {
+
+     return dispatch => {
+        instance.get(`services/${slug}/`)
+            .then(res => {
+                let service = res.data;
+                return dispatch({
+                    type: REQUEST_SERVICE,
+                    payload: {
+                        service: service
+                    }
+                })
+            })
+            .catch(error => { dispatch(showError( error )); })
+    }
+}
+
 export function showServicesError(error){
     return {
         type: SHOW_SERVICES_ERROR,
@@ -81,8 +108,6 @@ export const fetchServices = () => {
         instance.get(`services/`)
             .then(res => {
                 let services = res.data;
-                // console.log(site);
-                // dispatch(requestSite(site));
                 return dispatch({
                     type: FETCH_SERVICES,
                     payload: {
@@ -90,6 +115,51 @@ export const fetchServices = () => {
                     }
                 })
             })
-            .catch(error => { dispatch(showError( error )); })
+            .catch(error => { dispatch(showServicesError( error )); })
     }
+}
+
+
+export const addImgService = (img) => {
+    return {
+        type: ADD_IMG_SERVICE,
+        payload: {
+            service_image: img
+        },
+    }
+}
+export const updateImgService = (img) => {
+    return {
+        type: UPDATE_IMG_SERVICE,
+        payload: {
+            service_image: img
+        },
+    }
+}
+export const deleteImgService = (img) => {
+    return {
+        type: DELETE_IMG_SERVICE,
+        payload: {
+            service_image: img
+        },
+    }
+}
+export const requestImgService = (serviceId) => {
+    return dispatch => {
+        instance.get(`photos/?Service=${serviceId}`)
+            .then(res => {
+                let service = res.data;
+                
+                return dispatch({
+                    type: REQUEST_IMG_SERVICE,
+                    payload: {
+                        service_image: service
+                    }
+                })
+            })
+            // .catch(error => { dispatch(showImgError( error )); })
+    }
+}
+export const showImgError = () => {
+
 }

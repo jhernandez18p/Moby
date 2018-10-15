@@ -99,7 +99,7 @@ export function showCategoriesError(error){
 export const fetchCategories = () => {
 
     return dispatch => {
-        instance.get(`categories/`)
+        instance.get(`categories/?active=true`)
             .then(res => {
                 let categories = res.data;
                 return dispatch({

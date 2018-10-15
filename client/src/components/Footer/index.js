@@ -23,7 +23,7 @@ class Footer extends Component {
 		let sitePhone = site.phone || 'Cargando ...';
 		let sitePhone2 = site.phone2 || 'Cargando ...';
 		let siteEmail = site.email || 'Cargando ...';
-		let siteEmail2 = site.email2 || 'Cargando ...';
+		let siteEmail2 = site.email2 || '';
 		let siteSchedule = site.schedule || 'Cargando ...';
 		let siteSchedule2 = site.schedule2 || 'Cargando ...';
 		let siteWorkday = site.workday || 'Cargando ...';

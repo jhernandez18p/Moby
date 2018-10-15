@@ -4,9 +4,6 @@ import React, { Component } from 'react';
 class RedesLine extends Component {
 
     render() {
-
-        // console.log(this.state.isBotton);
-        
         
         let sm = this.props.redes.results;
         let smCount = this.props.redes.count;

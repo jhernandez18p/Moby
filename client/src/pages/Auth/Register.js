@@ -122,8 +122,8 @@ class Register extends Component {
                     <div className="title">
                         <p className="is-size-4" > Moby Supply - Registrarse </p>
                     </div>
-                    <div className="title">
-                        <form className="auth-form" onSubmit={this.onSubmit}>
+                    <form className="auth-form has-background-white" onSubmit={this.onSubmit}>
+                        <div className="title">
                             <div className="">
                                 <div className="field">
                                     <label className="label">Nombre de usuario </label>
@@ -163,22 +163,21 @@ class Register extends Component {
                                         }
                                     </div>
                                 </div>
-                                <div className="field is-grouped">
-                                    <div className="control">
-                                        <button className="button is-link" disabled={
+
+                                <div className="">
+                                        <button className="button is-success is-fullwidth" disabled={
                                             this.state.canSubmit === 1
                                                 ? false
                                                 : true
-                                        }>Enviar</button>
-                                    </div>
-                                    <div className="control">
-                                        <div className="">
-                                            <Link to="/auth/iniciar-sesion" className="button is-link">Iniciar Sesión</Link>
-                                        </div>
-                                    </div>
+                                        }>Registrarse</button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
+                    </form>
+                    <div className="control">
+                        <div className="has-text-centered">
+                            <Link to="/auth/iniciar-sesion" className="button is-text is-outline">Iniciar Sesión</Link>
+                        </div>
                     </div>
                     {toast}
                 </div>

@@ -239,7 +239,6 @@ header, .content, footer {flex-shrink: 0;}
   text-align: right;
 }
 .is-auth-pg .title{
-  margin-top: 80px;
 }
 .is-auth-pg .next{
   border-radius: 5px;
@@ -446,10 +445,11 @@ header, .content, footer {flex-shrink: 0;}
   display: table-cell;
 }
 #serviceSlide .slider {
+  margin: 0 auto;
   max-width: 400px
 }
 #serviceSlide .slider-btn {
-  // top: -23vh;
+  top: -50%;
 }
 
 #categories{
@@ -1096,6 +1096,7 @@ height: 99.9vh;
 
 .is-social-media {
   background-color: rgba(47, 47, 47, 0.94);
+  margin-top: 40px;
   padding-left: 60px;
   padding-right: 60px;
 }

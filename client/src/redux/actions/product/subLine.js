@@ -68,7 +68,7 @@ export function showError(error){
 export const fetchSubLines = () => {
 
     return dispatch => {
-        instance.get(`sublines/    `)
+        instance.get(`sublines/?active=true`)
             .then(res => {
                 let SubLines = res.data;
                 return dispatch({

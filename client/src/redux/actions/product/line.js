@@ -96,7 +96,7 @@ export const fetchLines = ( params = '', offset = 0 ) => {
     let hasParams = '';
     if (_offset >= 1){
         _offset = offset * 20;
-        page = `&offset=${_offset}`;
+        page = `&offset=${_offset}?active=true`;
     }
     let url = 'lines/';
     if (params !== ''){

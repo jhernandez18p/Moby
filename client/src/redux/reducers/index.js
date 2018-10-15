@@ -22,6 +22,7 @@ import productsReducer from './productsReducer';                  // products
 import providerReducer from './providerReducer';                  // providers
 import questionReducer from './questionReducer';                  // Questions
 import serviceReducer from './serviceReducer';                    // services
+import imgServiceReducer from './imgServiceReducer';                    // services
 import servicesReducer from './servicesReducer';                  // services
 import siteReducer from './siteReducer';                          // site
 import socialMediaReducer from './socialMediaReducer';            // Social Media
@@ -55,6 +56,7 @@ export {
   providerReducer,              // providers
   questionReducer,              // Questions
   serviceReducer,               // services
+  imgServiceReducer,            // Images services
   servicesReducer,              // services
   siteReducer,                  // site
   socialMediaReducer,           // Social Media

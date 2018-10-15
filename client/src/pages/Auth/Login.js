@@ -69,8 +69,8 @@ class Login extends Component {
                             Moby Supply - Iniciar Sesión
                         </p>
                     </div>
-                    <div className="title">
-                        <form className="auth-form" onSubmit={this.onSubmit} >
+                    <form className="auth-form has-background-white" onSubmit={this.onSubmit} >
+                        <div className="title">
                             <div className="">
                                 <div className="field">
                                     <label className="label">Correo eléctronico</label>
@@ -95,18 +95,18 @@ class Login extends Component {
                                         </span>
                                     </div>
                                 </div>
-                                <div className="field is-grouped">
-                                    <div className="control">
-                                        <button className="button is-link" disabled={this.state.emailValid ? false : true }>Enviar</button>
-                                    </div>
-                                    <div className="control">
-                                        <div className="">
-                                            <Link to="/auth/registro" className="button is-link">Registrarse</Link>
-                                        </div>
+                                <div className="">
+                                    <div className="">
+                                        <button className="button is-success is-fullwidth" disabled={this.state.emailValid ? false : true }>Iniciar Sesión</button>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
+                    </form>
+                    <div className="control">
+                        <div className="has-text-centered">
+                            <Link to="/auth/registro" className="button is-text is-outline">Registrarse</Link>
+                        </div>
                     </div>
                     {toast}
                 </div>

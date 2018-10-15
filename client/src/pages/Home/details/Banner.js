@@ -29,8 +29,8 @@ class Banner extends Component {
                                     <div className="content-overlay"></div>
                                     <img className="content-image" alt="Productos de moby" src={ this.props.siteServiceImg }></img>
                                     <div className="content-details fadeIn-top">
-                                        <Link to="/productos">
-                                            <h3>Conozca nuestros Productos</h3>
+                                        <Link to="/servicios">
+                                            <h3>Conozca nuestros servicios</h3>
                                         </Link>
                                     </div>
                                 </div>
@@ -40,8 +40,8 @@ class Banner extends Component {
                                     <div className="content-overlay"></div>
                                     <img className="content-image" alt="Servicios de moby" src={ this.props.siteProductImg }></img>
                                     <div className="content-details fadeIn-top">
-                                        <Link to="/servicios">
-                                            <h3>Conozca nuestros servicios</h3>
+                                        <Link to="/productos">
+                                            <h3>Conozca nuestros Productos</h3>
                                         </Link>
                                     </div>
                                 </div>

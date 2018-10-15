@@ -35,6 +35,7 @@ class ProductDetail extends Component {
       urlPage: '/productos/todos',
       params: '',
       paramsURL: '',
+      searchURL: '',
       urlPageNumber: '',
       nextPage: '',
       color: '',
@@ -67,11 +68,22 @@ class ProductDetail extends Component {
       this.setState({ totalPages: totalPages });
     }
     if (this.state.currentPage !== prevState.currentPage){
-      console.log('------',this.state.currentPage , prevState.currentPage);
+      // console.log('------',this.state.currentPage , prevState.currentPage);
       this.props.onFetchProducts('', this.state.currentPage); 
+      let totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
+      this.setState({ totalPages: totalPages });
     }
-    if (this.state.params !== prevState.params){
-      console.log('------',this.state.params , prevState.params);
+    if (this.state.params === prevState.params && this.state.currentPage !== prevState.currentPage ){
+      // console.log('------',this.state.params , prevState.params);
+      this.props.onFetchProducts(this.state.params, this.state.currentPage); 
+      let totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
+      this.setState({ totalPages: totalPages });
+    }
+    if (this.state.params !== prevState.params && this.state.currentPage === prevState.currentPage ){
+      // console.log('------',this.state.params , prevState.params);
+      this.props.onFetchProducts(this.state.params, 1); 
+      let totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
+      this.setState({ totalPages: totalPages });
     }
     
     setTimeout(() => {
@@ -81,7 +93,7 @@ class ProductDetail extends Component {
 
   getURL(url) {
     // console.log(this.props);
-    // console.log(url);
+    console.log(url);
     
     // let _url = '';
     let _urlParams = '';
@@ -116,10 +128,18 @@ class ProductDetail extends Component {
           if (argUrl[x].split('=')[0] === 'color'){
             _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
           }
+          if (argUrl[x].split('=')[0] === 'search'){
+            _urlParams = `${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+            this.setState({
+              searchURL:`${argUrl[x].split('=')[1]}`
+            });
+          }
             // _urlParams = `${this.state.params}?${url.split('?')[1]}`; 
             // console.log(url[x].split('?')[0], '----');
         }
       }
+    }else{
+      _urlParams = url;
     }
     // console.log(url);
     // console.log(_urlParams);
@@ -152,7 +172,7 @@ class ProductDetail extends Component {
   getSearch(e) {
     e.preventDefault();
     let valu = e.target.value;
-    console.log(valu);
+    // console.log(valu);
     this.getURL(`search=${valu}`);
   }
 
@@ -213,6 +233,7 @@ class ProductDetail extends Component {
 
     // console.log(products);
     // console.log(this.state.params);
+    // console.log(this.state.searchURL);
 
     let paginator, urlParamsHTML, colorUrlHTML, brandUrlHTML, categoryUrlHTML, lineUrlHTML, departmentUrlHTML = <span></span>;
     let postsCount = products.count || undefined;
@@ -241,7 +262,8 @@ class ProductDetail extends Component {
           hasNext={this.state.hasNext}
           hasPrev={this.state.hasPrev}
           pages={this.state.totalPages}
-        />
+        >
+        </Pagination>
       );
     }
 

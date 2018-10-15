@@ -5,6 +5,7 @@ import Services from '../../components/Services';
 import ServicesList from '../../components/Services/List';
  
 class Service extends Component {
+
   render() {
     const filter = (array, key, val) => {
       let filtered_array = [];
@@ -24,19 +25,15 @@ class Service extends Component {
     var _notFeaturedServices = <div></div>;
     var _featuredServices = <div></div>;
 
-    if (services.count >= 1){
+    if (services.count > 0){
       let featuredServiceArray = filter(services.results, 'featured', true);
       let notFeaturedServiceArray = filter(services.results, 'featured', false);
 
-      if(featuredServiceArray.length <= 0){
-        _featuredServices = <div></div>;
-      }else{
+      if(featuredServiceArray.length > 0){
         _featuredServices = <Services services={ featuredServiceArray } pages={ pages } carrousel={ carrousels } imgs={ carrouselImg }/>
       }
       
-      if(notFeaturedServiceArray.length <= 0){
-        _notFeaturedServices = <div></div>;
-      }else{
+      if(notFeaturedServiceArray.length > 0){
         _notFeaturedServices = <ServicesList services={ notFeaturedServiceArray} />
       }
     }

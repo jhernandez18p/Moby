@@ -20,39 +20,63 @@ class Services extends Component {
     };
 
     let services = this.props.services;
-    let pages = this.props.pages;
-    let carrousels = this.props.carrousel;
-    let carrouselImg = this.props.imgs;
+    let pages = this.props.pages || null;
+    let carrousels = this.props.carrousel || null;
+    let carrouselImg = this.props.imgs || null;
 
-
-    var servicesCarrousel;
-    if (pages.count <= 1) {
-      servicesCarrousel = <div className="is-hidden-touch"></div>
-    } else {
+    var servicesCarrousel = <div className="is-hidden-touch"></div>;
+    if (pages !== null && pages.count > 1) {
       let servicePage = filter(pages.results, 'name', 'servicios');
       let carrousel = filter(carrousels.results, 'page', servicePage[0].id);
       let imgs = filter(carrouselImg.results, 'Carousel', carrousel[0].id)
-      // console.log(imgs);
       servicesCarrousel = <div className="column is-half is-hidden-touch" id="serviceSlide"><ServicesCarousel imgs={ imgs } /></div>
     }
 
-    let _featuredServiceArray = filter(services, 'featured', true);
-    let _serviceArray;
-    if (_featuredServiceArray.length >= 1) { _serviceArray = _featuredServiceArray; } else { _serviceArray = services; }
-    const serviceItems = _serviceArray.slice(0, 3).map(
-      (service) => {
-        return (
-          <div key={service.id.toString()} className="">
-            <h3 className="is-size-4">
-              <Link to={`/servicios/${service.slug}`} className="has-text-black">
-                {service.title}
-              </Link>
-            </h3>
-            <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(service.content) }}></div>
+    let _featuredServiceArray = '';
+    let serviceItems;
+    if (services.length > 0){
+      _featuredServiceArray = filter(services, 'featured', true);
+      serviceItems = _featuredServiceArray.slice(0, 3).map(
+        (service) => {
+          return (
+            <div key={service.id.toString()} className="">
+              <h3 className="is-size-4">
+                <Link to={`/servicios/${service.slug}`} className="has-text-black">
+                  {service.title}
+                </Link>
+              </h3>
+              <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(service.description) }}></div>
+            </div>
+          )
+        }
+      );
+    }else{
+      return (
+        <div>
+          <div className="container-fluid has-background-moby">
+            <div className="container">
+              <div className="columns is-centered">
+                <div className="column is-half">
+                  <div id="whatWeDo">
+                    <div className="">
+                      <h2 className="is-size-1"><Link to="/servicios" className="has-text-black">Nuestros servicios</Link></h2>
+                    </div>
+                    <div className="">
+                      <h3 className="is-size-3">Servicio de {services.title}.</h3>
+                    </div>
+                    <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(services.content) }}></div>
+                  </div>
+                </div>
+                {servicesCarrousel}
+              </div>
+            </div>
           </div>
-        )
-      }
-    );
+        </div>
+      )
+
+    }
+    // if (_featuredServiceArray.length >= 1) { _serviceArray = _featuredServiceArray; } else { _serviceArray = services; }
+
 
     return (
       <div>
@@ -65,7 +89,7 @@ class Services extends Component {
                     <h2 className="is-size-1"><Link to="/servicios" className="has-text-black">Nuestros servicios</Link></h2>
                   </div>
                   <div className="">
-                    <h3 className="is-size-3">Queremos ofrecer soluciones a sus necesidades.</h3>
+                    <h3 className="is-size-3">Queremos ofrecer soluciones a sus necesidades en el mundo de la ebanistería.</h3>
                   </div>
                   {serviceItems}
                 </div>

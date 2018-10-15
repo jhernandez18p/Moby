@@ -3,6 +3,28 @@ import React, { Component } from 'react';
 // Apps
 import Slider from "react-slick";
 
+function NextArrow(props) {
+    const { className, onClick } = props;
+    return (
+        <button className={`${className}`} onClick={onClick}>
+            <span className="icon">
+                <i className="fas fa-chevron-left"></i>
+            </span>
+        </button>
+    );
+}
+
+function PrevArrow(props) {
+    const { className, onClick } = props;
+    return (
+        <button className={`${className}`} onClick={onClick}>
+            <span className="icon">
+                <i className="fas fa-chevron-left"></i>
+            </span>
+        </button>
+    );
+}
+
 
 class ServicesCarousel extends Component {
     constructor(props) {
@@ -19,7 +41,6 @@ class ServicesCarousel extends Component {
     render() {
         const settings = {
             dots: true,
-            arrows: false,
             accessibility: true,
             autoplay: true,
             autoplaySpeed: 5000,
@@ -28,7 +49,9 @@ class ServicesCarousel extends Component {
             centerPadding: '50px',
             speed: 500,
             slidesToShow: 1,
-            slidesToScroll: 1
+            slidesToScroll: 1,
+            nextArrow: <NextArrow />,
+             prevArrow: <PrevArrow />
         };
         const _imgs = this.props.imgs;
 
@@ -48,18 +71,6 @@ class ServicesCarousel extends Component {
                 <Slider ref={c => (this.slider = c)} {...settings}>
                     {listItems}
                 </Slider>
-                <div className="slider-btn" style={{ textAlign: "center" }}>
-                    <button className="slide-button-prev button has-background-transparent" onClick={this.previous}>
-                        <span className="icon">
-                            <i className="fas fa-chevron-left"></i>
-                        </span>
-                    </button>
-                    <button className="slide-button-next button has-background-transparent" onClick={this.next}>
-                        <span className="icon">
-                            <i className="fas fa-chevron-right"></i>
-                        </span>
-                    </button>
-                </div>
             </div>
         );
     }

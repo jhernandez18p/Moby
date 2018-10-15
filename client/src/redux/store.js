@@ -27,6 +27,7 @@ import {
     providerReducer,              // providers
     questionReducer,              // Questions
     serviceReducer,               // services
+    imgServiceReducer,            // services
     servicesReducer,              // services
     siteReducer,                  // site
     socialMediaReducer,           // Social Media
@@ -65,6 +66,7 @@ const allReducers = combineReducers(
         providers: providerReducer,                 // providers
         questions: questionReducer,                 // question
         service: serviceReducer,                    // service
+        service_image: imgServiceReducer,           // images service
         services: servicesReducer,                  // services
         site: siteReducer,                          // site
         social_media: socialMediaReducer,           // Social Media
