@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 // Components
 import ProductsHeader from '../../../components/Header/ProductsHeader';
+import RedesLine from '../../../components/Footer/Redes';
+import TopProducts from './TopProducts';
 
 // Assets
 import LogoImg from '../../../assets/images/logo/ms-icon-70x70.png';
@@ -14,7 +16,8 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
 // Actions
-import { fetchSingleProduct } from '../../../redux/actions/product/';
+import { fetchSingleProduct, fetchProducts } from '../../../redux/actions/product/';
+import { fetchSocialMedia } from '../../../redux/actions/site/socialMedia';
 
 
 class SingleDetail extends Component {
@@ -29,11 +32,41 @@ class SingleDetail extends Component {
     product = product[productLen - 1];
 
     this.props.onFetchProduct(product);
-    this.setState({isLoading: false })
+    this.props.onFetchProducts();
+    this.props.onFetchSocialMedia();
+    this.setState({ isLoading: false })
   }
 
   render() {
+    function* chunkArray(original, n) {
+      const ary = [...original];
+      while (ary.length > 0)
+        yield ary.splice(ary, n);
+    }
+
+    const filter = (array, key, arg) => {
+      let filtered_array = [];
+      array.forEach(function (element) {
+        if (element[key] === arg) {
+          filtered_array.push(element);
+        }
+      });
+      return filtered_array;
+    };
+
     let product = this.props.product || 'Cargando';
+    let products = this.props.products || 'Cargando';
+    let social_media = this.props.social_media || 'Cargando';
+
+    var topProducts = products.results;
+    if (products.count >= 1) {
+      let _featuredProductArray = filter(products.results, 'featured', true);
+      if (_featuredProductArray.length >= 1) {
+        topProducts = _featuredProductArray.splice(0, 4);
+      } else {
+        topProducts = products.results.splice(0, 4);
+      }
+    }
 
     let authenticated = <div></div>;
     if (!this.props.user.isAuthenticated) {
@@ -96,8 +129,30 @@ class SingleDetail extends Component {
                 </div>
               </div>
               {authenticated}
+              <div>
+                <div id="feeds">
+                  <div className="is-padding-top-60 has-text-centered">
+                    <h2 className="is-size-2">Productos relacionados</h2>
+                  </div>
+                  {
+                    Array.from(chunkArray(topProducts, 4)).map(([one, two, three, four], y) => {
+                      return (
+                        <div className="columns" key={y.toString()}>
+                          {one ? <div><TopProducts product={one}></TopProducts></div> : <div></div>}
+                          {two ? <div><TopProducts product={two}></TopProducts></div> : <div></div>}
+                          {three ? <div><TopProducts product={three}></TopProducts></div> : <div></div>}
+                          {four ? <div><TopProducts product={four}></TopProducts></div> : <div></div>}
+                        </div>
+                      )
+                    })
+                  }
+                  <div className="has-text-centered is-padding-top-60">
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+          <div><RedesLine redes={social_media} /></div>
         </div>
       );
     }
@@ -113,9 +168,10 @@ class SingleDetail extends Component {
 // const imageCarrouselSelector = createSelector(state => state.img_carrousel, img_carrousel => img_carrousel);    // img_carrousel 
 // const pagesSelector = createSelector(state => state.pages, pages => pages);                                     // Pages 
 const productSelector = createSelector(state => state.product, product => product);                               // products
+const productsSelector = createSelector(state => state.products, products => products);                               // products
 // const servicesSelector = createSelector(state => state.services, services => services);                         // services
 // const siteSelector = createSelector(state => state.site, site => site);                                         // site
-// const socialMediaSelector = createSelector(state => state.social_media, social_media => social_media);          // Social media
+const socialMediaSelector = createSelector(state => state.social_media, social_media => social_media);          // Social media
 // const testimonialsSelector = createSelector(state => state.testimonials, testimonials => testimonials);         // Testimonials
 const userSelector = createSelector(state => state.user, user => user);                                         // user
 
@@ -128,13 +184,14 @@ const mapStateToProps = createSelector(
   // departmentSelector,
   // pagesSelector,
   productSelector,
+  productsSelector,
   // servicesSelector,
   // siteSelector,
-  // socialMediaSelector,
+  socialMediaSelector,
   // testimonialsSelector,
   userSelector,
   // (brands, blog_post, blog_tags, carrousel, img_carrousel, departments, pages, products, services, site, social_media, testimonials, user) => (
-  (product, user) => (
+  (product, products, social_media, user) => (
     {
       //     brands,
       //     blog_post,
@@ -144,9 +201,10 @@ const mapStateToProps = createSelector(
       //     departments,
       //     pages,
       product,
+      products,
       //     services,
       //     site,
-      //     social_media,
+      social_media,
       //     testimonials,
       user,
     }
@@ -164,9 +222,10 @@ const mapDispatchToProps = (dispatch, props) => {
       // onFetchDepartments: fetchDepartments,
       // onFetchPages: fetchPages,
       onFetchProduct: fetchSingleProduct,
+      onFetchProducts: fetchProducts,
       // onFetchServices: fetchServices,
       // onFetchSite: fetchSite,
-      // onFetchSocialMedia: fetchSocialMedia,
+      onFetchSocialMedia: fetchSocialMedia,
       // onFetchTestimonial: fetchTestimonial,
     }, dispatch
   );

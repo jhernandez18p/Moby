@@ -72,10 +72,10 @@ export function showError(error){
     }
 };
 
-export const fetchSingleLine = (slug) => {
+export const fetchSingleLine = (id) => {
 
     return dispatch => {
-        instance.get(`lines/${slug}/`)
+        instance.get(`lines/${id}/`)
             .then(res => {
                 let line = res.data;
                 return dispatch({

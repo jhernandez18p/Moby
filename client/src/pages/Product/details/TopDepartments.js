@@ -16,7 +16,7 @@ class TopDepartments extends Component {
                         <div className="content-overlay"></div>
                         <img className="content-image" alt={ department.name } src={ department.background }></img>
                         <div className="content-details fadeIn-top">
-                            <Link to={`/productos/todos?cat=${ department.slug }`}>
+                            <Link to={`/productos/todos?departamento=${ department.id }`}>
                                 <h3>{ department.name }</h3>
                             </Link>
                         </div>

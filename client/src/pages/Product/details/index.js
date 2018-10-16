@@ -52,7 +52,7 @@ class ProductDetail extends Component {
   }
 
   componentDidMount() {
-    this.props.onFetchProducts('',1);
+    this.props.onFetchProducts('', 1);
     this.getURL(this.props.location.search);
     this.props.onFetchCategories();
     this.props.onFetchDepartment();
@@ -61,93 +61,106 @@ class ProductDetail extends Component {
     this.props.onFetchLines();
     this.props.onFetchSocialMedia();
   }
-  
+
   componentDidUpdate(prevProps, prevState) {
+    let totalPages = 1;
     if (this.props.products !== prevProps.products) {
-      let totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
-      this.setState({ totalPages: totalPages });
+      totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
+      if (this.state.currentPage >= 2) {
+        this.setState({ totalPages: totalPages, hasPrev: true });
+      } else {
+        this.setState({ totalPages: totalPages, hasPrev: false });
+      }
     }
-    if (this.state.currentPage !== prevState.currentPage){
+    if (this.state.currentPage !== prevState.currentPage) {
       // console.log('------',this.state.currentPage , prevState.currentPage);
-      this.props.onFetchProducts('', this.state.currentPage); 
-      let totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
-      this.setState({ totalPages: totalPages });
+      this.props.onFetchProducts('', this.state.currentPage);
+      totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
+      if (this.state.currentPage >= 2) {
+        this.setState({ totalPages: totalPages, hasPrev: true });
+      } else {
+        this.setState({ totalPages: totalPages, hasPrev: false });
+      }
     }
-    if (this.state.params === prevState.params && this.state.currentPage !== prevState.currentPage ){
+    if (this.state.params === prevState.params && this.state.currentPage !== prevState.currentPage) {
       // console.log('------',this.state.params , prevState.params);
-      this.props.onFetchProducts(this.state.params, this.state.currentPage); 
-      let totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
-      this.setState({ totalPages: totalPages });
+      this.props.onFetchProducts(this.state.params, this.state.currentPage);
+      totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
+      if (this.state.currentPage >= 2) {
+        this.setState({ totalPages: totalPages, hasPrev: true });
+      } else {
+        this.setState({ totalPages: totalPages, hasPrev: false });
+      }
     }
-    if (this.state.params !== prevState.params && this.state.currentPage === prevState.currentPage ){
+    if (this.state.params !== prevState.params && this.state.currentPage === prevState.currentPage) {
       // console.log('------',this.state.params , prevState.params);
-      this.props.onFetchProducts(this.state.params, 1); 
-      let totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
-      this.setState({ totalPages: totalPages });
+      this.props.onFetchProducts(this.state.params, 1);
+      totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
+      if (this.state.currentPage >= 2) {
+        this.setState({ totalPages: totalPages, hasPrev: true });
+      } else {
+        this.setState({ totalPages: totalPages, hasPrev: false });
+      }
     }
-    
+
     setTimeout(() => {
-      this.setState({loading:false})
+      this.setState({ loading: false })
     }, 400);
   }
 
   getURL(url) {
     // console.log(this.props);
-    console.log(url);
-    
+
     // let _url = '';
     let _urlParams = '';
-    let totalPages =  Math.ceil(this.props.products.count / this.state.limitPage);
-    this.setState({ totalPages: totalPages });
-    
     let argUrl = '';
-    if (url.split('?')[1] !== undefined){
-      argUrl = url.split('?')[1];
-      
-      if (argUrl.split('&') !== undefined){
-        argUrl = argUrl.split('&');
-        for (let x in argUrl ){
-          if (argUrl[x].split('=')[0] === 'page'){
-            // console.log(url[x].split('?')[0]);
-            _urlParams = `${_urlParams}`;
+    let totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
+
+    if (url.split('?')[1] !== undefined) {
+      argUrl = url.split('?')[1]; // URL => page=&line=&category=&department=&brand=&color=
+
+      if (argUrl.split('&') !== undefined) {
+        argUrl = argUrl.split('&'); // Lista => ["page=", "line=", "category=", "department=", "brand=", "color="]
+
+        for (let x in argUrl) {
+
+          if (argUrl[x].split('=')[0] === 'page') {
             // eslint-disable-next-line
-            this.setState({ currentPage: parseInt(argUrl[x].split('=')[1]) });
+            let _currentPage = parseInt(argUrl[x].split('=')[1]);
+            this.setState({ currentPage: _currentPage });
           }
-          if (argUrl[x].split('=')[0] === 'line'){
+          if (argUrl[x].split('=')[0] === 'line') {
             _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
           }
-          if (argUrl[x].split('=')[0] === 'category'){
+          if (argUrl[x].split('=')[0] === 'category') {
             _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
           }
-          if (argUrl[x].split('=')[0] === 'department'){
+          if (argUrl[x].split('=')[0] === 'department') {
             _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
           }
-          if (argUrl[x].split('=')[0] === 'brand'){
+          if (argUrl[x].split('=')[0] === 'brand') {
             _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
           }
-          if (argUrl[x].split('=')[0] === 'color'){
+          if (argUrl[x].split('=')[0] === 'color') {
             _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
           }
-          if (argUrl[x].split('=')[0] === 'search'){
-            _urlParams = `${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+          if (argUrl[x].split('=')[0] === 'search') {
+            _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
             this.setState({
-              searchURL:`${argUrl[x].split('=')[1]}`
+              searchURL: `${argUrl[x].split('=')[1]}`
             });
           }
-            // _urlParams = `${this.state.params}?${url.split('?')[1]}`; 
-            // console.log(url[x].split('?')[0], '----');
         }
       }
-    }else{
+    } else {
       _urlParams = url;
     }
-    // console.log(url);
-    // console.log(_urlParams);
-    
+    console.log(_urlParams);
 
     this.setState({
       params: _urlParams,
-      hasUrlParams: true
+      hasUrlParams: true,
+      totalPages: totalPages
     });
   }
 
@@ -193,7 +206,7 @@ class ProductDetail extends Component {
     if (currentPage > 1) { this.setState({ hasPrev: true, currentPage: currentPage }) }
     if (currentPage > 1 && currentPage <= pages) {
       let urlPage = `page=${currentPage}`;
-      this.getURL(urlPage); 
+      this.getURL(urlPage);
     }
     // console.log('currentPage ->', currentPage, 'pages ->', pages, 'offset ->', offsetPage)
   }
@@ -210,7 +223,7 @@ class ProductDetail extends Component {
     if (currentPage === 1) { this.setState({ hasPrev: false, hasNext: true }); }
     if (currentPage >= 1 && currentPage <= pages) {
       let urlPage = `page=${currentPage}`;
-      this.getURL(urlPage); 
+      this.getURL(urlPage);
     }
     // console.log('currentPage ->', currentPage, 'pages ->', pages, 'offset ->', offsetPage)
   }
@@ -331,7 +344,7 @@ class ProductDetail extends Component {
       )
     }
 
-    if (this.state.loading){
+    if (this.state.loading) {
       return (
         <div className="product-list">
           <ProductsHeader
@@ -366,7 +379,7 @@ class ProductDetail extends Component {
           <div><RedesLine redes={social_media} /></div>
         </div>
       );
-    }else{
+    } else {
       return (
         <div className="product-list">
           <ProductsHeader

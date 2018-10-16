@@ -30,6 +30,7 @@ import SingleDetail from './pages/Product/details/SingleDetails';
 class App extends Component {
 
   render() {
+    console.log('Wow! you like the console. If you find something have to be fixed, please contact us at info@moby-group.com. \n\nIf you would like an beautiful site like this, please contact us at info@dev2tech.xyz. \n\nWebsite designed and developed by Dev2tech.');
     return (
       <div>
         <Helmet

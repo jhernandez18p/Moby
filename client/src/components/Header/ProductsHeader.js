@@ -47,7 +47,7 @@ class ProductsHeader extends Component {
           toggleMenu={this.toggleMenu} 
           showMenu={this.state.showMenu} 
           fixedMenu={this.state.fixedMenu}
-          
+          urlPage={urlPage}
           haveFilters={haveFilters}
           getFilter={this.props.getFilter}
           postsCountLimit={postsCountLimit}
@@ -55,7 +55,6 @@ class ProductsHeader extends Component {
           currentPage={currentPage}
           limitPage={limitPage}
           offsetPage={offsetPage}
-          urlPage={urlPage}
           nextPage={nextPage}
           previousPage={previousPage}
           hasNext={hasNext}

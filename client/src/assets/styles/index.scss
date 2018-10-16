@@ -114,8 +114,9 @@ header, .content, footer {flex-shrink: 0;}
   padding-top: 25px;
   padding-bottom: 25px  
 }
-#overFooter h2{
-  padding-bottom: 15px  
+.is-green-line{
+  margin: 4px 0 20px 0 !important;
+  width: 40px !important;
 }
 .navbar-item img {
   max-height: 2.8rem;
@@ -1197,7 +1198,11 @@ height: 99.9vh;
 .curmudgeon::after {
   border-top: 0;
   border-right: 0;
-  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+}
+
+.rgba-green-strong {
+  background-color: rgba(76,175,80,.7)!important;
 }
 
 @media screen and (max-width: 800px){

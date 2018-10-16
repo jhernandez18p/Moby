@@ -60,16 +60,19 @@ class Footer extends Component {
 							<h2 className="is-size-4 has-text-white">
 								{siteName}
 							</h2>
+							<hr className="rgba-green-strong is-green-line"></hr>
 							<div className="has-text-white" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(siteDescription) }}></div>
 						</div>
 						<div className="column">
 							<h2 className="is-size-4 has-text-white">Artículos recientes</h2>
+							<hr className="rgba-green-strong is-green-line"></hr>
 							<ul>
 								{postItems}
 							</ul>
 						</div>
 						<div className="column">
 							<h2 className="is-size-4 has-text-white">Enlaces</h2>
+							<hr className="rgba-green-strong is-green-line"></hr>
 							<ul>
 								<li className="navbar-item">
 									<Link to="/quienes-somos" className="is-uppercase has-text-white">¿Quienes somos?</Link>
@@ -90,6 +93,7 @@ class Footer extends Component {
 						</div>
 						<div className="column">
 							<h2 className="is-size-4 has-text-white">Contacto</h2>
+							<hr className="rgba-green-strong is-green-line"></hr>
 							<p className="has-text-white">{siteAddress}</p>
 							<p className="has-text-white">{siteAddress1}</p>
 							<p className="has-text-white">{sitePhone}</p>
@@ -108,11 +112,6 @@ class Footer extends Component {
 							<div className="navbar-brand">
 								<p className="navbar-item is-size-7 has-text-white">
 									Moby Group all rights reserved {year}
-									<span className="is-hidden-touch">&nbsp;|&nbsp;</span>
-									<br className="is-hidden-desktop"></br>
-									Website Designed & Developed by &nbsp;
-									<br className="is-hidden-desktop"></br>
-									<a href="https://dev2tech.xyz" className="has-text-grey"> Dev2tech</a>.
 								</p>
 							</div>
 						</div>

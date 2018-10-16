@@ -128,8 +128,6 @@ class ProductsNav extends Component {
     getSearch(e){
         e.preventDefault();
         this.setState({keyToSearch: e.target.value});
-        console.log(e.target.value);
-        this.props.history.push(`/productos/todos?search=${this.state.keyToSearch}`);
     }
 
     changeFilter(e, arg, filter) {
@@ -309,6 +307,11 @@ class ProductsNav extends Component {
 
                     <div className="container">
                         <div className="navbar-brand">
+                            <Link to='/' className="navbar-item">
+                                <span className="icon has-text-black">
+                                    <i className="fas fa-home"></i>
+                                </span> <span>Inicio</span>
+                            </Link>
                             <p onClick={this.goBack} className="navbar-item">
                                 <span className="icon has-text-black">
                                     <i className="fas fa-arrow-left"></i>

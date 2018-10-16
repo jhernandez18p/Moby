@@ -143,7 +143,7 @@ export const fetchSingleProduct = (slug) => {
     }
 }
 
-export const fetchProducts = ( params = '', offset = 0 ) => {
+export const fetchProducts = ( params = '', offset = 1 ) => {
 
     let url = 'products/';
     let page = '';
@@ -162,7 +162,7 @@ export const fetchProducts = ( params = '', offset = 0 ) => {
     }
     let _url = `${url}?${hasParams}${page}`;
     
-    console.log(_url);
+    // console.log(_url);
     return dispatch => {
         instance.get(_url)
             .then(res => {
