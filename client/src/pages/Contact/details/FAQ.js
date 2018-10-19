@@ -1,9 +1,27 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
+// Components
+import DOMPurify from 'dompurify';
+
+// Redux
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
+
+// Actions 
+import { fetchQuestions } from '../../../redux/actions/faq/question';
+import { fetchAnswers } from '../../../redux/actions/faq/answer';
 
 class FAQ extends Component {
+
     componentDidMount() {
+        setTimeout(() => {
+            this.props.onFetchQuestions();
+            this.props.onFetchAnswers();
+        }, 200);
+    };
+
+    componentDidUpdate() {
         var acc = document.getElementsByClassName("accordion");
         var i;
 
@@ -18,26 +36,63 @@ class FAQ extends Component {
                 }
             });
         }
-    };
+    }
+
+    getAnswer(id){
+        
+    }
+
     render() {
-        return(
+
+        const filter = (array, key, val) => {
+            let filtered_array = [];
+            array.forEach(function (element) {
+                if (element[key] === val) {
+                    filtered_array.push(element);
+                }
+            });
+            return filtered_array;
+        };
+
+        let questions = this.props.questions || 'Cargando ...';
+        let answers = this.props.answers || 'Cargando ...';
+
+        let faqs = <div />;
+        let _faq = <div />;
+        let answer = [];
+
+        if (questions.count !== undefined) {
+            _faq = questions.results.map(
+                (re, i) => {
+                    // this.getAnswer(re.id);
+                    answer.push(filter(answers.results,'question',re.id));
+                    if(answer[i][0]){
+                        let html = (
+                            <div key={re.id.toString()} className="is-padding-bottom-30">
+                                <button className="accordion">{re.title}</button>
+                                <div className="panel">
+                                    <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(answer[i][0].text) }}></div>
+                                </div>
+                            </div>
+                        )
+                        return html;
+                    }else{
+                        return <div  key={re.id.toString()}/>;
+                    }
+
+                }
+            );
+            faqs = (
+                <div className="accordions">
+                    {_faq}
+                </div>
+            );
+        }
+        return (
             <div className="container">
                 <div className="columns">
                     <div className="column">
-                        <div className="accordions">
-                            <button className="accordion">Pregunta 1</button>
-                            <div className="panel">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            </div>
-                            <button className="accordion">Pregunta 2</button>
-                            <div className="panel">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            </div>
-                            <button className="accordion">Pregunta 3</button>
-                            <div className="panel">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            </div>
-                        </div>
+                        {faqs}
                     </div>
                 </div>
             </div>
@@ -45,8 +100,28 @@ class FAQ extends Component {
     }
 }
 
-const mapStateToProps = {
-    
+
+const answersSelector = createSelector(state => state.answers, answers => answers);                                              // Answers
+const questionsSelector = createSelector(state => state.questions, questions => questions);                                      // questions
+
+const mapStateToProps = createSelector(
+    answersSelector,
+    questionsSelector,
+    (answers, questions) => (
+        {
+            answers,
+            questions,
+        }
+    )
+);
+
+const mapDispatchToProps = (dispatch, props) => {
+    return bindActionCreators(
+        {
+            onFetchAnswers: fetchAnswers,
+            onFetchQuestions: fetchQuestions,
+        }, dispatch
+    );
 }
 
-export default connect(mapStateToProps)(FAQ);
+export default connect(mapStateToProps, mapDispatchToProps)(FAQ);

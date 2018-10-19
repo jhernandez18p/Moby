@@ -96,15 +96,14 @@ export const fetchLines = ( params = '', offset = 0 ) => {
     let hasParams = '';
     if (_offset >= 1){
         _offset = offset * 20;
-        page = `&offset=${_offset}?active=true`;
+        page = `&offset=${_offset}`;
     }
     let url = 'lines/';
     if (params !== ''){
         let newUrl = params.split('?');
         hasParams = newUrl[1];
     }
-    let _url = `${url}?${hasParams}${page}`;
-
+    let _url = `${url}?${hasParams}${page}&active=true`;
     return dispatch => {
         instance.get(_url)
             .then(res => {

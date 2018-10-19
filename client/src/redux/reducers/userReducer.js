@@ -38,43 +38,32 @@ export default function userReducer (state = initialUser, { type, payload }) {
     switch (type) {
         case ADD_USER:
             return payload.user;
-
         case AUTH_USER:
             return payload.user;
-        
         case UPDATE_USER:
             return payload.user;
-        
         case DELETE_USER:
             return payload.user;
-        
         case SHOW_ERROR:
             return payload.user;
-        
         case REQUEST_USER:
             return payload.user;
-        
         case INVALIDATE_USER:
             return payload.user;
-
         case LOADING_USER:
             return { ...state, isLoading: true };
-
         case LOADED_USER:
             return { ...state, isAuthenticated: true, isLoading: false, user: payload.user };
-
         case LOGIN_SUCCESSFUL:
             localStorage.setItem("token", payload.user.token);
             localStorage.setItem("isAuthenticated", payload.user.isAuthenticated);
             return payload.user;
-
         case AUTHENTICATION_ERROR:
         case LOGIN_FAILED:
         case LOGOUT_SUCCESSFUL:
             localStorage.removeItem("token");
             localStorage.removeItem("isAuthenticated");
             return { ...state, ...payload.user };
-        
         default:
             return state;
     }

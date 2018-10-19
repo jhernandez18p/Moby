@@ -17,7 +17,7 @@ import { fetchBrands } from "../../../redux/actions/brand";
 import { fetchCategories } from "../../../redux/actions/category";
 import { fetchColors } from '../../../redux/actions/product/color';
 import { fetchDepartments } from '../../../redux/actions/department';
-import { fetchLines } from '../../../redux/actions/product/line';
+import { fetchLines, fetchSingleLine } from '../../../redux/actions/product/line';
 import { fetchProducts } from '../../../redux/actions/product';
 import { fetchSocialMedia } from '../../../redux/actions/site/socialMedia';
 
@@ -52,7 +52,7 @@ class ProductDetail extends Component {
   }
 
   componentDidMount() {
-    this.props.onFetchProducts('', 1);
+    this.props.onFetchProducts('');
     this.getURL(this.props.location.search);
     this.props.onFetchCategories();
     this.props.onFetchDepartment();
@@ -61,108 +61,113 @@ class ProductDetail extends Component {
     this.props.onFetchLines();
     this.props.onFetchSocialMedia();
   }
-
+  
   componentDidUpdate(prevProps, prevState) {
-    let totalPages = 1;
-    if (this.props.products !== prevProps.products) {
-      totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
-      if (this.state.currentPage >= 2) {
-        this.setState({ totalPages: totalPages, hasPrev: true });
-      } else {
-        this.setState({ totalPages: totalPages, hasPrev: false });
-      }
-    }
-    if (this.state.currentPage !== prevState.currentPage) {
-      // console.log('------',this.state.currentPage , prevState.currentPage);
-      this.props.onFetchProducts('', this.state.currentPage);
-      totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
-      if (this.state.currentPage >= 2) {
-        this.setState({ totalPages: totalPages, hasPrev: true });
-      } else {
-        this.setState({ totalPages: totalPages, hasPrev: false });
-      }
-    }
-    if (this.state.params === prevState.params && this.state.currentPage !== prevState.currentPage) {
-      // console.log('------',this.state.params , prevState.params);
-      this.props.onFetchProducts(this.state.params, this.state.currentPage);
-      totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
-      if (this.state.currentPage >= 2) {
-        this.setState({ totalPages: totalPages, hasPrev: true });
-      } else {
-        this.setState({ totalPages: totalPages, hasPrev: false });
-      }
-    }
-    if (this.state.params !== prevState.params && this.state.currentPage === prevState.currentPage) {
-      // console.log('------',this.state.params , prevState.params);
-      this.props.onFetchProducts(this.state.params, 1);
-      totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
-      if (this.state.currentPage >= 2) {
-        this.setState({ totalPages: totalPages, hasPrev: true });
-      } else {
-        this.setState({ totalPages: totalPages, hasPrev: false });
-      }
-    }
+    // if (this.props.currentPage !== prevProps.currentPage){
+    //   console.log('Estado actual props: ', this.props, '\nEstado previo props: ',prevProps)
+    //   console.log('Estado props: ', this.props === prevProps)
+    // }
+    // console.log('Estado actual state: ', this.state, '\nEstado previo state: ',prevState)
+    // console.log('Estado actual state: ', this.state.currentPage, '\nEstado previo state: ',prevState.currentPage)
 
-    setTimeout(() => {
-      this.setState({ loading: false })
-    }, 400);
+    // if (this.props.products !== prevProps.products) {
+    //   let totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
+    //   this.setState({ totalPages: totalPages });
+    // }
+    // if (this.state.currentPage !== prevState.currentPage){ 
+    //   // console.log('------',this.state.currentPage , prevState.currentPage);
+    //   this.props.onFetchProducts(this.state.params, this.state.currentPage); 
+    //   let totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
+    //   this.setState({ totalPages: totalPages });
+    // }
+    // if (this.state.params === prevState.params && this.state.currentPage !== prevState.currentPage ){
+    //   // console.log('------',this.state.params , prevState.params);
+    //   this.props.onFetchProducts(this.state.params, this.state.currentPage); 
+    //   let totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
+    //   this.setState({ totalPages: totalPages });
+    // }
+    // if (this.state.params !== prevState.params && this.state.currentPage === prevState.currentPage ){
+    //   // console.log('------',this.state.params , prevState.params);
+    //   this.props.onFetchProducts(this.state.params, 1); 
+    //   let totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
+    //   this.setState({ totalPages: totalPages });
+    // }
   }
 
   getURL(url) {
     // console.log(this.props);
-
+    console.log(url);
     // let _url = '';
-    let _urlParams = '';
-    let argUrl = '';
-    let totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
+    // var _urlParams = '';
+    // let totalPages =  Math.ceil(this.props.products.count / this.state.limitPage);
+    // this.setState({ totalPages: totalPages });
+    
+    // let argUrl = '';
+    // var _argUrl = [];
 
-    if (url.split('?')[1] !== undefined) {
-      argUrl = url.split('?')[1]; // URL => page=&line=&category=&department=&brand=&color=
+    // if (url.split('?')[1] !== undefined){
+    //   argUrl = url.split('?')[1];
+    //   if (argUrl.split('&') !== undefined){
+    //     argUrl = argUrl.split('&');
+        
+    //     for ( let x in argUrl ){
+    //       // console.log(argUrl.split('&'))
+          
+    //       if (argUrl[x].split('=')[0] === 'page'){
 
-      if (argUrl.split('&') !== undefined) {
-        argUrl = argUrl.split('&'); // Lista => ["page=", "line=", "category=", "department=", "brand=", "color="]
+    //         _urlParams = `${_urlParams}?${ `page` }=${ argUrl[x].split('=')[1] }`;
+            
+    //         // eslint-disable-next-line
+    //         this.setState({ currentPage: parseInt(argUrl[x].split('=')[1]) });  
 
-        for (let x in argUrl) {
+    //       }
 
-          if (argUrl[x].split('=')[0] === 'page') {
-            // eslint-disable-next-line
-            let _currentPage = parseInt(argUrl[x].split('=')[1]);
-            this.setState({ currentPage: _currentPage });
-          }
-          if (argUrl[x].split('=')[0] === 'line') {
-            _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
-          }
-          if (argUrl[x].split('=')[0] === 'category') {
-            _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
-          }
-          if (argUrl[x].split('=')[0] === 'department') {
-            _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
-          }
-          if (argUrl[x].split('=')[0] === 'brand') {
-            _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
-          }
-          if (argUrl[x].split('=')[0] === 'color') {
-            _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
-          }
-          if (argUrl[x].split('=')[0] === 'search') {
-            _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
-            this.setState({
-              searchURL: `${argUrl[x].split('=')[1]}`
-            });
-          }
-        }
-      }
-    } else {
-      _urlParams = url;
-    }
-    console.log(_urlParams);
+    //       if (argUrl[x].split('=')[0] === 'line'){
 
-    this.props.history.push(`/productos/todos?${_urlParams}`);
-    this.setState({
-      params: _urlParams,
-      hasUrlParams: true,
-      totalPages: totalPages
-    });
+    //         _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+    //         _argUrl.push(_urlParams); 
+    //         // this.onFetchLine(argUrl[x].split('=')[1])
+
+    //       }
+    //       if (argUrl[x].split('=')[0] === 'category'){
+    //         _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+    //         _argUrl.push(_urlParams);
+    //       }
+    //       if (argUrl[x].split('=')[0] === 'department'){
+    //         _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+    //         _argUrl.push(_urlParams);
+    //       }
+    //       if (argUrl[x].split('=')[0] === 'brand'){
+    //         _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+    //         _argUrl.push(_urlParams);
+    //       }
+    //       if (argUrl[x].split('=')[0] === 'color'){
+    //         _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+    //         _argUrl.push(_urlParams);
+    //       }
+    //       if (argUrl[x].split('=')[0] === 'search'){
+    //         _urlParams = `${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+    //         _argUrl.push(_urlParams);
+    //         this.setState({
+    //           searchURL:`${argUrl[x].split('=')[1]}`
+    //         });
+    //       }
+    //     }
+    //   }
+    // }else{
+    //   _urlParams = url;
+    // }
+    
+    // if ( argUrl === '' ){
+    //   argUrl = url
+    // }else{
+    //   argUrl = _argUrl[_argUrl.length - 1];
+    // }
+    
+    // this.setState({
+    //   params: argUrl,
+    //   hasUrlParams: true
+    // });
   }
 
   getFilter(e, arg, id, filter) {
@@ -192,22 +197,20 @@ class ProductDetail extends Component {
 
   handleNextClick(e, page = this.state.currentPage) {
     // e.preventDefault();
-    window.scrollTo(0, 0)
-    // console.log(page);
-
-    let currentPage = page; //Aumenta el numero de la pagina
+    window.scrollTo(0, 0);
+    let currentPage = page; 
     if (page < this.state.currentPage) {
-      currentPage = page - 1; //Aumenta el numero de la pagina
-    }
+      currentPage = page - 1;
+    };
     let limitPage = this.state.limitPage || 20;
     let pages = this.state.totalPages;
     let offsetPage = Math.ceil(limitPage * (currentPage - 1));
-    this.setState({ currentPage: currentPage, offsetPage: offsetPage })
-    if (currentPage === pages) { this.setState({ hasNext: false }) }
-    if (currentPage > 1) { this.setState({ hasPrev: true, currentPage: currentPage }) }
+    this.setState({ currentPage: currentPage, offsetPage: offsetPage });
+    if (currentPage === pages) { this.setState({ hasNext: false }) };
+    if (currentPage > 1) { this.setState({ hasPrev: true, currentPage: currentPage }) };
     if (currentPage > 1 && currentPage <= pages) {
       let urlPage = `page=${currentPage}`;
-      this.getURL(urlPage);
+      this.getURL(urlPage); 
     }
     // console.log('currentPage ->', currentPage, 'pages ->', pages, 'offset ->', offsetPage)
   }
@@ -224,7 +227,7 @@ class ProductDetail extends Component {
     if (currentPage === 1) { this.setState({ hasPrev: false, hasNext: true }); }
     if (currentPage >= 1 && currentPage <= pages) {
       let urlPage = `page=${currentPage}`;
-      this.getURL(urlPage);
+      this.getURL(urlPage); 
     }
     // console.log('currentPage ->', currentPage, 'pages ->', pages, 'offset ->', offsetPage)
   }
@@ -253,15 +256,14 @@ class ProductDetail extends Component {
     let postsCount = products.count || undefined;
     let postsCountLimit = 20;
 
+    let currentPage = this.state.currentPage;
+    let limitPage = this.state.limitPage;
+    let offsetPage = this.state.offsetPage;
+    let urlPage = this.state.urlPage;
+    
     if (postsCount >= 21) {
-
-      let currentPage = this.state.currentPage;
-      let limitPage = this.state.limitPage;
-      let offsetPage = this.state.offsetPage;
-      let urlPage = this.state.urlPage;
       // let nextPage = this.state.nextPage;
       // let previousPage = this.state.previousPage;
-
       paginator = (
         <Pagination
           postsCountLimit={postsCountLimit}
@@ -345,7 +347,7 @@ class ProductDetail extends Component {
       )
     }
 
-    if (this.state.loading) {
+    if (this.state.loading){
       return (
         <div className="product-list">
           <ProductsHeader
@@ -357,6 +359,7 @@ class ProductDetail extends Component {
             department={department}
             lines={lines}
             hasSearch={true}
+            urlPage={urlPage}
             getSearch={this.getSearch} >
           </ProductsHeader>
           <div className="is-padding-top-60" >
@@ -380,7 +383,7 @@ class ProductDetail extends Component {
           <div><RedesLine redes={social_media} /></div>
         </div>
       );
-    } else {
+    }else{
       return (
         <div className="product-list">
           <ProductsHeader
@@ -436,6 +439,8 @@ const categoriesSelector = createSelector(state => state.categories, categories 
 const colorSelector = createSelector(state => state.colors, colors => colors);
 // Departments
 const departmentSelector = createSelector(state => state.department, department => department);
+// line
+const lineSelector = createSelector(state => state.line, line => line);
 // lines
 const linesSelector = createSelector(state => state.lines, lines => lines);
 // products
@@ -448,15 +453,17 @@ const mapStateToProps = createSelector(
   categoriesSelector,
   colorSelector,
   departmentSelector,
+  lineSelector,
   linesSelector,
   productsSelector,
   socialMediaSelector,
-  (brands, categories, colors, department, lines, products, social_media) => (
+  (brands, categories, colors, department, line, lines, products, social_media) => (
     {
       brands,
       categories,
       colors,
       department,
+      line,
       lines,
       products,
       social_media
@@ -471,6 +478,7 @@ const mapDispatchToProps = (dispatch, props) => {
       onFetchCategories: fetchCategories,
       onFetchColor: fetchColors,
       onFetchDepartment: fetchDepartments,
+      onFetchLine: fetchSingleLine,
       onFetchLines: fetchLines,
       onFetchProducts: fetchProducts,
       onFetchSocialMedia: fetchSocialMedia,

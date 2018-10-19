@@ -10,6 +10,13 @@ class Pagination extends Component {
             hasNext1: true,
             hasNext2: true,
             hasNext3: true,
+            urlParams: ''
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        if (this.state.urlParams !== prevState.urlParams){
+           console.log(this.state.urlParams !== prevState.urlParams);
         }
     }
 

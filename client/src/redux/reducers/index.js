@@ -1,5 +1,6 @@
 // Reducers
-import answerReducer from './answerReducer';                      // Answers
+import answerReducer from './answerReducer';                      // Answer
+import answersReducer from './answersReducer';                    // Answers
 import blogCommentReducer from './blogCommentReducer';            // blog_comments
 import blogReducer from './blogReducer';                          // blog_post
 import postReducer from './postReducer';                          // blog_post
@@ -13,6 +14,7 @@ import categoriesReducer from './categoriesReducer';              // categories
 import colorReducer from './colorReducer';                        // Colors
 import departmentReducer from './departmentReducer';              // departments
 import flatpageReducer from './flatpageReducer';                  // Flatpage
+import flatpagesReducer from './flatpagesReducer';                // Flatpages
 import imgCarrouselReducer from './imgCarrouselReducer';          // img_carrousel
 import lineReducer from './lineReducer';                          // lines
 import pagePositionReducer from './pagePositionReducer';          // page_position
@@ -20,9 +22,10 @@ import pagesReducer from './pagesReducer';                        // pages
 import productReducer from './productReducer';                    // products
 import productsReducer from './productsReducer';                  // products
 import providerReducer from './providerReducer';                  // providers
-import questionReducer from './questionReducer';                  // Questions
+import questionReducer from './questionReducer';                  // Question
+import questionsReducer from './questionsReducer';                // Questions
 import serviceReducer from './serviceReducer';                    // services
-import imgServiceReducer from './imgServiceReducer';                    // services
+import imgServiceReducer from './imgServiceReducer';              // service
 import servicesReducer from './servicesReducer';                  // services
 import siteReducer from './siteReducer';                          // site
 import socialMediaReducer from './socialMediaReducer';            // Social Media
@@ -33,7 +36,8 @@ import userReducer from './userReducer';                          // user
 import usersReducer from './userReducer';                         // users
 
 export {
-  answerReducer,                // Answers
+  answerReducer,                // Answer
+  answersReducer,               // Answers
   blogCommentReducer,           // blog_comments
   blogReducer,                  // blog_post
   postReducer,                  // blog_post
@@ -47,6 +51,7 @@ export {
   colorReducer,                 // Colors
   departmentReducer,            // departments
   flatpageReducer,              // Flatpage
+  flatpagesReducer,             // Flatpages
   imgCarrouselReducer,          // img_carrousel
   lineReducer,                  // lines
   pagePositionReducer,          // page_position
@@ -54,7 +59,8 @@ export {
   productReducer,               // product
   productsReducer,              // products
   providerReducer,              // providers
-  questionReducer,              // Questions
+  questionReducer,              // Question
+  questionsReducer,             // Questions
   serviceReducer,               // services
   imgServiceReducer,            // Images services
   servicesReducer,              // services

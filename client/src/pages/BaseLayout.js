@@ -17,6 +17,7 @@ import Contact from './Contact';
 import Department from './Department';
 import DepartmentDetail from './Department/details';
 import FAQ from './Contact/details/FAQ';
+import FlatPage from './Contact/details/FlatPage';
 import Home from './Home';
 import Product from './Product';
 import Service from './Service';
@@ -123,9 +124,9 @@ class Layout extends Component {
                 } />
                 <Route exact path="/blog/:slug" component={BlogDetail} />
                 <Route exact path="/blog" render={(props) => <Blog user={user} />} />
-                <Route exact path="/quienes-somos" render={(props) => <Contact />} />
+                <Route exact path="/quienes-somos" component={FlatPage} />
                 <Route exact path="/contacto/f-a-q" render={(props) => <FAQ />} />
-                <Route exact path="/contacto/:slug" render={(props) => <Contact />} />
+                <Route exact path="/contacto/:slug" component={FlatPage} />
                 <Route exact path="/contacto" render={(props) => <Contact />} />
                 <Route exact path="/productos/categoria/:slug" render={(props) => <CategoryDetail />} />
                 <Route exact path="/productos/categorias" render={(props) => <Category />} />

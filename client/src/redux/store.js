@@ -4,28 +4,40 @@ import thunk from 'redux-thunk';
 // import { createLogger } from 'redux-logger';
 
 import {
-    answerReducer,                // Answers
+    answerReducer,                // Answer
+    answersReducer,               // Answers
+
     blogCommentReducer,           // blog_comments
     blogReducer,                  // blog_post
     postReducer,                  // blog_post
     blogTagReducer,               // tag
     blogTagsReducer,              // tags
+
     brandReducer,                 // brand
     brandsReducer,                // brands
+
     carrouselReducer,             // carrousel
+    imgCarrouselReducer,          // img_carrousel
+
     categoryReducer,              // category
     categoriesReducer,            // categories
+
     colorReducer,                 // Colors
+
     departmentReducer,            // departments
+
     flatpageReducer,              // Flatpage
-    imgCarrouselReducer,          // img_carrousel
+    flatpagesReducer,              // Flatpages
+    
     lineReducer,                  // lines
+    
     pagePositionReducer,          // page_position
     pagesReducer,                 // pages
     productReducer,               // products
     productsReducer,              // products
     providerReducer,              // providers
-    questionReducer,              // Questions
+    questionReducer,              // Question
+    questionsReducer,             // Questions
     serviceReducer,               // services
     imgServiceReducer,            // services
     servicesReducer,              // services
@@ -40,7 +52,8 @@ import {
 
 const allReducers = combineReducers(
     {
-        answers: answerReducer,                     // Answers
+        answer: answerReducer,                      // Answer
+        answers: answersReducer,                    // Answers
         blog_comments: blogCommentReducer,          // blog_comments
         blog_post: postReducer,                     // blog_post
         blog_posts: blogReducer,                    // blog_post
@@ -54,8 +67,8 @@ const allReducers = combineReducers(
         colors: colorReducer,                       // Colors
         department: departmentReducer,              // department
         departments: departmentReducer,             // departments
-        flatpage: flatpageReducer,                  // flatpages
-        flatpages: flatpageReducer,                 // flatpages
+        flatpage: flatpageReducer,                  // flatpage
+        flatpages: flatpagesReducer,                // flatpages
         img_carrousel: imgCarrouselReducer,         // img_carrousel
         line: lineReducer,                          // lines
         lines: lineReducer,                         // lines
@@ -64,7 +77,8 @@ const allReducers = combineReducers(
         product: productReducer,                    // product
         products: productsReducer,                  // products
         providers: providerReducer,                 // providers
-        questions: questionReducer,                 // question
+        question: questionReducer,                  // question
+        questions: questionsReducer,                // questions
         service: serviceReducer,                    // service
         service_image: imgServiceReducer,           // images service
         services: servicesReducer,                  // services

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Helmet from "react-helmet";
 
 // Components
 import ProductsHeader from '../../../components/Header/ProductsHeader';
@@ -97,6 +98,9 @@ class SingleDetail extends Component {
     } else {
       return (
         <div className="product-list">
+          <Helmet
+            title={`Moby Supply - ${product.title}`}
+          />
           <ProductsHeader />
           <div className="container is-padding-top-100" id="productsSite">
             <div>

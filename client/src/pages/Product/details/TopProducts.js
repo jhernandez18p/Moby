@@ -32,16 +32,16 @@ class TopProducts extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.product !== prevProps.product){
+        // if (this.props.product !== prevProps.product){
             // console.log(this.props.product.category);
-        }
-        if (this.props.category !== prevProps.category) {
+        // }
+        // if (this.props.category !== prevProps.category) {
             // console.log(this.props.category !== prevProps.category)
-        }
+        // }
         
-        setTimeout(() => {
-            this.setState({loading:false})
-        }, 400);
+        // setTimeout(() => {
+        //     this.setState({loading:false})
+        // }, 400);
     }
     
     getCat(catId){
