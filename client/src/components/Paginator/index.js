@@ -15,9 +15,9 @@ class Pagination extends Component {
     }
 
     componentDidUpdate(prevProps, prevState){
-        if (this.state.urlParams !== prevState.urlParams){
-           console.log(this.state.urlParams !== prevState.urlParams);
-        }
+        // if (this.state.urlParams !== prevState.urlParams){
+        //    console.log(this.state.urlParams !== prevState.urlParams);
+        // }
     }
 
     render() {
@@ -27,6 +27,10 @@ class Pagination extends Component {
         let currentPage = this.props.currentPage || 1;
         let urlPage = this.props.urlPage || '';
         let urlParams = this.props.urlParams || '';
+
+        // if (urlParams !== ''){
+        //     console.log(urlParams)
+        // }
 
         let next = currentPage + 1; let next2 = currentPage + 2; let next3 = currentPage + 3;
         let prev = currentPage - 1; let prev2 = currentPage - 2; let prev3 = currentPage - 3;
@@ -156,7 +160,7 @@ class Pagination extends Component {
 
 
         return (
-            <div className="container" id="">
+            <div >
                 <nav className="pagination is-centered">
                     {hasPrev ? <Link to={`${urlPage}?page=${prev}&${urlParams}`} className="pagination-previous" onClick={(e) => this.props.previousPage(e, prev)}>Anterior</Link> : <a className="pagination-previous" disabled >Anterior</a>}
                     {hasNext ? <Link to={`${urlPage}?page=${next}&${urlParams}`} className="pagination-next" onClick={(e) => this.props.nextPage(e, next)}>Siguiente</Link> : <a className="pagination-next" disabled>Siguiente</a>}

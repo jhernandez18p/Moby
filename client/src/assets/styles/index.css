@@ -8891,7 +8891,7 @@ header, .content, footer {
   padding-left: 15px; }
 
 #productsSearcher {
-  position: fixed; }
+  margin-right: 15px; }
 
 #productsSearcher .card h3,
 #productsSearcher .card .field {
@@ -9080,6 +9080,12 @@ header, .content, footer {
 
 .rgba-green-strong {
   background-color: rgba(76, 175, 80, 0.7) !important; }
+
+#productsSearcher .select {
+  width: 90% !important; }
+
+#productsSearcher .select select {
+  width: 100% !important; }
 
 @media screen and (max-width: 800px) {
   #blogDetails .is-blog-content {

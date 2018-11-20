@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 
 // Components
+import LogoImg from '../../../assets/images/logo/ms-icon-70x70.png';
 import ProductsSearch from './Searcher';
 import Pagination from '../../../components/Paginator';
-import ProductsHeader from '../../../components/Header/ProductsHeader';
+import ProductsHeader from '../../../components/Header';
 import RedesLine from '../../../components/Footer/Redes';
+import Footer from '../../../components/Footer';
 import TopProducts from './TopProducts';
 
 // Redux
@@ -13,12 +15,14 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
 // Actions
+import { fetchBlogPost } from '../../../redux/actions/blog';
 import { fetchBrands } from "../../../redux/actions/brand";
 import { fetchCategories } from "../../../redux/actions/category";
 import { fetchColors } from '../../../redux/actions/product/color';
 import { fetchDepartments } from '../../../redux/actions/department';
 import { fetchLines } from '../../../redux/actions/product/line';
 import { fetchProducts } from '../../../redux/actions/product';
+import { fetchSite } from '../../../redux/actions/site/';
 import { fetchSocialMedia } from '../../../redux/actions/site/socialMedia';
 
 class ProductDetail extends Component {
@@ -60,10 +64,12 @@ class ProductDetail extends Component {
     this.props.onFetchColor();
     this.props.onFetchLines();
     this.props.onFetchSocialMedia();
+    this.props.onFetchBlogPost();
+    this.props.onFetchSite();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    let totalPages = 1;
+    let totalPages;
     if (this.props.products !== prevProps.products) {
       totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
       if (this.state.currentPage >= 2) {
@@ -155,7 +161,7 @@ class ProductDetail extends Component {
     } else {
       _urlParams = url;
     }
-    console.log(_urlParams);
+    // console.log(_urlParams);
 
     this.props.history.push(`/productos/todos?${_urlParams}`);
     this.setState({
@@ -166,27 +172,33 @@ class ProductDetail extends Component {
   }
 
   getFilter(e, arg, id, filter) {
-    if (filter === 'color') {
-      this.getURL(`color=${id}`)
+   
+    if (filter === 'color' && id !== 'Colores'){
+      this.setState({color:arg});
+      this.getURL(`color=${id}`);
     }
-    if (filter === 'line') {
-      this.getURL(`line=${id}`)
+    if (filter === 'line' && id !== 'Lineas') {
+      this.setState({line:arg});
+      this.getURL(`line=${id}`);
     }
-    if (filter === 'category') {
-      this.getURL(`category=${id}`)
+    if (filter === 'category' && id !== 'Categorías') {
+      this.setState({category:arg});
+      this.getURL(`category=${id}`);
     }
-    if (filter === 'department') {
-      this.getURL(`department=${id}`)
+    if (filter === 'department' && id !== 'Departamentos') {
+      this.setState({department:arg});
+      this.getURL(`department=${id}`);
     }
-    if (filter === 'brand') {
-      this.getURL(`brand=${id}`)
+    if (filter === 'brand' && id !== 'Marcas') {
+      this.setState({brand:arg});
+      this.getURL(`brand=${id}`);
     }
   }
 
   getSearch(e) {
     e.preventDefault();
     let valu = e.target.value;
-    // console.log(valu);
+    console.log(valu);
     this.getURL(`search=${valu}`);
   }
 
@@ -229,6 +241,26 @@ class ProductDetail extends Component {
     // console.log('currentPage ->', currentPage, 'pages ->', pages, 'offset ->', offsetPage)
   }
 
+  removeUrlParams(e){
+    if (e === 'color'){
+      this.setState({color:''});
+    }
+    if (e === 'line'){
+      this.setState({line:''});
+    }
+    if (e === 'category'){
+      this.setState({category:''});
+    }
+    if (e === 'department'){
+      this.setState({department:''});
+    }
+    if (e === 'brand'){
+      this.setState({brand:''});
+    }
+    this.props.history.push(`/productos/todos`);
+
+  }
+
   render() {
     // console.log(this.state.totalPages);
     function* chunkArray(original, n) {
@@ -244,24 +276,23 @@ class ProductDetail extends Component {
     let lines = this.props.lines || 'Cargando ...';
     let products = this.props.products || 'Cargando ...';
     let social_media = this.props.social_media || 'Cargando ...';
+    let site = this.props.site || 'Cargando ...';
 
     // console.log(products);
     // console.log(this.state.params);
     // console.log(this.state.searchURL);
 
-    let paginator, urlParamsHTML, colorUrlHTML, brandUrlHTML, categoryUrlHTML, lineUrlHTML, departmentUrlHTML = <span></span>;
+    let paginator, urlParamsHTML, colorUrlHTML, brandUrlHTML, categoryUrlHTML, lineUrlHTML, departmentUrlHTML = <div></div>;
     let postsCount = products.count || undefined;
     let postsCountLimit = 20;
 
     if (postsCount >= 21) {
-
       let currentPage = this.state.currentPage;
       let limitPage = this.state.limitPage;
       let offsetPage = this.state.offsetPage;
       let urlPage = this.state.urlPage;
       // let nextPage = this.state.nextPage;
       // let previousPage = this.state.previousPage;
-
       paginator = (
         <Pagination
           postsCountLimit={postsCountLimit}
@@ -270,7 +301,7 @@ class ProductDetail extends Component {
           limitPage={limitPage}
           offsetPage={offsetPage}
           urlPage={urlPage}
-          urlParams={this.state.urlParams}
+          urlParams={this.state.params}
           nextPage={this.handleNextClick}
           previousPage={this.handlePrevClick}
           hasNext={this.state.hasNext}
@@ -286,7 +317,7 @@ class ProductDetail extends Component {
         colorUrlHTML = (
           <a className="button is-outlined is-dark is-rounded">
             <span>Color: {this.state.color}</span>
-            <span className="icon is-small">
+            <span className="icon is-small" onClick={(e)=>{this.removeUrlParams('color')}}>
               <i className="fas fa-times"></i>
             </span>
           </a>
@@ -296,7 +327,7 @@ class ProductDetail extends Component {
         brandUrlHTML = (
           <a className="button is-outlined is-dark is-rounded">
             <span>Marca: {this.state.brand}</span>
-            <span className="icon is-small">
+            <span className="icon is-small" onClick={(e)=>{this.removeUrlParams('brand')}}>
               <i className="fas fa-times"></i>
             </span>
           </a>
@@ -306,7 +337,7 @@ class ProductDetail extends Component {
         categoryUrlHTML = (
           <a className="button is-outlined is-dark is-rounded">
             <span>Categoría: {this.state.category}</span>
-            <span className="icon is-small">
+            <span className="icon is-small" onClick={(e)=>{this.removeUrlParams('category')}}>
               <i className="fas fa-times"></i>
             </span>
           </a>
@@ -316,7 +347,7 @@ class ProductDetail extends Component {
         lineUrlHTML = (
           <a className="button is-outlined is-dark is-rounded">
             <span>Linea: {this.state.line}</span>
-            <span className="icon is-small">
+            <span className="icon is-small" onClick={(e)=>{this.removeUrlParams('line')}}>
               <i className="fas fa-times"></i>
             </span>
           </a>
@@ -326,7 +357,7 @@ class ProductDetail extends Component {
         departmentUrlHTML = (
           <a className="button is-outlined is-dark is-rounded">
             <span>Departamento: {this.state.department}</span>
-            <span className="icon is-small">
+            <span className="icon is-small" onClick={(e)=>{this.removeUrlParams('department')}}>
               <i className="fas fa-times"></i>
             </span>
           </a>
@@ -336,9 +367,9 @@ class ProductDetail extends Component {
         <div className="container is-padding-top-30">
           <div className="columns is-centered">
             <div className="column">
-              <p className="buttons">
+              <div className="buttons">
                 {lineUrlHTML} {categoryUrlHTML} {departmentUrlHTML} {brandUrlHTML} {colorUrlHTML}
-              </p>
+              </div>
             </div>
           </div>
         </div>
@@ -346,60 +377,30 @@ class ProductDetail extends Component {
     }
 
     if (this.state.loading) {
-      return (
-        <div className="product-list">
-          <ProductsHeader
-            haveFilters={true}
-            getFilter={this.getFilter}
-            brands={brands}
-            categories={categories}
-            colors={colors}
-            department={department}
-            lines={lines}
-            hasSearch={true}
-            getSearch={this.getSearch} >
-          </ProductsHeader>
-          <div className="is-padding-top-60" >
-            {urlParamsHTML}
-            <div className="container is-padding-top-20" id="productsSite">
-              <div className="columns is-variable is-1">
-                {/* <div className="column is-3">
-                    <ProductsSearch />
-                  </div> */}
-                <div className="column is-padding-top-30" id="feeds">
-                  <div className="columns">
-                    <TopProducts />
-                    <TopProducts />
-                    <TopProducts />
-                    <TopProducts />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div><RedesLine redes={social_media} /></div>
-        </div>
-      );
+      return <div><img src={LogoImg} alt="Moby Supply" id="preloadImg" className="ping" /></div>;
     } else {
       return (
         <div className="product-list">
           <ProductsHeader
-            haveFilters={true}
-            getFilter={this.getFilter}
-            brands={brands}
-            categories={categories}
-            colors={colors}
-            department={department}
-            lines={lines}
-            hasSearch={true}
-            getSearch={this.getSearch} >
-          </ProductsHeader>
+            site={site}
+            user={this.props.user}
+          />
           <div className="is-padding-top-60" >
             {urlParamsHTML}
             <div className="container is-padding-top-20" id="productsSite">
               <div className="columns is-variable is-1">
                 <div className="column is-3">
-                    <ProductsSearch />
+                  <ProductsSearch 
+                    brands={brands}
+                    categories={categories}
+                    colors={colors}
+                    department={department}
+                    lines={lines}
+                    getFilter={this.getFilter}
+                    getSearch={this.getSearch}
+                    hasSearch={true}
+                    haveFilters={true}
+                  />
                 </div>
                 <div className="column is-padding-top-30" id="feeds">
                   {Array.from(chunkArray(products.results, 4)).map(
@@ -414,52 +415,55 @@ class ProductDetail extends Component {
                       )
                     })
                   }
+                  <div className="is-padding-bottom-60">
+                    {paginator}
+                  </div>
                 </div>
-              </div>
-              <div className="is-padding-bottom-60">
-                {paginator}
               </div>
             </div>
           </div>
           <div><RedesLine redes={social_media} /></div>
+          <Footer site={site} blog_posts={this.props.blog_posts} />
         </div>
       );
     }
   }
 }
 
-// brands
-const brandsSelector = createSelector(state => state.brands, brands => brands);
-// categories
-const categoriesSelector = createSelector(state => state.categories, categories => categories);
-// Color
-const colorSelector = createSelector(state => state.colors, colors => colors);
-// Departments
-const departmentSelector = createSelector(state => state.department, department => department);
-// lines
-const linesSelector = createSelector(state => state.lines, lines => lines);
-// products
-const productsSelector = createSelector(state => state.products, products => products);
-// Social media
-const socialMediaSelector = createSelector(state => state.social_media, social_media => social_media);
+const blogSelector = createSelector(state => state.blog_posts, blog_posts => blog_posts);                         // Blog Post
+const brandsSelector = createSelector(state => state.brands, brands => brands);                                   // brands
+const categoriesSelector = createSelector(state => state.categories, categories => categories);                   // categories
+const colorSelector = createSelector(state => state.colors, colors => colors);                                    // Color
+const departmentSelector = createSelector(state => state.department, department => department);                   // Departments
+const linesSelector = createSelector(state => state.lines, lines => lines);                                       // lines
+const productsSelector = createSelector(state => state.products, products => products);                           // products
+const siteSelector = createSelector(state => state.site, site => site);                                           // Site
+const socialMediaSelector = createSelector(state => state.social_media, social_media => social_media);            // Social media
+const userSelector = createSelector(state => state.user, user => user);                                           // User
 
 const mapStateToProps = createSelector(
+  blogSelector,
   brandsSelector,
   categoriesSelector,
   colorSelector,
   departmentSelector,
   linesSelector,
   productsSelector,
+  siteSelector,
   socialMediaSelector,
-  (brands, categories, colors, department, lines, products, social_media) => (
+  userSelector,
+  (blog_posts, brands, categories, colors, department, lines, products, site, social_media, user) => (
     {
+      blog_posts,
       brands,
       categories,
       colors,
       department,
       lines,
       products,
-      social_media
+      site,
+      social_media,
+      user
     }
   )
 );
@@ -467,12 +471,14 @@ const mapStateToProps = createSelector(
 const mapDispatchToProps = (dispatch, props) => {
   return bindActionCreators(
     {
+      onFetchBlogPost: fetchBlogPost,
       onFetchBrands: fetchBrands,
       onFetchCategories: fetchCategories,
       onFetchColor: fetchColors,
       onFetchDepartment: fetchDepartments,
       onFetchLines: fetchLines,
       onFetchProducts: fetchProducts,
+      onFetchSite: fetchSite,
       onFetchSocialMedia: fetchSocialMedia,
     }, dispatch
   );

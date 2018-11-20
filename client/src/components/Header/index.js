@@ -6,7 +6,7 @@ import Nav from '../Nav/index';
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       showMenu: true,
       toggled: false,
       fixedMenu: true
@@ -15,13 +15,13 @@ class Header extends Component {
   }
 
   toggleMenu = function () {
-    if (this.state.toggled){
-      this.setState({ 
+    if (this.state.toggled) {
+      this.setState({
         showMenu: this.state.showMenu,
         toggled: !this.state.toggled
       });
-    }else{
-      this.setState({ 
+    } else {
+      this.setState({
         showMenu: !this.state.showMenu,
         toggled: this.state.toggled
       });
@@ -31,14 +31,12 @@ class Header extends Component {
   render() {
     let site = this.props.site;
     let user = this.props.user;
-    
-    let sitePhone = site.results[0].phone || 'nada';
-    
+    let sitePhone = site.results[0].phone || '';
     return (
       <div ref="test">
-        <Nav 
-          toggleMenu={this.toggleMenu} 
-          showMenu={this.state.showMenu} 
+        <Nav
+          toggleMenu={this.toggleMenu}
+          showMenu={this.state.showMenu}
           fixedMenu={this.state.fixedMenu}
           sitePhone={sitePhone}
           isAuthenticated={user.isAuthenticated} />

@@ -106,7 +106,7 @@ class TopProducts extends Component {
                             </p>
                         </div>
                         <div className="feed-content">
-                            <div className="is-size-5" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(product.description) }}></div>
+                            <div className="is-size-6" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(product.description) }}></div>
                         </div>
                     </div>
                 </div>
