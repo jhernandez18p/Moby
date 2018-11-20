@@ -61,9 +61,9 @@ class Services extends Component {
                     <div className="">
                       <h2 className="is-size-1"><Link to="/servicios" className="has-text-black">Nuestros servicios</Link></h2>
                     </div>
-                    <div className="">
+                    {/* <div className="">
                       <h3 className="is-size-3">Servicio de {services.title}.</h3>
-                    </div>
+                    </div> */}
                     <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(services.content) }}></div>
                   </div>
                 </div>

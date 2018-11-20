@@ -11,60 +11,57 @@ import { createSelector } from 'reselect';
 // actions
 import { fetchCategory } from '../../../redux/actions/category';
 
-
 class TopProducts extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             categoryName: '',
             categoryID: '',
-            product:{},
+            product: {},
         }
     }
 
-    componentDidMount(){
-        // this.getCat(this.props.product)
-        if (this.props.product !== undefined){
-            if (this.props.product.category !== null){
-                // console.log(this.props.product.category)
-            }
-        }
-    }
+    // componentDidMount(){
+    //     this.getCat(this.props.product)
+    //     if (this.props.product !== undefined){
+    //         if (this.props.product.category !== null){
+    //             console.log(this.props.product.category)
+    //         }
+    //     }
+    // }
 
-    componentDidUpdate(prevProps, prevState) {
-        // if (this.props.product !== prevProps.product){
-            // console.log(this.props.product.category);
-        // }
-        // if (this.props.category !== prevProps.category) {
-            // console.log(this.props.category !== prevProps.category)
-        // }
-        
-        // setTimeout(() => {
-        //     this.setState({loading:false})
-        // }, 400);
-    }
-    
-    getCat(catId){
-        this.props.onFetchCategory(catId);
-        
-        console.log( this.props.category.name)
-        return this.props.category.name
-    }
-    
+    // componentDidUpdate(prevProps, prevState) {
+    //     if (this.props.product !== prevProps.product) {
+    //         console.log(this.props.product.category);
+    //     }
+    //     if (this.props.category !== prevProps.category) {
+    //         console.log(this.props.category !== prevProps.category)
+    //     }
+    //     setTimeout(() => {
+    //         this.setState({ loading: false })
+    //     }, 400);
+    // }
+
+    // getCat(catId) {
+    //     this.props.onFetchCategory(catId);
+    //     console.log(this.props.category.name)
+    //     return this.props.category.name
+    // }
+
     render() {
-        
+
         let product = this.props.product || undefined;
         let categoryID = '';
-        if (this.props.product !== undefined){
-            if (this.props.product.category !== null){
+        if (this.props.product !== undefined) {
+            if (this.props.product.category !== null) {
                 // console.log(this.props.product.category)
                 categoryID = this.props.product.category || 1;
             }
         }
-        
-        let categoryName = this.state.categoryName || '';
 
-        if (product === undefined){
+        let categoryName = this.state.categoryName || 'Moby Supply';
+
+        if (product === undefined) {
             return (
                 <div className="column">
                     <div className="recent-feed">
@@ -84,7 +81,7 @@ class TopProducts extends Component {
                     </div>
                 </div>
             )
-        }else{
+        } else {
             return (
                 <div className="column">
                     <div className="recent-feed">
@@ -94,7 +91,7 @@ class TopProducts extends Component {
                             </Link>
                         </div>
                         <div className="feed-title">
-                            <h3 className="is-size-4">
+                            <h3 className="is-size-7">
                                 <Link to={`/producto/${product.slug ? product.slug : product.code}`} className="has-text-black">
                                     {product.name ? product.name : product.code}
                                 </Link>
@@ -109,7 +106,7 @@ class TopProducts extends Component {
                             </p>
                         </div>
                         <div className="feed-content">
-                            <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(product.description) }}></div>
+                            <div className="is-size-5" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(product.description) }}></div>
                         </div>
                     </div>
                 </div>
@@ -118,7 +115,6 @@ class TopProducts extends Component {
     }
 }
 
-// blog_tags
 const categorySelector = createSelector(
     state => state.category,
     category => category
@@ -127,17 +123,13 @@ const categorySelector = createSelector(
 const mapStateToProps = createSelector(
     categorySelector,
     (category) => (
-        {
-            category,
-        }
+        { category, }
     )
 );
 
 const mapDispatchToProps = (dispatch, props) => {
     return bindActionCreators(
-        {
-            onFetchCategory: fetchCategory,
-        }, dispatch
+        { onFetchCategory: fetchCategory, }, dispatch
     );
 }
 

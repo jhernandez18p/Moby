@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 // Components
-// import ProductsSearch from './Searcher';
+import ProductsSearch from './Searcher';
 import Pagination from '../../../components/Paginator';
 import ProductsHeader from '../../../components/Header/ProductsHeader';
 import RedesLine from '../../../components/Footer/Redes';
@@ -398,9 +398,9 @@ class ProductDetail extends Component {
             {urlParamsHTML}
             <div className="container is-padding-top-20" id="productsSite">
               <div className="columns is-variable is-1">
-                {/* <div className="column is-3">
+                <div className="column is-3">
                     <ProductsSearch />
-                  </div> */}
+                </div>
                 <div className="column is-padding-top-30" id="feeds">
                   {Array.from(chunkArray(products.results, 4)).map(
                     ([one, two, three, four], y) => {

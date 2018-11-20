@@ -4,7 +4,7 @@ class ProductsSearch extends Component {
     render() {
         return (
             <div>
-                <div className="is-padding-top-100" id="productsSearcher">
+                <div className="is-padding-top-20" id="productsSearcher">
                     <div className="card box-animation">
 
                         <div className="has-background-grey has-text-centered has-text-white">
