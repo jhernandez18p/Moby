@@ -67,7 +67,6 @@ class App extends Component {
             ]
           }
           />
-        <SiteAllCookie />
         <ScrollToTop>
           <Switch>
             <Route path="/productos/todos?:slug" component={ProductDetail}/>
@@ -77,6 +76,7 @@ class App extends Component {
             <Route path="/" component={BaseLayout} />
           </Switch>
         </ScrollToTop>
+        <SiteAllCookie />
       </div>
     );
   }

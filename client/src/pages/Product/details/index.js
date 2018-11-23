@@ -31,9 +31,11 @@ class ProductDetail extends Component {
     this.handleNextClick = this.handleNextClick.bind(this); this.handlePrevClick = this.handlePrevClick.bind(this);
     this.getFilter = this.getFilter.bind(this); this.getSearch = this.getSearch.bind(this);
     this.getURL = this.getURL.bind(this);
+    this.getData = this.getData.bind(this);
     this.state = {
-      currentPage: 1,
       limitPage: 20,
+      currentPage: 1,
+      nextPage: 2,
       offsetPage: 0,
       totalPages: 0,
       urlPage: '/productos/todos',
@@ -41,7 +43,6 @@ class ProductDetail extends Component {
       paramsURL: '',
       searchURL: '',
       urlPageNumber: '',
-      nextPage: '',
       color: '',
       brand: '',
       category: '',
@@ -55,9 +56,8 @@ class ProductDetail extends Component {
     }
   }
 
-  componentDidMount() {
-    this.props.onFetchProducts('', 1);
-    this.getURL(this.props.location.search);
+  getData(){
+    this.props.onFetchProducts(this.state.params, this.state.currentPage);
     this.props.onFetchCategories();
     this.props.onFetchDepartment();
     this.props.onFetchBrands();
@@ -68,8 +68,18 @@ class ProductDetail extends Component {
     this.props.onFetchSite();
   }
 
+  componentDidMount() {
+    this.getData();
+    this.getURL(this.props.location.search);
+  }
+
   componentDidUpdate(prevProps, prevState) {
+    // if (this.state === prevState){
+    //   console.log(this.state);
+    //   console.log(prevState);
+    // }
     let totalPages;
+    // Calculamos el numero de paginas que obtenemos del query
     if (this.props.products !== prevProps.products) {
       totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
       if (this.state.currentPage >= 2) {
@@ -78,18 +88,23 @@ class ProductDetail extends Component {
         this.setState({ totalPages: totalPages, hasPrev: false });
       }
     }
+    
     if (this.state.currentPage !== prevState.currentPage) {
       // console.log('------',this.state.currentPage , prevState.currentPage);
-      this.props.onFetchProducts('', this.state.currentPage);
+      this.props.onFetchProducts(this.state.params, this.state.currentPage);
       totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
       if (this.state.currentPage >= 2) {
         this.setState({ totalPages: totalPages, hasPrev: true });
       } else {
         this.setState({ totalPages: totalPages, hasPrev: false });
       }
+      if (this.state.nextPage <= this.state.currentPage && this.state.currentPage < totalPages) {
+        this.setState({ nextPage: this.state.currentPage + 1 });
+      }
     }
+
     if (this.state.params === prevState.params && this.state.currentPage !== prevState.currentPage) {
-      // console.log('------',this.state.params , prevState.params);
+      console.log('------',this.state.params , prevState.params);
       this.props.onFetchProducts(this.state.params, this.state.currentPage);
       totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
       if (this.state.currentPage >= 2) {
@@ -98,9 +113,10 @@ class ProductDetail extends Component {
         this.setState({ totalPages: totalPages, hasPrev: false });
       }
     }
+    
     if (this.state.params !== prevState.params && this.state.currentPage === prevState.currentPage) {
       // console.log('------',this.state.params , prevState.params);
-      this.props.onFetchProducts(this.state.params, 1);
+      this.props.onFetchProducts(this.state.params, this.state.currentPage);
       totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
       if (this.state.currentPage >= 2) {
         this.setState({ totalPages: totalPages, hasPrev: true });
@@ -116,10 +132,11 @@ class ProductDetail extends Component {
 
   getURL(url) {
     // console.log(this.props);
-
+    
     // let _url = '';
     let _urlParams = '';
     let argUrl = '';
+    let _currentPage;
     let totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
 
     if (url.split('?')[1] !== undefined) {
@@ -132,26 +149,26 @@ class ProductDetail extends Component {
 
           if (argUrl[x].split('=')[0] === 'page') {
             // eslint-disable-next-line
-            let _currentPage = parseInt(argUrl[x].split('=')[1]);
+            _currentPage = parseInt(argUrl[x].split('=')[1]);
             this.setState({ currentPage: _currentPage });
           }
           if (argUrl[x].split('=')[0] === 'line') {
-            _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+            _urlParams = `${_urlParams}&${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
           }
           if (argUrl[x].split('=')[0] === 'category') {
-            _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+            _urlParams = `${_urlParams}&${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
           }
           if (argUrl[x].split('=')[0] === 'department') {
-            _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+            _urlParams = `${_urlParams}&${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
           }
           if (argUrl[x].split('=')[0] === 'brand') {
-            _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+            _urlParams = `${_urlParams}&${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
           }
           if (argUrl[x].split('=')[0] === 'color') {
-            _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+            _urlParams = `${_urlParams}&${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
           }
           if (argUrl[x].split('=')[0] === 'search') {
-            _urlParams = `${_urlParams}?${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+            _urlParams = `${_urlParams}&${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
             this.setState({
               searchURL: `${argUrl[x].split('=')[1]}`
             });
@@ -163,7 +180,7 @@ class ProductDetail extends Component {
     }
     // console.log(_urlParams);
 
-    this.props.history.push(`/productos/todos?${_urlParams}`);
+    this.props.history.push(`/productos/todos?page=${this.state.currentPage||1}&${_urlParams}`);
     this.setState({
       params: _urlParams,
       hasUrlParams: true,
@@ -172,7 +189,6 @@ class ProductDetail extends Component {
   }
 
   getFilter(e, arg, id, filter) {
-   
     if (filter === 'color' && id !== 'Colores'){
       this.setState({color:arg});
       this.getURL(`color=${id}`);
@@ -199,12 +215,12 @@ class ProductDetail extends Component {
     e.preventDefault();
     let valu = e.target.value;
     console.log(valu);
-    this.getURL(`search=${valu}`);
+    this.getURL(`search=${valu}&${this.state.params}`);
   }
 
   handleNextClick(e, page = this.state.currentPage) {
+    window.scrollTo(0, 0);
     // e.preventDefault();
-    window.scrollTo(0, 0)
     // console.log(page);
 
     let currentPage = page; //Aumenta el numero de la pagina
@@ -214,11 +230,11 @@ class ProductDetail extends Component {
     let limitPage = this.state.limitPage || 20;
     let pages = this.state.totalPages;
     let offsetPage = Math.ceil(limitPage * (currentPage - 1));
-    this.setState({ currentPage: currentPage, offsetPage: offsetPage })
+    this.setState({ currentPage: currentPage, offsetPage: offsetPage, nextPage: currentPage + 1 })
     if (currentPage === pages) { this.setState({ hasNext: false }) }
     if (currentPage > 1) { this.setState({ hasPrev: true, currentPage: currentPage }) }
     if (currentPage > 1 && currentPage <= pages) {
-      let urlPage = `page=${currentPage}`;
+      let urlPage = `page=${currentPage}&${this.state.params}`;
       this.getURL(urlPage);
     }
     // console.log('currentPage ->', currentPage, 'pages ->', pages, 'offset ->', offsetPage)
@@ -258,11 +274,13 @@ class ProductDetail extends Component {
       this.setState({brand:''});
     }
     this.props.history.push(`/productos/todos`);
+    this.props.onFetchProducts(this.state.params, this.state.currentPage);
 
   }
 
   render() {
     // console.log(this.state.totalPages);
+    // console.log(this.state);
     function* chunkArray(original, n) {
       const ary = [...original];
       while (ary.length > 0)
@@ -388,7 +406,7 @@ class ProductDetail extends Component {
           <div className="is-padding-top-60" >
             {urlParamsHTML}
             <div className="container is-padding-top-20" id="productsSite">
-              <div className="columns is-variable is-1">
+              <div className="columns is-variable is-2">
                 <div className="column is-3">
                   <ProductsSearch 
                     brands={brands}
@@ -415,7 +433,7 @@ class ProductDetail extends Component {
                       )
                     })
                   }
-                  <div className="is-padding-bottom-60">
+                  <div className="">
                     {paginator}
                   </div>
                 </div>

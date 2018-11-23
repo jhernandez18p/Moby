@@ -7,7 +7,7 @@ export const DELETE_PRODUCT = 'product:deleteProduct';
 export const FETCH_PRODUCTS = 'products:fetchProducts';
 export const SHOW_ERROR = 'products:showError';
 
-const instance = axios.create({ baseURL: '/api/v2/', headers: {"Content-Type": "application/json"} });
+const instance = axios.create({ baseURL: '/api/v2/', headers: { "Content-Type": "application/json" } });
 
 const initialState = {
     count: 0,
@@ -115,7 +115,7 @@ export function deleteProduct(Product) {
     }
 };
 
-export function showError(error){
+export function showError(error) {
     return {
         type: SHOW_ERROR,
         payload: {
@@ -139,29 +139,29 @@ export const fetchSingleProduct = (slug) => {
                     }
                 })
             })
-            .catch(error => {dispatch(showError( error ));})
+            .catch(error => { dispatch(showError(error)); })
     }
 }
 
-export const fetchProducts = ( params = '', offset = 1 ) => {
+export const fetchProducts = (params = '', offset = 1) => {
 
     let url = 'products/';
     let page = '';
     let hasParams = '';
     let _offset = offset;
 
-    if (_offset > 1){
+    if (_offset > 1) {
         _offset = (offset - 1) * 20;
         page = `&offset=${_offset}`;
-    }else{
+    } else {
         page = ``;
     }
-    if (params !== ''){
+    if (params !== '') {
         // let newUrl = params.split('?');
         hasParams = params;
     }
     let _url = `${url}?${hasParams}${page}`;
-    
+
     // console.log(_url);
     return dispatch => {
         instance.get(_url)
@@ -174,28 +174,28 @@ export const fetchProducts = ( params = '', offset = 1 ) => {
                     }
                 })
             })
-            .catch(error => {dispatch(showError( error ));})
+            .catch(error => { dispatch(showError(error)); })
     }
 }
 
-export const fetchNextProducts = (limit = 20, offset=20) => {
-    let url = `products/?limit=${limit}&offset=${offset}`;
-    return dispatch => {
-        instance.get(url)
-        .then(res => {
-                return dispatch({ type: FETCH_PRODUCTS, payload: { products: res.data } })
-            })
-            .catch(error => { dispatch(showError( error )); })
-    }
-}
-
-export const fetchPrevProducts = (limit = 20, offset=0) => {
+export const fetchNextProducts = (limit = 20, offset = 20) => {
     let url = `products/?limit=${limit}&offset=${offset}`;
     return dispatch => {
         instance.get(url)
             .then(res => {
                 return dispatch({ type: FETCH_PRODUCTS, payload: { products: res.data } })
             })
-            .catch(error => { dispatch(showError( error )); })
+            .catch(error => { dispatch(showError(error)); })
+    }
+}
+
+export const fetchPrevProducts = (limit = 20, offset = 0) => {
+    let url = `products/?limit=${limit}&offset=${offset}`;
+    return dispatch => {
+        instance.get(url)
+            .then(res => {
+                return dispatch({ type: FETCH_PRODUCTS, payload: { products: res.data } })
+            })
+            .catch(error => { dispatch(showError(error)); })
     }
 }
