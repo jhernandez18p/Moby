@@ -274,7 +274,7 @@ class ProductDetail extends Component {
       this.setState({brand:''});
     }
     this.props.history.push(`/productos/todos`);
-    this.props.onFetchProducts(this.state.params, this.state.currentPage);
+    this.props.onFetchProducts('', 1);
 
   }
 
