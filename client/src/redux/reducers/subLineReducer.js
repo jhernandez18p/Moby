@@ -3,6 +3,7 @@ import {
     DELETE_SUB_LINE, 
     REQUEST_SUB_LINE, 
     UPDATE_SUB_LINE,
+    FETCH_SUB_LINES,
     SHOW_ERROR
 } from '../actions/product/subLine';
 
@@ -27,15 +28,17 @@ const initialState = {
 export default function subLineReducer (state = initialState, { type, payload }) {
     switch (type) {
         case ADD_SUB_LINE:
-            return payload.sublines;
+            return payload.sub_lines;
         case UPDATE_SUB_LINE:
-            return payload.sublines;
+            return payload.sub_lines;
         case DELETE_SUB_LINE:
-            return payload.sublines;
+            return payload.sub_lines;
         case SHOW_ERROR:
-            return payload.sublines;
+            return payload.sub_lines;
         case REQUEST_SUB_LINE:
-            return payload.sublines;
+            return payload.sub_lines;
+        case FETCH_SUB_LINES:
+            return payload.sub_lines;
         default:
             return state;
     }

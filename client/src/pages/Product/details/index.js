@@ -21,6 +21,7 @@ import { fetchCategories } from "../../../redux/actions/category";
 import { fetchColors } from '../../../redux/actions/product/color';
 import { fetchDepartments } from '../../../redux/actions/department';
 import { fetchLines } from '../../../redux/actions/product/line';
+import { fetchSubLines } from '../../../redux/actions/product/subLine';
 import { fetchProducts } from '../../../redux/actions/product';
 import { fetchSite } from '../../../redux/actions/site/';
 import { fetchSocialMedia } from '../../../redux/actions/site/socialMedia';
@@ -44,10 +45,17 @@ class ProductDetail extends Component {
       searchURL: '',
       urlPageNumber: '',
       color: '',
+      colorID: '',
       brand: '',
+      brandID: '',
       category: '',
+      categoryID: '',
       line: '',
+      lineID: '',
+      sublines: '',
+      sublinesID: '',
       department: '',
+      departmentID: '',
       loading: true,
       previousPage: null,
       hasUrlParams: false,
@@ -56,28 +64,25 @@ class ProductDetail extends Component {
     }
   }
 
-  getData(){
+  getData() {
     this.props.onFetchProducts(this.state.params, this.state.currentPage);
     this.props.onFetchCategories();
     this.props.onFetchDepartment();
     this.props.onFetchBrands();
     this.props.onFetchColor();
     this.props.onFetchLines();
+    this.props.onFetchSubLines();
     this.props.onFetchSocialMedia();
     this.props.onFetchBlogPost();
     this.props.onFetchSite();
   }
 
   componentDidMount() {
-    this.getData();
     this.getURL(this.props.location.search);
+    this.getData();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // if (this.state === prevState){
-    //   console.log(this.state);
-    //   console.log(prevState);
-    // }
     let totalPages;
     // Calculamos el numero de paginas que obtenemos del query
     if (this.props.products !== prevProps.products) {
@@ -88,7 +93,7 @@ class ProductDetail extends Component {
         this.setState({ totalPages: totalPages, hasPrev: false });
       }
     }
-    
+
     if (this.state.currentPage !== prevState.currentPage) {
       // console.log('------',this.state.currentPage , prevState.currentPage);
       this.props.onFetchProducts(this.state.params, this.state.currentPage);
@@ -104,7 +109,7 @@ class ProductDetail extends Component {
     }
 
     if (this.state.params === prevState.params && this.state.currentPage !== prevState.currentPage) {
-      console.log('------',this.state.params , prevState.params);
+      // console.log('------', this.state.params, prevState.params);
       this.props.onFetchProducts(this.state.params, this.state.currentPage);
       totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
       if (this.state.currentPage >= 2) {
@@ -113,7 +118,7 @@ class ProductDetail extends Component {
         this.setState({ totalPages: totalPages, hasPrev: false });
       }
     }
-    
+
     if (this.state.params !== prevState.params && this.state.currentPage === prevState.currentPage) {
       // console.log('------',this.state.params , prevState.params);
       this.props.onFetchProducts(this.state.params, this.state.currentPage);
@@ -131,56 +136,72 @@ class ProductDetail extends Component {
   }
 
   getURL(url) {
-    // console.log(this.props);
-    
-    // let _url = '';
-    let _urlParams = '';
-    let argUrl = '';
-    let _currentPage;
+
+    let x = 1; let _urlParams = ''; let argUrl = ''; let _urlSearch = ''; let urlSplit1 = ''; let urlSplit2 = '';
+    let lineUrl = ''; let sublineUrl = ''; let categoryUrl = ''; let departmentUrl = ''; let brandUrl = ''; let colorUrl = '';
+    let _currentPage = this.state.currentPage;
     let totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
+    
+    argUrl = url.split('?')[1];
+    if (argUrl !== undefined) {
+      
+      urlSplit1 = argUrl.split('&');
+      if (urlSplit1 !== undefined) {
 
-    if (url.split('?')[1] !== undefined) {
-      argUrl = url.split('?')[1]; // URL => page=&line=&category=&department=&brand=&color=
+        for (x in urlSplit1) {
+          urlSplit2 = urlSplit1[x].split('=');
 
-      if (argUrl.split('&') !== undefined) {
-        argUrl = argUrl.split('&'); // Lista => ["page=", "line=", "category=", "department=", "brand=", "color="]
-
-        for (let x in argUrl) {
-
-          if (argUrl[x].split('=')[0] === 'page') {
+          // URL for Page
+          if (urlSplit2[0] === 'page') {
             // eslint-disable-next-line
-            _currentPage = parseInt(argUrl[x].split('=')[1]);
+            _currentPage = parseInt(urlSplit2[1]);
             this.setState({ currentPage: _currentPage });
           }
-          if (argUrl[x].split('=')[0] === 'line') {
-            _urlParams = `${_urlParams}&${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+
+          // URL for Search
+          if (urlSplit2[0] === 'search') {
+            _urlSearch = `&${urlSplit2[0]}=${urlSplit2[1]}`;
+            this.setState({ searchURL: _urlSearch });
           }
-          if (argUrl[x].split('=')[0] === 'category') {
-            _urlParams = `${_urlParams}&${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+
+          // URL for Lines
+          if (urlSplit2[0] === 'line') {
+            lineUrl = `&${urlSplit2[0]}=${urlSplit2[1]}`;
           }
-          if (argUrl[x].split('=')[0] === 'department') {
-            _urlParams = `${_urlParams}&${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+
+          // URL for Sublines
+          if (urlSplit2[0] === 'sub_line') {
+            sublineUrl = `&${urlSplit2[0]}=${urlSplit2[1]}`;
           }
-          if (argUrl[x].split('=')[0] === 'brand') {
-            _urlParams = `${_urlParams}&${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+
+          // URL for Categories
+          if (urlSplit2[0] === 'category') {
+            categoryUrl = `&${urlSplit2[0]}=${urlSplit2[1]}`;
           }
-          if (argUrl[x].split('=')[0] === 'color') {
-            _urlParams = `${_urlParams}&${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
+
+          // URL for Department
+          if (urlSplit2[0] === 'department') {
+            departmentUrl = `&${urlSplit2[0]}=${urlSplit2[1]}`;
           }
-          if (argUrl[x].split('=')[0] === 'search') {
-            _urlParams = `${_urlParams}&${argUrl[x].split('=')[0]}=${argUrl[x].split('=')[1]}`;
-            this.setState({
-              searchURL: `${argUrl[x].split('=')[1]}`
-            });
+
+          // URL for Brands
+          if (urlSplit2[0] === 'brand') {
+            brandUrl = `&${urlSplit2[0]}=${urlSplit2[1]}`;
           }
+
+          // URL for Color
+          if (urlSplit2[0] === 'color') {
+            colorUrl = `&${urlSplit2[0]}=${urlSplit2[1]}`;
+          }
+
         }
       }
-    } else {
-      _urlParams = url;
     }
-    // console.log(_urlParams);
 
-    this.props.history.push(`/productos/todos?page=${this.state.currentPage||1}&${_urlParams}`);
+    _urlParams = `${lineUrl}${sublineUrl}${categoryUrl}${departmentUrl}${brandUrl}${colorUrl}${_urlSearch}`;
+
+    this.props.history.push(`/productos/todos?page=${_currentPage}${_urlParams}`);
+
     this.setState({
       params: _urlParams,
       hasUrlParams: true,
@@ -189,57 +210,101 @@ class ProductDetail extends Component {
   }
 
   getFilter(e, arg, id, filter) {
-    if (filter === 'color' && id !== 'Colores'){
-      this.setState({color:arg});
-      this.getURL(`color=${id}`);
+    let url = ''; let lineUrl = ''; let sublineUrl = ''; let categoryUrl = ''; let departmentUrl = ''; let brandUrl = ''; let colorUrl = '';
+    
+    if (this.state.params === ''){
+      this.setState({currentPage:1})
     }
+
+    if (filter === 'color' && id !== 'Colores') {
+      this.setState(
+        { 
+          color: arg,
+          colorID: id
+        }
+      );
+      colorUrl = `&color=${id}`;
+    }
+    
     if (filter === 'line' && id !== 'Lineas') {
-      this.setState({line:arg});
-      this.getURL(`line=${id}`);
+      this.setState(
+        { 
+          line: arg,
+          lineID: id
+        }
+      );
+      lineUrl = `&line=${id}`;
     }
+    
+    if (filter === 'sublines' && id !== 'Sublineas') {
+      this.setState(
+        { 
+          sublines: arg,
+          sublinesID: id
+        }
+      );
+      sublineUrl = `&sub_line=${id}`;
+    }
+    
     if (filter === 'category' && id !== 'Categorías') {
-      this.setState({category:arg});
-      this.getURL(`category=${id}`);
+      this.setState(
+        { 
+          category: arg,
+          categoryID: id
+        }
+      );
+      categoryUrl = `&category=${id}`;
     }
+    
     if (filter === 'department' && id !== 'Departamentos') {
-      this.setState({department:arg});
-      this.getURL(`department=${id}`);
+      this.setState(
+        { 
+          department: arg,
+          departmentID: id
+        }
+      );
+      departmentUrl = `&department=${id}`;
     }
+    
     if (filter === 'brand' && id !== 'Marcas') {
-      this.setState({brand:arg});
-      this.getURL(`brand=${id}`);
+      this.setState(
+        { 
+          brand: arg,
+          brandID: id
+        }
+      );
+      brandUrl = `&brand=${id}`;
     }
+
+    url = `?page=${this.state.currentPage}${lineUrl}${sublineUrl}${categoryUrl}${departmentUrl}${brandUrl}${colorUrl}${this.state.searchURL}`;
+    this.getURL(url);
   }
 
   getSearch(e) {
     e.preventDefault();
     let valu = e.target.value;
-    console.log(valu);
-    this.getURL(`search=${valu}&${this.state.params}`);
+    this.getURL(`?page=${this.state.currentPage}${this.state.params}&search=${valu}`);
   }
 
   handleNextClick(e, page = this.state.currentPage) {
     window.scrollTo(0, 0);
-    // e.preventDefault();
-    // console.log(page);
 
     let currentPage = page; //Aumenta el numero de la pagina
-    if (page < this.state.currentPage) {
-      currentPage = page - 1; //Aumenta el numero de la pagina
-    }
     let limitPage = this.state.limitPage || 20;
     let pages = this.state.totalPages;
+    if (page < this.state.currentPage) { currentPage = page - 1; }
     let offsetPage = Math.ceil(limitPage * (currentPage - 1));
     this.setState({ currentPage: currentPage, offsetPage: offsetPage, nextPage: currentPage + 1 })
     if (currentPage === pages) { this.setState({ hasNext: false }) }
     if (currentPage > 1) { this.setState({ hasPrev: true, currentPage: currentPage }) }
     if (currentPage > 1 && currentPage <= pages) {
-      let urlPage = `page=${currentPage}&${this.state.params}`;
-      this.getURL(urlPage);
+      let urlPage = `page=${currentPage}${this.state.params}`;
+      console.log(urlPage);
+      // this.getURL(urlPage);
     }
     // console.log('currentPage ->', currentPage, 'pages ->', pages, 'offset ->', offsetPage)
   }
-
+  
   handlePrevClick(e, page = this.state.currentPage) {
     // e.preventDefault();
     window.scrollTo(0, 0)
@@ -251,91 +316,82 @@ class ProductDetail extends Component {
     this.setState({ currentPage: currentPage, offsetPage: offsetPage });
     if (currentPage === 1) { this.setState({ hasPrev: false, hasNext: true }); }
     if (currentPage >= 1 && currentPage <= pages) {
-      let urlPage = `page=${currentPage}`;
-      this.getURL(urlPage);
+      let urlPage = `page=${currentPage}${this.state.params}`;
+      console.log(urlPage);
+      // this.getURL(urlPage);
     }
     // console.log('currentPage ->', currentPage, 'pages ->', pages, 'offset ->', offsetPage)
   }
 
-  removeUrlParams(e){
-    if (e === 'color'){
-      this.setState({color:''});
+  removeUrlParams(e) {
+    if (e === 'color') {
+      this.setState({ color: '' });
     }
-    if (e === 'line'){
-      this.setState({line:''});
+    if (e === 'line') {
+      this.setState({ line: '' });
     }
-    if (e === 'category'){
-      this.setState({category:''});
+    if (e === 'sublines') {
+      this.setState({ sublines: '' });
     }
-    if (e === 'department'){
-      this.setState({department:''});
+    if (e === 'category') {
+      this.setState({ category: '' });
     }
-    if (e === 'brand'){
-      this.setState({brand:''});
+    if (e === 'department') {
+      this.setState({ department: '' });
     }
-    this.props.history.push(`/productos/todos`);
-    this.props.onFetchProducts('', 1);
+    if (e === 'brand') {
+      this.setState({ brand: '' });
+    }
+    this.getURL(this.state.params);
 
   }
 
   render() {
-    // console.log(this.state.totalPages);
-    // console.log(this.state);
-    function* chunkArray(original, n) {
-      const ary = [...original];
-      while (ary.length > 0)
-        yield ary.splice(ary, n);
-    }
+    function* chunkArray(original, n) { const ary = [...original]; while (ary.length > 0) yield ary.splice(ary, n); }
 
     let brands = this.props.brands || 'Cargando ...';
     let categories = this.props.categories || 'Cargando ...';
     let colors = this.props.colors || 'Cargando ...';
     let department = this.props.department || 'Cargando ...';
     let lines = this.props.lines || 'Cargando ...';
+    let sublines = this.props.sub_lines || 'Cargando ...';
     let products = this.props.products || 'Cargando ...';
     let social_media = this.props.social_media || 'Cargando ...';
     let site = this.props.site || 'Cargando ...';
 
-    // console.log(products);
-    // console.log(this.state.params);
-    // console.log(this.state.searchURL);
-
-    let paginator, urlParamsHTML, colorUrlHTML, brandUrlHTML, categoryUrlHTML, lineUrlHTML, departmentUrlHTML = <div></div>;
+    let paginator, urlParamsHTML, colorUrlHTML, brandUrlHTML, categoryUrlHTML, lineUrlHTML, departmentUrlHTML, sublinesUrlHTML = <div></div>;
     let postsCount = products.count || undefined;
     let postsCountLimit = 20;
 
-    if (postsCount >= 21) {
-      let currentPage = this.state.currentPage;
-      let limitPage = this.state.limitPage;
-      let offsetPage = this.state.offsetPage;
-      let urlPage = this.state.urlPage;
-      // let nextPage = this.state.nextPage;
-      // let previousPage = this.state.previousPage;
-      paginator = (
-        <Pagination
-          postsCountLimit={postsCountLimit}
-          postsCount={postsCount}
-          currentPage={currentPage}
-          limitPage={limitPage}
-          offsetPage={offsetPage}
-          urlPage={urlPage}
-          urlParams={this.state.params}
-          nextPage={this.handleNextClick}
-          previousPage={this.handlePrevClick}
-          hasNext={this.state.hasNext}
-          hasPrev={this.state.hasPrev}
-          pages={this.state.totalPages}
-        >
-        </Pagination>
-      );
-    }
+    let currentPage = this.state.currentPage;
+    let limitPage = this.state.limitPage;
+    let offsetPage = this.state.offsetPage;
+    let urlPage = this.state.urlPage;
+    // let nextPage = this.state.nextPage;
+    // let previousPage = this.state.previousPage;
+    paginator = (
+      <Pagination
+        postsCountLimit={postsCountLimit}
+        postsCount={postsCount}
+        currentPage={currentPage}
+        limitPage={limitPage}
+        offsetPage={offsetPage}
+        urlPage={urlPage}
+        urlParams={this.state.params}
+        nextPage={this.handleNextClick}
+        previousPage={this.handlePrevClick}
+        hasNext={this.state.hasNext}
+        hasPrev={this.state.hasPrev}
+        pages={this.state.totalPages}
+      />
+    );
 
     if (this.state.hasUrlParams) {
       if (this.state.color !== '') {
         colorUrlHTML = (
           <a className="button is-outlined is-dark is-rounded">
             <span>Color: {this.state.color}</span>
-            <span className="icon is-small" onClick={(e)=>{this.removeUrlParams('color')}}>
+            <span className="icon is-small" onClick={(e) => { this.removeUrlParams('color') }}>
               <i className="fas fa-times"></i>
             </span>
           </a>
@@ -345,7 +401,7 @@ class ProductDetail extends Component {
         brandUrlHTML = (
           <a className="button is-outlined is-dark is-rounded">
             <span>Marca: {this.state.brand}</span>
-            <span className="icon is-small" onClick={(e)=>{this.removeUrlParams('brand')}}>
+            <span className="icon is-small" onClick={(e) => { this.removeUrlParams('brand') }}>
               <i className="fas fa-times"></i>
             </span>
           </a>
@@ -355,7 +411,7 @@ class ProductDetail extends Component {
         categoryUrlHTML = (
           <a className="button is-outlined is-dark is-rounded">
             <span>Categoría: {this.state.category}</span>
-            <span className="icon is-small" onClick={(e)=>{this.removeUrlParams('category')}}>
+            <span className="icon is-small" onClick={(e) => { this.removeUrlParams('category') }}>
               <i className="fas fa-times"></i>
             </span>
           </a>
@@ -365,7 +421,17 @@ class ProductDetail extends Component {
         lineUrlHTML = (
           <a className="button is-outlined is-dark is-rounded">
             <span>Linea: {this.state.line}</span>
-            <span className="icon is-small" onClick={(e)=>{this.removeUrlParams('line')}}>
+            <span className="icon is-small" onClick={(e) => { this.removeUrlParams('line') }}>
+              <i className="fas fa-times"></i>
+            </span>
+          </a>
+        );
+      };
+      if (this.state.sublines !== '') {
+        sublinesUrlHTML = (
+          <a className="button is-outlined is-dark is-rounded">
+            <span>Sublinea: {this.state.sublines}</span>
+            <span className="icon is-small" onClick={(e) => { this.removeUrlParams('sublines') }}>
               <i className="fas fa-times"></i>
             </span>
           </a>
@@ -375,7 +441,7 @@ class ProductDetail extends Component {
         departmentUrlHTML = (
           <a className="button is-outlined is-dark is-rounded">
             <span>Departamento: {this.state.department}</span>
-            <span className="icon is-small" onClick={(e)=>{this.removeUrlParams('department')}}>
+            <span className="icon is-small" onClick={(e) => { this.removeUrlParams('department') }}>
               <i className="fas fa-times"></i>
             </span>
           </a>
@@ -386,7 +452,7 @@ class ProductDetail extends Component {
           <div className="columns is-centered">
             <div className="column">
               <div className="buttons">
-                {lineUrlHTML} {categoryUrlHTML} {departmentUrlHTML} {brandUrlHTML} {colorUrlHTML}
+                {lineUrlHTML} {sublinesUrlHTML} {categoryUrlHTML} {departmentUrlHTML} {brandUrlHTML} {colorUrlHTML}
               </div>
             </div>
           </div>
@@ -408,12 +474,13 @@ class ProductDetail extends Component {
             <div className="container is-padding-top-20" id="productsSite">
               <div className="columns is-variable is-2">
                 <div className="column is-3">
-                  <ProductsSearch 
+                  <ProductsSearch
                     brands={brands}
                     categories={categories}
                     colors={colors}
                     department={department}
                     lines={lines}
+                    sublines={sublines}
                     getFilter={this.getFilter}
                     getSearch={this.getSearch}
                     hasSearch={true}
@@ -454,6 +521,7 @@ const categoriesSelector = createSelector(state => state.categories, categories 
 const colorSelector = createSelector(state => state.colors, colors => colors);                                    // Color
 const departmentSelector = createSelector(state => state.department, department => department);                   // Departments
 const linesSelector = createSelector(state => state.lines, lines => lines);                                       // lines
+const sublinesSelector = createSelector(state => state.sub_lines, sub_lines => sub_lines);                        // sub_lines
 const productsSelector = createSelector(state => state.products, products => products);                           // products
 const siteSelector = createSelector(state => state.site, site => site);                                           // Site
 const socialMediaSelector = createSelector(state => state.social_media, social_media => social_media);            // Social media
@@ -466,11 +534,12 @@ const mapStateToProps = createSelector(
   colorSelector,
   departmentSelector,
   linesSelector,
+  sublinesSelector,
   productsSelector,
   siteSelector,
   socialMediaSelector,
   userSelector,
-  (blog_posts, brands, categories, colors, department, lines, products, site, social_media, user) => (
+  (blog_posts, brands, categories, colors, department, lines, sub_lines, products, site, social_media, user) => (
     {
       blog_posts,
       brands,
@@ -478,6 +547,7 @@ const mapStateToProps = createSelector(
       colors,
       department,
       lines,
+      sub_lines,
       products,
       site,
       social_media,
@@ -495,6 +565,7 @@ const mapDispatchToProps = (dispatch, props) => {
       onFetchColor: fetchColors,
       onFetchDepartment: fetchDepartments,
       onFetchLines: fetchLines,
+      onFetchSubLines: fetchSubLines,
       onFetchProducts: fetchProducts,
       onFetchSite: fetchSite,
       onFetchSocialMedia: fetchSocialMedia,

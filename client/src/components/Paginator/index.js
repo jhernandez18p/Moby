@@ -44,18 +44,20 @@ class Pagination extends Component {
         if (currentPage === 1 && totalPages === 1) {
             numbers = (
                 <ul className="pagination-list">
+                    <li><a className="pagination-link" disabled>{currentPage}</a></li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${currentPage}&${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
+                    <li><Link to={`${urlPage}?page=${currentPage}${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
+                    <li><a className="pagination-link" disabled>{currentPage}</a></li>
                 </ul>
             )
         } else if (currentPage === 1 && totalPages === next) {
             numbers = (
                 <ul className="pagination-list">
-                    <li><Link to={`${urlPage}?page=${currentPage}&${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
+                    <li><Link to={`${urlPage}?page=${currentPage}${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
                     <li>
-                        <Link to={`${urlPage}?page=${next}&${urlParams}`} className="pagination-link"
+                        <Link to={`${urlPage}?page=${next}${urlParams}`} className="pagination-link"
                             onClick={(e) => this.props.nextPage(e, next)} >{next}
                         </Link>
                     </li>
@@ -64,47 +66,47 @@ class Pagination extends Component {
         } else if (currentPage === 1 && totalPages === next2) {
             numbers = (
                 <ul className="pagination-list">
-                    <li><Link to={`${urlPage}?page=${currentPage}&${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
+                    <li><Link to={`${urlPage}?page=${currentPage}${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
                     <li>
-                        <Link to={`${urlPage}?page=${next}&${urlParams}`} className="pagination-link"
+                        <Link to={`${urlPage}?page=${next}${urlParams}`} className="pagination-link"
                             onClick={(e) => this.props.nextPage(e, next)} >{next}
                         </Link>
                     </li>
                     <li>
-                        <Link to={`${urlPage}?page=${next2}&${urlParams}`} className="pagination-link"
+                        <Link to={`${urlPage}?page=${next2}${urlParams}`} className="pagination-link"
                             onClick={(e) => this.props.nextPage(e, next2)} >{next2}
                         </Link>
                     </li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${totalPages}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link></li>
+                    <li><Link to={`${urlPage}?page=${totalPages}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link></li>
                 </ul>
             )
         } else if (currentPage === 1 && totalPages === next3) {
             numbers = (
                 <ul className="pagination-list">
-                    <li><Link to={`${urlPage}?page=${currentPage}&${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
+                    <li><Link to={`${urlPage}?page=${currentPage}${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
                     <li>
-                        <Link to={`${urlPage}?page=${next}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next)} >{next}
+                        <Link to={`${urlPage}?page=${next}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next)} >{next}
                         </Link>
                     </li>
-                    <li><Link to={`${urlPage}?page=${next2}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next2)} >{next2}</Link></li>
-                    <li><Link to={`${urlPage}?page=${next3}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next3)} >{next3}</Link></li>
+                    <li><Link to={`${urlPage}?page=${next2}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next2)} >{next2}</Link></li>
+                    <li><Link to={`${urlPage}?page=${next3}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next3)} >{next3}</Link></li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${totalPages}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link></li>
+                    <li><Link to={`${urlPage}?page=${totalPages}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link></li>
                 </ul>
             )
         } else if (currentPage === 1 && totalPages > next3) {
             numbers = (
                 <ul className="pagination-list">
-                    <li><Link to={`${urlPage}?page=${currentPage}&${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
+                    <li><Link to={`${urlPage}?page=${currentPage}${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${next}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next)} >{next}</Link></li>
-                    <li><Link to={`${urlPage}?page=${next2}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next2)} >{next2}</Link></li>
-                    <li><Link to={`${urlPage}?page=${next3}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next3)} >{next3}</Link></li>
+                    <li><Link to={`${urlPage}?page=${next}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next)} >{next}</Link></li>
+                    <li><Link to={`${urlPage}?page=${next2}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next2)} >{next2}</Link></li>
+                    <li><Link to={`${urlPage}?page=${next3}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next3)} >{next3}</Link></li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${totalPages}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link></li>
+                    <li><Link to={`${urlPage}?page=${totalPages}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link></li>
                 </ul>
             )
         } else if (currentPage === 2 && currentPage === totalPages) {
@@ -112,14 +114,14 @@ class Pagination extends Component {
                 <ul className="pagination-list">
                     <li>
                         <Link
-                            to={`${urlPage}?page=${prev}&${urlParams}`}
+                            to={`${urlPage}?page=${prev}${urlParams}`}
                             className="pagination-link" onClick={(e) => this.props.previousPage(e, prev)}>{prev}
                         </Link>
                     </li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${currentPage}&${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
+                    <li><Link to={`${urlPage}?page=${currentPage}${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${totalPages}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link></li>
+                    <li><li><a className="pagination-link" disabled>{totalPages}</a></li></li>
                 </ul>
             )
         } else if (currentPage === 2 && totalPages === next) {
@@ -127,18 +129,18 @@ class Pagination extends Component {
                 <ul className="pagination-list">
                     <li>
                         <Link
-                            to={`${urlPage}?page=${prev}&${urlParams}`}
+                            to={`${urlPage}?page=${prev}${urlParams}`}
                             className="pagination-link" onClick={(e) => this.props.previousPage(e, prev)}>{prev}
                         </Link>
                     </li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${currentPage}&${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
+                    <li><Link to={`${urlPage}?page=${currentPage}${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
                     <li>
-                        <Link to={`${urlPage}?page=${next}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next)} >{next}
+                        <Link to={`${urlPage}?page=${next}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next)} >{next}
                         </Link>
                     </li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${totalPages}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link></li>
+                    <li><Link to={`${urlPage}?page=${totalPages}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link></li>
                 </ul>
             )
         } else if (currentPage === 2 && totalPages >= next2) {
@@ -146,134 +148,116 @@ class Pagination extends Component {
                 <ul className="pagination-list">
                     <li>
                         <Link
-                            to={`${urlPage}?page=${prev}&${urlParams}`}
+                            to={`${urlPage}?page=${prev}${urlParams}`}
                             className="pagination-link" onClick={(e) => this.props.previousPage(e, prev)}>{prev}
                         </Link>
                     </li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${currentPage}&${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
-                    <li><Link to={`${urlPage}?page=${next}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next)} >{next}</Link></li>
-                    <li><Link to={`${urlPage}?page=${next2}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next2)} >{next2}</Link></li>
+                    <li><Link to={`${urlPage}?page=${currentPage}${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
+                    <li><Link to={`${urlPage}?page=${next}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next)} >{next}</Link></li>
+                    <li><Link to={`${urlPage}?page=${next2}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next2)} >{next2}</Link></li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${totalPages}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link></li>
+                    <li><Link to={`${urlPage}?page=${totalPages}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link></li>
                 </ul>
             )
         } else if (currentPage === 3 && totalPages === currentPage) {
             numbers = (
                 <ul className="pagination-list">
-                    <li><Link to={`${urlPage}?page=${prev2}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.previousPage(e, prev2)}>{prev2}</Link></li>
+                    <li><Link to={`${urlPage}?page=${prev2}${urlParams}`} className="pagination-link" onClick={(e) => this.props.previousPage(e, prev2)}>{prev2}</Link></li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${prev2}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.previousPage(e, prev2)}>{prev2}</Link></li>
-                    <li><Link to={`${urlPage}?page=${prev}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.previousPage(e, prev)}>{prev}</Link></li>
-                    <li><Link to={`${urlPage}?page=${currentPage}&${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
+                    <li><Link to={`${urlPage}?page=${prev2}${urlParams}`} className="pagination-link" onClick={(e) => this.props.previousPage(e, prev2)}>{prev2}</Link></li>
+                    <li><Link to={`${urlPage}?page=${prev}${urlParams}`} className="pagination-link" onClick={(e) => this.props.previousPage(e, prev)}>{prev}</Link></li>
+                    <li><Link to={`${urlPage}?page=${currentPage}${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${totalPages}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link></li>
+                    <li><a className="pagination-link" disabled>{currentPage}</a></li>
                 </ul>
             )
         } else if (currentPage === 3 && totalPages >= next) {
             numbers = (
                 <ul className="pagination-list">
-                    <li><Link to={`${urlPage}?page=${prev2}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.previousPage(e, prev2)}>{prev2}</Link></li>
+                    <li><Link to={`${urlPage}?page=${prev2}${urlParams}`} className="pagination-link" onClick={(e) => this.props.previousPage(e, prev2)}>{prev2}</Link></li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${prev}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.previousPage(e, prev)}>{prev}</Link></li>
-                    <li><Link to={`${urlPage}?page=${currentPage}&${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
-                    <li><Link to={`${urlPage}?page=${next}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next)} >{next}</Link></li>
+                    <li><Link to={`${urlPage}?page=${prev}${urlParams}`} className="pagination-link" onClick={(e) => this.props.previousPage(e, prev)}>{prev}</Link></li>
+                    <li><Link to={`${urlPage}?page=${currentPage}${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
+                    <li><Link to={`${urlPage}?page=${next}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next)} >{next}</Link></li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${totalPages}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link></li>
+                    <li><Link to={`${urlPage}?page=${totalPages}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link></li>
                 </ul>
             )
         } else if (currentPage === 4 && totalPages === currentPage) {
             numbers = (
                 <ul className="pagination-list">
-                    <li><Link to={`${urlPage}?page=1&${urlParams}`} className="pagination-link"
+                    <li><Link to={`${urlPage}?page=1${urlParams}`} className="pagination-link"
                         onClick={(e) => this.props.previousPage(e, 1)}>1</Link>
                     </li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${prev2}&${urlParams}`} className="pagination-link"
+                    <li><Link to={`${urlPage}?page=${prev2}${urlParams}`} className="pagination-link"
                         onClick={(e) => this.props.previousPage(e, prev2)}>{prev2}</Link>
                     </li>
-                    <li><Link to={`${urlPage}?page=${prev}&${urlParams}`} className="pagination-link"
+                    <li><Link to={`${urlPage}?page=${prev}${urlParams}`} className="pagination-link"
                         onClick={(e) => this.props.nextPage(e, prev)} >{prev}</Link>
                     </li>
-                    <li><Link to={`${urlPage}?page=${currentPage}&${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
+                    <li><Link to={`${urlPage}?page=${currentPage}${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${totalPages}&${urlParams}`} className="pagination-link"
-                        onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link>
-                    </li>
+                    <li><a className="pagination-link" disabled>{totalPages}</a></li>
                 </ul>
             )
         } else if (currentPage === 4 && totalPages >= next) {
             numbers = (
                 <ul className="pagination-list">
-                    <li><Link to={`${urlPage}?page=1&${urlParams}`} className="pagination-link"
+                    <li><Link to={`${urlPage}?page=1${urlParams}`} className="pagination-link"
                         onClick={(e) => this.props.previousPage(e, 1)}>1</Link>
                     </li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${prev2}&${urlParams}`} className="pagination-link"
-                        onClick={(e) => this.props.previousPage(e, prev2)}>{prev2}</Link>
-                    </li>
-                    <li><Link to={`${urlPage}?page=${currentPage}&${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
-                    <li><Link to={`${urlPage}?page=${next}&${urlParams}`} className="pagination-link"
-                        onClick={(e) => this.props.nextPage(e, next)} >{next}</Link>
-                    </li>
+                    <li><Link to={`${urlPage}?page=${prev}${urlParams}`} className="pagination-link" onClick={(e) => this.props.previousPage(e, prev)}>{prev}</Link></li>
+                    <li><Link to={`${urlPage}?page=${currentPage}${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
+                    <li><Link to={`${urlPage}?page=${next}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next)} >{next}</Link></li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${totalPages}&${urlParams}`} className="pagination-link"
-                        onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link>
-                    </li>
+                    <li><Link to={`${urlPage}?page=${totalPages}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link></li>
                 </ul>
             )
         } else if (currentPage >= 5 && totalPages === currentPage) {
             numbers = (
                 <ul className="pagination-list">
-                    <li><Link to={`${urlPage}?page=1&${urlParams}`} className="pagination-link"
+                    <li><Link to={`${urlPage}?page=1${urlParams}`} className="pagination-link"
                         onClick={(e) => this.props.previousPage(e, 1)}>1</Link>
                     </li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${prev2}&${urlParams}`} className="pagination-link"
-                        onClick={(e) => this.props.previousPage(e, prev2)}>{prev2}</Link>
-                    </li>
-                    <li><Link to={`${urlPage}?page=${prev}&${urlParams}`} className="pagination-link"
-                        onClick={(e) => this.props.previousPage(e, prev)}>{prev}</Link>
-                    </li>
-                    <li><Link to={`${urlPage}?page=${currentPage}&${urlParams}`} className="pagination-link">{currentPage}</Link></li>
+                    <li><Link to={`${urlPage}?page=${prev2}${urlParams}`} className="pagination-link" onClick={(e) => this.props.previousPage(e, prev2)}>{prev2}</Link> </li>
+                    <li><Link to={`${urlPage}?page=${prev}${urlParams}`} className="pagination-link" onClick={(e) => this.props.previousPage(e, prev)}>{prev}</Link> </li>
+                    <li><Link to={`${urlPage}?page=${currentPage}${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${totalPages}&${urlParams}`} className="pagination-link is-current" onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link></li>
+                    <li><a className="pagination-link" disabled>{totalPages}</a></li>
                 </ul>
             )
         } else if (currentPage >= 5 && totalPages >= (currentPage + 1)) {
             numbers = (
                 <ul className="pagination-list">
-                    <li><Link to={`${urlPage}?page=1&${urlParams}`} className="pagination-link"
+                    <li><Link to={`${urlPage}?page=1${urlParams}`} className="pagination-link"
                         onClick={(e) => this.props.previousPage(e, 1)}>1</Link>
                     </li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${prev2}&${urlParams}`} className="pagination-link"
-                        onClick={(e) => this.props.previousPage(e, prev2)}>{prev2}</Link>
-                    </li>
-                    <li><Link to={`${urlPage}?page=${currentPage}&${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
-                    <li><Link to={`${urlPage}?page=${next}&${urlParams}`} className="pagination-link"
-                        onClick={(e) => this.props.nextPage(e, next)}>{next}</Link>
-                    </li>
+                    <li><Link to={`${urlPage}?page=${prev}${urlParams}`} className="pagination-link" onClick={(e) => this.props.previousPage(e, prev)}>{prev}</Link> </li>
+                    <li><Link to={`${urlPage}?page=${currentPage}${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
+                    <li><Link to={`${urlPage}?page=${next}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, next)}>{next}</Link></li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${totalPages}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link></li>
+                    <li><Link to={`${urlPage}?page=${totalPages}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link></li>
                 </ul>
             )
         } else if (currentPage >= 5 && totalPages > (currentPage + 2)) {
             numbers = (
                 <ul className="pagination-list">
-                    <li><Link to={`${urlPage}?page=1&${urlParams}`} className="pagination-link"
+                    <li><Link to={`${urlPage}?page=1${urlParams}`} className="pagination-link"
                         onClick={(e) => this.props.previousPage(e, 1)}>1</Link>
                     </li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${prev}&${urlParams}`} className="pagination-link"
-                        onClick={(e) => this.props.previousPage(e, prev)}>{prev}</Link>
-                    </li>
-                    <li><Link to={`${urlPage}?page=${currentPage}&${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
-                    <li><Link to={`${urlPage}?page=${next}&${urlParams}`} className="pagination-link"
+                    <li><Link to={`${urlPage}?page=${prev}${urlParams}`} className="pagination-link" onClick={(e) => this.props.previousPage(e, prev)}>{prev}</Link></li>
+                    <li><Link to={`${urlPage}?page=${currentPage}${urlParams}`} className="pagination-link is-current">{currentPage}</Link></li>
+                    <li><Link to={`${urlPage}?page=${next}${urlParams}`} className="pagination-link"
                         onClick={(e) => this.props.nextPage(e, next)}>{next}</Link>
                     </li>
                     <li><span className="pagination-ellipsis">&hellip;</span></li>
-                    <li><Link to={`${urlPage}?page=${totalPages}&${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link></li>
+                    <li><Link to={`${urlPage}?page=${totalPages}${urlParams}`} className="pagination-link" onClick={(e) => this.props.nextPage(e, totalPages)}>{totalPages}</Link></li>
                 </ul>
             )
         }
@@ -282,8 +266,16 @@ class Pagination extends Component {
         return (
             <div >
                 <nav className="pagination is-centered">
-                    {hasPrev ? <Link to={`${urlPage}?page=${prev}&${urlParams}`} className="pagination-previous" onClick={(e) => this.props.previousPage(e, prev)}>Anterior</Link> : <a className="pagination-previous" disabled >Anterior</a>}
-                    {hasNext ? <Link to={`${urlPage}?page=${next}&${urlParams}`} className="pagination-next" onClick={(e) => this.props.nextPage(e, next)}>Siguiente</Link> : <a className="pagination-next" disabled>Siguiente</a>}
+                    {
+                        hasPrev 
+                        ?<Link to={`${urlPage}?page=${prev}${urlParams}`} className="pagination-previous" onClick={(e) => this.props.previousPage(e, prev)}>Anterior</Link>
+                        :<a className="pagination-previous" disabled >Anterior</a>
+                    }
+                    {
+                        hasNext
+                        ?<Link to={`${urlPage}?page=${next}${urlParams}`} className="pagination-next" onClick={(e) => this.props.nextPage(e, next)}>Siguiente</Link>
+                        :<a className="pagination-next" disabled>Siguiente</a>
+                    }
                     {numbers}
                 </nav>
             </div>

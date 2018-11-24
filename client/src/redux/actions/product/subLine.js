@@ -32,7 +32,7 @@ export function addSubLine(newSubLine) {
     return {
         type: ADD_SUB_LINE,
         payload: {
-            sublines: newSubLine
+            sub_lines: newSubLine
         },
     }
 };
@@ -41,7 +41,7 @@ export function updateSubLine(newSubLine) {
     return {
         type: UPDATE_SUB_LINE,
         payload: {
-            sublines: newSubLine
+            sub_lines: newSubLine
         },
     }
 };
@@ -50,7 +50,7 @@ export function deleteSubLine(SubLine) {
     return {
         type: DELETE_SUB_LINE,
         payload: {
-            sublines: SubLine
+            sub_lines: SubLine
         },
     }
 };
@@ -59,22 +59,25 @@ export function showError(error){
     return {
         type: SHOW_ERROR,
         payload: {
-            sublines: initialState,
+            sub_lines: initialState,
             error: [error]
         }
     }
 };
 
 export const fetchSubLines = () => {
-
+    // console.log('Sublines');
+    
     return dispatch => {
-        instance.get(`sublines/?active=true`)
+        instance.get(`sub-lines/?active=true`)
             .then(res => {
                 let SubLines = res.data;
+                // console.log(SubLines);
+                
                 return dispatch({
                     type: FETCH_SUB_LINES,
                     payload: {
-                        SubLines
+                        sub_lines:SubLines
                     }
                 })
             })
