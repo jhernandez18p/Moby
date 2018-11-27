@@ -17,7 +17,7 @@ import { createSelector } from 'reselect';
 // Actions
 import { fetchBlogPost } from '../../../redux/actions/blog';
 import { fetchBrands } from "../../../redux/actions/brand";
-import { fetchCategories } from "../../../redux/actions/category";
+import { fetchCategory, fetchCategories } from "../../../redux/actions/category";
 import { fetchColors } from '../../../redux/actions/product/color';
 import { fetchDepartments } from '../../../redux/actions/department';
 import { fetchLines } from '../../../redux/actions/product/line';
@@ -44,18 +44,31 @@ class ProductDetail extends Component {
       paramsURL: '',
       searchURL: '',
       urlPageNumber: '',
+      
       color: '',
       colorID: '',
+      colorSelected: false,
+      
       brand: '',
       brandID: '',
+      brandSelected: false,
+
       category: '',
       categoryID: '',
+      categorySelected: false,
+
       line: '',
       lineID: '',
+      lineSelected: false,
+
       sublines: '',
       sublinesID: '',
+      sublineSelected: false,
+
       department: '',
       departmentID: '',
+      departmentSelected: false,
+
       loading: true,
       previousPage: null,
       hasUrlParams: false,
@@ -65,16 +78,17 @@ class ProductDetail extends Component {
   }
 
   getData() {
-    this.props.onFetchProducts(this.state.params, this.state.currentPage);
-    this.props.onFetchCategories();
-    this.props.onFetchDepartment();
-    this.props.onFetchBrands();
-    this.props.onFetchColor();
-    this.props.onFetchLines();
-    this.props.onFetchSubLines();
-    this.props.onFetchSocialMedia();
     this.props.onFetchBlogPost();
+    this.props.onFetchBrands();
+    this.props.onFetchCategories();
+    this.props.onFetchColor();
+    this.props.onFetchDepartment();
+    this.props.onFetchLines();
     this.props.onFetchSite();
+    this.props.onFetchSocialMedia();
+    this.props.onFetchSubLines();
+    this.props.onFetchCategory(this.state.categoryID || '');
+    this.props.onFetchProducts(this.state.params, this.state.currentPage);
   }
 
   componentDidMount() {
@@ -136,15 +150,14 @@ class ProductDetail extends Component {
   }
 
   getURL(url) {
-
     let x = 1; let _urlParams = ''; let argUrl = ''; let _urlSearch = ''; let urlSplit1 = ''; let urlSplit2 = '';
     let lineUrl = ''; let sublineUrl = ''; let categoryUrl = ''; let departmentUrl = ''; let brandUrl = ''; let colorUrl = '';
     let _currentPage = this.state.currentPage;
     let totalPages = Math.ceil(this.props.products.count / this.state.limitPage);
-    
+
     argUrl = url.split('?')[1];
     if (argUrl !== undefined) {
-      
+
       urlSplit1 = argUrl.split('&');
       if (urlSplit1 !== undefined) {
 
@@ -167,31 +180,46 @@ class ProductDetail extends Component {
           // URL for Lines
           if (urlSplit2[0] === 'line') {
             lineUrl = `&${urlSplit2[0]}=${urlSplit2[1]}`;
+            this.setState({ lineID: urlSplit2[1] })
           }
 
           // URL for Sublines
           if (urlSplit2[0] === 'sub_line') {
             sublineUrl = `&${urlSplit2[0]}=${urlSplit2[1]}`;
+            this.setState({ sublinesID: urlSplit2[1] })
           }
 
           // URL for Categories
           if (urlSplit2[0] === 'category') {
             categoryUrl = `&${urlSplit2[0]}=${urlSplit2[1]}`;
+            this.setState({ categoryID: urlSplit2[1] })
+            if (this.state.categoryID === '') {
+              this.setState({
+                categoryID: urlSplit2[1]
+              })
+              if (this.state.category === '') {
+                this.props.onFetchCategory(urlSplit2[1]);
+                // console.log(this.props.category);
+              }
+            }
           }
 
           // URL for Department
           if (urlSplit2[0] === 'department') {
             departmentUrl = `&${urlSplit2[0]}=${urlSplit2[1]}`;
+            this.setState({ departmentID: urlSplit2[1] })
           }
 
           // URL for Brands
           if (urlSplit2[0] === 'brand') {
             brandUrl = `&${urlSplit2[0]}=${urlSplit2[1]}`;
+            this.setState({ brandID: urlSplit2[1] })
           }
 
           // URL for Color
           if (urlSplit2[0] === 'color') {
             colorUrl = `&${urlSplit2[0]}=${urlSplit2[1]}`;
+            this.setState({ colorID: urlSplit2[1] })
           }
 
         }
@@ -209,74 +237,88 @@ class ProductDetail extends Component {
     });
   }
 
-  getFilter(e, arg, id, filter) {
-    let url = ''; let lineUrl = ''; let sublineUrl = ''; let categoryUrl = ''; let departmentUrl = ''; let brandUrl = ''; let colorUrl = '';
-    
-    if (this.state.params === ''){
-      this.setState({currentPage:1})
+  getFilter(e, arg, id, filter, param = 'add') {
+    let url = '';
+    let lineUrl = `&line=${this.state.lineID}` || '';
+    let sublineUrl = `&subline=${this.state.sublineID}` || '';
+    let categoryUrl = `&category=${this.state.categoryID}` || '';
+    let departmentUrl = `&department=${this.state.departmentID}` || '';
+    let brandUrl = `&brand=${this.state.brandID}` || '';
+    let colorUrl = `&color=${this.state.colorID}` || '';
+
+    if (this.state.params === '') {
+      this.setState({ currentPage: 1 })
     }
 
     if (filter === 'color' && id !== 'Colores') {
-      this.setState(
-        { 
-          color: arg,
-          colorID: id
-        }
-      );
-      colorUrl = `&color=${id}`;
+      if (param === 'remove') {
+        console.log('Remove');
+        this.setState({ color: '', colorID: '', colorSelected: true });
+        colorUrl = `&color=`;
+      } else {
+        this.setState({ color: arg, colorID: id, colorSelected: false });
+        colorUrl = `&color=${id}`;
+      }
     }
-    
+
     if (filter === 'line' && id !== 'Lineas') {
-      this.setState(
-        { 
-          line: arg,
-          lineID: id
-        }
-      );
-      lineUrl = `&line=${id}`;
+      if (param === 'remove') {
+        console.log('Remove');
+        this.setState({ line: '', lineID: '', lineSelected: true });
+        lineUrl = `&line=`;
+      } else {
+        this.setState({ line: arg, lineID: id, lineSelected: false });
+        lineUrl = `&line=${id}`;
+      }
     }
-    
+
     if (filter === 'sublines' && id !== 'Sublineas') {
-      this.setState(
-        { 
-          sublines: arg,
-          sublinesID: id
-        }
-      );
-      sublineUrl = `&sub_line=${id}`;
+      if (param === 'remove') {
+        console.log('Remove');
+        this.setState({ sublines: '', sublinesID: '', sublineSelected: true });
+        sublineUrl = `&sub_line=`;
+      } else {
+        this.setState({ sublines: arg, sublinesID: id, sublineSelected: false });
+        sublineUrl = `&sub_line=${id}`;
+      }
     }
-    
+
     if (filter === 'category' && id !== 'Categorías') {
-      this.setState(
-        { 
-          category: arg,
-          categoryID: id
-        }
-      );
-      categoryUrl = `&category=${id}`;
+      if (param === 'remove') {
+        console.log('Remove');
+        this.setState({ category: '', categoryID: '', categorySelected: true });
+        categoryUrl = `&category=`;
+      } else {
+        this.setState({ category: arg, categoryID: id, categorySelected: false });
+        categoryUrl = `&category=${id}`;
+      }
     }
-    
+
     if (filter === 'department' && id !== 'Departamentos') {
-      this.setState(
-        { 
-          department: arg,
-          departmentID: id
-        }
-      );
-      departmentUrl = `&department=${id}`;
+      if (param === 'remove') {
+        console.log('Remove');
+        this.setState({ department: '', departmentID: '', departmentSelected: true });
+        departmentUrl = `&department=`;
+      } else {
+        this.setState({ department: arg, departmentID: id, departmentSelected: false });
+        departmentUrl = `&department=${id}`;
+      }
     }
-    
+
     if (filter === 'brand' && id !== 'Marcas') {
-      this.setState(
-        { 
-          brand: arg,
-          brandID: id
-        }
-      );
-      brandUrl = `&brand=${id}`;
+      if (param === 'remove') {
+        console.log('Remove');
+        this.setState({ brand: '', brandID: '', brandSelected: true });
+        brandUrl = `&brand=`;
+      } else {
+        this.setState({ brand: arg, brandID: id, brandSelected: false });
+        brandUrl = `&brand=${id}`;
+      }
     }
 
     url = `?page=${this.state.currentPage}${lineUrl}${sublineUrl}${categoryUrl}${departmentUrl}${brandUrl}${colorUrl}${this.state.searchURL}`;
+    
+    this.props.history.push(`/productos/todos?${url}`);
     this.getURL(url);
   }
 
@@ -297,14 +339,14 @@ class ProductDetail extends Component {
     this.setState({ currentPage: currentPage, offsetPage: offsetPage, nextPage: currentPage + 1 })
     if (currentPage === pages) { this.setState({ hasNext: false }) }
     if (currentPage > 1) { this.setState({ hasPrev: true, currentPage: currentPage }) }
-    if (currentPage > 1 && currentPage <= pages) {
-      let urlPage = `page=${currentPage}${this.state.params}`;
-      console.log(urlPage);
+    // if (currentPage > 1 && currentPage <= pages) {
+      // let urlPage = `page=${currentPage}${this.state.params}`;
+      // console.log(urlPage);
       // this.getURL(urlPage);
-    }
+    // }
     // console.log('currentPage ->', currentPage, 'pages ->', pages, 'offset ->', offsetPage)
   }
-  
+
   handlePrevClick(e, page = this.state.currentPage) {
     // e.preventDefault();
     window.scrollTo(0, 0)
@@ -312,38 +354,15 @@ class ProductDetail extends Component {
     let currentPage = page; //Aumenta el numero de la pagina
     let limitPage = this.state.limitPage || 20;
     let offsetPage = this.state.offsetPage - limitPage;
-    let pages = this.state.totalPages;
+    // let pages = this.state.totalPages;
     this.setState({ currentPage: currentPage, offsetPage: offsetPage });
     if (currentPage === 1) { this.setState({ hasPrev: false, hasNext: true }); }
-    if (currentPage >= 1 && currentPage <= pages) {
-      let urlPage = `page=${currentPage}${this.state.params}`;
-      console.log(urlPage);
+    // if (currentPage >= 1 && currentPage <= pages) {
+    //   let urlPage = `page=${currentPage}${this.state.params}`;
+      // console.log(urlPage);
       // this.getURL(urlPage);
-    }
+    // }
     // console.log('currentPage ->', currentPage, 'pages ->', pages, 'offset ->', offsetPage)
-  }
-
-  removeUrlParams(e) {
-    if (e === 'color') {
-      this.setState({ color: '' });
-    }
-    if (e === 'line') {
-      this.setState({ line: '' });
-    }
-    if (e === 'sublines') {
-      this.setState({ sublines: '' });
-    }
-    if (e === 'category') {
-      this.setState({ category: '' });
-    }
-    if (e === 'department') {
-      this.setState({ department: '' });
-    }
-    if (e === 'brand') {
-      this.setState({ brand: '' });
-    }
-    this.getURL(this.state.params);
-
   }
 
   render() {
@@ -361,22 +380,15 @@ class ProductDetail extends Component {
 
     let paginator, urlParamsHTML, colorUrlHTML, brandUrlHTML, categoryUrlHTML, lineUrlHTML, departmentUrlHTML, sublinesUrlHTML = <div></div>;
     let postsCount = products.count || undefined;
-    let postsCountLimit = 20;
 
-    let currentPage = this.state.currentPage;
-    let limitPage = this.state.limitPage;
-    let offsetPage = this.state.offsetPage;
-    let urlPage = this.state.urlPage;
-    // let nextPage = this.state.nextPage;
-    // let previousPage = this.state.previousPage;
     paginator = (
       <Pagination
-        postsCountLimit={postsCountLimit}
         postsCount={postsCount}
-        currentPage={currentPage}
-        limitPage={limitPage}
-        offsetPage={offsetPage}
-        urlPage={urlPage}
+        postsCountLimit={this.state.limitPage}
+        currentPage={this.state.currentPage}
+        limitPage={this.state.limitPage}
+        offsetPage={this.state.offsetPage}
+        urlPage={this.state.urlPage}
         urlParams={this.state.params}
         nextPage={this.handleNextClick}
         previousPage={this.handlePrevClick}
@@ -391,7 +403,7 @@ class ProductDetail extends Component {
         colorUrlHTML = (
           <a className="button is-outlined is-dark is-rounded">
             <span>Color: {this.state.color}</span>
-            <span className="icon is-small" onClick={(e) => { this.removeUrlParams('color') }}>
+            <span className="icon is-small" onClick={(e) => { this.getFilter('', 'Colores', '', 'color', 'remove') }}>
               <i className="fas fa-times"></i>
             </span>
           </a>
@@ -401,7 +413,7 @@ class ProductDetail extends Component {
         brandUrlHTML = (
           <a className="button is-outlined is-dark is-rounded">
             <span>Marca: {this.state.brand}</span>
-            <span className="icon is-small" onClick={(e) => { this.removeUrlParams('brand') }}>
+            <span className="icon is-small" onClick={(e) => { this.getFilter('', 'Marcas', '', 'brand', 'remove') }}>
               <i className="fas fa-times"></i>
             </span>
           </a>
@@ -411,7 +423,7 @@ class ProductDetail extends Component {
         categoryUrlHTML = (
           <a className="button is-outlined is-dark is-rounded">
             <span>Categoría: {this.state.category}</span>
-            <span className="icon is-small" onClick={(e) => { this.removeUrlParams('category') }}>
+            <span className="icon is-small" onClick={(e) => { this.getFilter('', 'Categorias', '', 'category', 'remove') }}>
               <i className="fas fa-times"></i>
             </span>
           </a>
@@ -421,7 +433,7 @@ class ProductDetail extends Component {
         lineUrlHTML = (
           <a className="button is-outlined is-dark is-rounded">
             <span>Linea: {this.state.line}</span>
-            <span className="icon is-small" onClick={(e) => { this.removeUrlParams('line') }}>
+            <span className="icon is-small" onClick={(e) => { this.getFilter('', 'Lineas', '', 'line', 'remove') }}>
               <i className="fas fa-times"></i>
             </span>
           </a>
@@ -431,7 +443,7 @@ class ProductDetail extends Component {
         sublinesUrlHTML = (
           <a className="button is-outlined is-dark is-rounded">
             <span>Sublinea: {this.state.sublines}</span>
-            <span className="icon is-small" onClick={(e) => { this.removeUrlParams('sublines') }}>
+            <span className="icon is-small" onClick={(e) => { this.getFilter('', 'Sublineas', '', 'sublines', 'remove') }}>
               <i className="fas fa-times"></i>
             </span>
           </a>
@@ -441,7 +453,7 @@ class ProductDetail extends Component {
         departmentUrlHTML = (
           <a className="button is-outlined is-dark is-rounded">
             <span>Departamento: {this.state.department}</span>
-            <span className="icon is-small" onClick={(e) => { this.removeUrlParams('department') }}>
+            <span className="icon is-small" onClick={(e) => { this.getFilter('', 'Departamentos', '', 'department', 'remove') }}>
               <i className="fas fa-times"></i>
             </span>
           </a>
@@ -460,6 +472,8 @@ class ProductDetail extends Component {
       )
     }
 
+    // console.log(this.state.lineSelected);
+
     if (this.state.loading) {
       return <div><img src={LogoImg} alt="Moby Supply" id="preloadImg" className="ping" /></div>;
     } else {
@@ -476,11 +490,23 @@ class ProductDetail extends Component {
                 <div className="column is-3">
                   <ProductsSearch
                     brands={brands}
+                    brandSelected={this.state.brandSelected}
+
                     categories={categories}
+                    categorySelected={this.state.categorySelected}
+
                     colors={colors}
+                    colorSelected={this.state.colorSelected}
+
                     department={department}
+                    departmentSelected={this.state.departmentSelected}
+
                     lines={lines}
+                    lineSelected={this.state.lineSelected}
+
                     sublines={sublines}
+                    sublineSelected={this.state.sublineSelected}
+
                     getFilter={this.getFilter}
                     getSearch={this.getSearch}
                     hasSearch={true}
@@ -500,9 +526,7 @@ class ProductDetail extends Component {
                       )
                     })
                   }
-                  <div className="">
-                    {paginator}
-                  </div>
+                  <div>{paginator}</div>
                 </div>
               </div>
             </div>
@@ -517,6 +541,7 @@ class ProductDetail extends Component {
 
 const blogSelector = createSelector(state => state.blog_posts, blog_posts => blog_posts);                         // Blog Post
 const brandsSelector = createSelector(state => state.brands, brands => brands);                                   // brands
+const categorySelector = createSelector(state => state.category, category => category);                           // category
 const categoriesSelector = createSelector(state => state.categories, categories => categories);                   // categories
 const colorSelector = createSelector(state => state.colors, colors => colors);                                    // Color
 const departmentSelector = createSelector(state => state.department, department => department);                   // Departments
@@ -530,6 +555,7 @@ const userSelector = createSelector(state => state.user, user => user);         
 const mapStateToProps = createSelector(
   blogSelector,
   brandsSelector,
+  categorySelector,
   categoriesSelector,
   colorSelector,
   departmentSelector,
@@ -539,10 +565,11 @@ const mapStateToProps = createSelector(
   siteSelector,
   socialMediaSelector,
   userSelector,
-  (blog_posts, brands, categories, colors, department, lines, sub_lines, products, site, social_media, user) => (
+  (blog_posts, brands, category, categories, colors, department, lines, sub_lines, products, site, social_media, user) => (
     {
       blog_posts,
       brands,
+      category,
       categories,
       colors,
       department,
@@ -561,6 +588,7 @@ const mapDispatchToProps = (dispatch, props) => {
     {
       onFetchBlogPost: fetchBlogPost,
       onFetchBrands: fetchBrands,
+      onFetchCategory: fetchCategory,
       onFetchCategories: fetchCategories,
       onFetchColor: fetchColors,
       onFetchDepartment: fetchDepartments,

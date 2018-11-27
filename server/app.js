@@ -26,7 +26,7 @@ app.disable('x-powered-by');
 // app.use('/api/v2/', proxy({
 //   target: 'http://some-hosted-api-server.com',
 // }));
-app.use('^/api/v2/*', proxy('https://api.moby-group.com'));
+// app.use('^/api/v2/*', proxy('https://api.moby-group.com'));
 
 // React App
 if (server === 'production') {

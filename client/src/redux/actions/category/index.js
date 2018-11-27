@@ -6,6 +6,7 @@ export const UPDATE_CATEGORY = 'category:updateCategory';
 export const DELETE_CATEGORY = 'category:deleteCategory';
 export const SHOW_ERROR = 'category:showError';
 export const FETCH_CATEGORY = 'category:fetchCategory';
+
 export const SHOW_CATEGORIES_ERROR = 'categories:showCategoriesError';
 export const FETCH_CATEGORIES = 'categories:fetchCategories';
 
@@ -72,7 +73,7 @@ export const fetchCategory = (catID) => {
         instance.get(`categories/${catID}/`)
             .then(res => {
                 let category = res.data;
-                console.log(catID);
+                // console.log(category);
                 
                 return dispatch({
                     type: FETCH_CATEGORY,
@@ -99,7 +100,7 @@ export function showCategoriesError(error){
 export const fetchCategories = () => {
 
     return dispatch => {
-        instance.get(`categories/?active=true`)
+        instance.get(`categories/?active=true&ordering=name`)
             .then(res => {
                 let categories = res.data;
                 return dispatch({

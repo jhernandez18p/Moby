@@ -10,18 +10,26 @@ class ProductsSearch extends Component {
         let brands = this.props.brands || 'Cargando ...';
 
         let linesHTML = <option></option>;
-        if (lines.count > 0) { linesHTML = lines.results.map(
-            (line) => {
-                return <option key={line.id.toString()} value={line.id} label={line.name}>{line.name}</option>;
-            }
-        )};
+        if (lines.count > 0) {
+            linesHTML = lines.results.map(
+                (line) => {
+                    return <option key={line.id.toString()} value={line.id} label={line.name}>{line.name}</option>;
+                }
+            )
+        };
         let lineItems = (
             <div className="has-background-grey-lighter">
                 <h3 className="is-size-6">Lineas</h3>
                 <div className="field has-addons is-padding-y-10 has-text-centered">
                     <div className="select">
-                        <select onChange={(e) => { this.props.getFilter(e, e.target[e.target.options.selectedIndex].label, e.target.value, 'line'); }}>
-                            <option>Lineas</option>
+                        <select onChange={(e) => { 
+                                this.props.getFilter(e, e.target[e.target.options.selectedIndex].label, e.target.value, 'line'); 
+                            }}>
+                            {
+                                !this.props.lineSelected
+                                ?<option value="0" label="Lineas">Lineas</option>
+                                :<option>Lineas</option>
+                            }
                             {linesHTML}
                         </select>
                     </div>
@@ -43,7 +51,11 @@ class ProductsSearch extends Component {
                 <div className="field has-addons is-padding-y-10 has-text-centered">
                     <div className="select">
                         <select onChange={(e) => { this.props.getFilter(e, e.target[e.target.options.selectedIndex].label, e.target.value, 'sublines'); }}>
-                            <option>Sublineas</option>
+                            {
+                                this.props.sublinesSelected 
+                                ? <option selected>Sublineas</option>
+                                : <option>Sublineas</option>
+                            }
                             {sublinesHTML}
                         </select>
                     </div>
@@ -66,7 +78,11 @@ class ProductsSearch extends Component {
                 <div className="field has-addons is-padding-y-10 has-text-centered">
                     <div className="select">
                         <select onChange={(e) => { this.props.getFilter(e, e.target[e.target.options.selectedIndex].label, e.target.value, 'color'); }}>
-                            <option>Colores</option>
+                            {
+                                this.props.colorSelected 
+                                ? <option selected>Colores</option>
+                                : <option>Colores</option>
+                            }
                             {colorsHTML}
                         </select>
                     </div>
@@ -88,7 +104,11 @@ class ProductsSearch extends Component {
                 <div className="field has-addons is-padding-y-10 has-text-centered">
                     <div className="select">
                         <select onChange={(e) => { this.props.getFilter(e, e.target[e.target.options.selectedIndex].label, e.target.value, 'category'); }}>
-                            <option>Categorías</option>
+                            {
+                                this.props.categorySelected 
+                                ? <option selected>Categorías</option>
+                                : <option>Categorías</option>
+                            }
                             {categoriesHTML}
                         </select>
                     </div>
@@ -110,7 +130,11 @@ class ProductsSearch extends Component {
                 <div className="field has-addons is-padding-y-10 has-text-centered">
                     <div className="select">
                         <select onChange={(e) => { this.props.getFilter(e, e.target[e.target.options.selectedIndex].label, e.target.value, 'department'); }}>
-                            <option>Departamentos</option>
+                            {
+                                this.props.departmentSelected 
+                                ? <option selected>Departamentos</option>
+                                : <option>Departamentos</option>
+                            }
                             {departmentHTML}
                         </select>
                     </div>
@@ -132,7 +156,11 @@ class ProductsSearch extends Component {
                 <div className="field has-addons is-padding-y-10 has-text-centered">
                     <div className="select">
                         <select onChange={(e) => { this.props.getFilter(e, e.target[e.target.options.selectedIndex].label, e.target.value, 'brand'); }}>
-                            <option>Marcas</option>
+                            {
+                                this.props.brandSelected 
+                                ? <option selected>Marcas</option>
+                                : <option>Marcas</option>
+                            }
                             {brandsHTML}
                         </select>
                     </div>

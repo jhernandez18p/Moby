@@ -1,36 +1,26 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import thunk from 'redux-thunk';
-
 // import { createLogger } from 'redux-logger';
 
 import {
     answerReducer,                // Answer
     answersReducer,               // Answers
-
     blogCommentReducer,           // blog_comments
     blogReducer,                  // blog_post
     postReducer,                  // blog_post
     blogTagReducer,               // tag
     blogTagsReducer,              // tags
-
     brandReducer,                 // brand
     brandsReducer,                // brands
-
     carrouselReducer,             // carrousel
     imgCarrouselReducer,          // img_carrousel
-
     categoryReducer,              // category
     categoriesReducer,            // categories
-
     colorReducer,                 // Colors
-
     departmentReducer,            // departments
-
     flatpageReducer,              // Flatpage
-    flatpagesReducer,              // Flatpages
-    
+    flatpagesReducer,             // Flatpages
     lineReducer,                  // lines
-    
     pagePositionReducer,          // page_position
     pagesReducer,                 // pages
     productReducer,               // products
@@ -94,19 +84,12 @@ const allReducers = combineReducers(
         users: usersReducer,                        // users
     }
 );
-    
+
 // const loggerMiddleware = createLogger();
-const composeEnhancers =  compose(
-    applyMiddleware(
-        thunk,
-        // loggerMiddleware
-    ),
-    // window.devToolsExtension && window.devToolsExtension()
+const composeEnhancers = compose(
+    applyMiddleware( thunk, )
 );
 
-const store = createStore(
-    allReducers,
-    composeEnhancers
-);
+const store = createStore( allReducers,composeEnhancers );
 
 export default store;

@@ -100,9 +100,9 @@ class TopProducts extends Component {
                         <div className="feed-leyend is-clearfix">
                             <p className="is-size-7 is-pulled-left">
                                 <span className="icon"><i className="fas fa-folder-open"></i></span>
-                                <Link to={`/productos/todos?cat=${categoryID}`} className="has-text-black">
+                                <a href={`/productos/todos?category=${categoryID}`} className="has-text-black">
                                     {categoryName}
-                                </Link>
+                                </a>
                             </p>
                         </div>
                         <div className="feed-content">
