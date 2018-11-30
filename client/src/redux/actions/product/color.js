@@ -157,7 +157,7 @@ export const fetchColors = ( params = '', offset = 0 ) => {
         let newUrl = params.split('?');
         hasParams = newUrl[1];
     }
-    let _url = `${url}?${hasParams}${page}&active=true`;
+    let _url = `${url}?${hasParams}${page}&active=true&limit=90`;
 
     return dispatch => {
         instance.get(_url)

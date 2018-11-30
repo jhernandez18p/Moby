@@ -103,7 +103,7 @@ export const fetchLines = ( params = '', offset = 0 ) => {
         let newUrl = params.split('?');
         hasParams = newUrl[1];
     }
-    let _url = `${url}?${hasParams}${page}&active=true`;
+    let _url = `${url}?${hasParams}${page}&active=true&limit=50`;
     return dispatch => {
         instance.get(_url)
             .then(res => {

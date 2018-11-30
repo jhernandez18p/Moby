@@ -100,7 +100,7 @@ export function showCategoriesError(error){
 export const fetchCategories = () => {
 
     return dispatch => {
-        instance.get(`categories/?active=true&ordering=name`)
+        instance.get(`categories/?active=true&limit=50&ordering=name`)
             .then(res => {
                 let categories = res.data;
                 return dispatch({

@@ -69,7 +69,7 @@ export const fetchSubLines = () => {
     // console.log('Sublines');
     
     return dispatch => {
-        instance.get(`sub-lines/?active=true`)
+        instance.get(`sub-lines/?active=true&limit=50`)
             .then(res => {
                 let SubLines = res.data;
                 // console.log(SubLines);

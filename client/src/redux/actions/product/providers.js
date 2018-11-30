@@ -68,7 +68,7 @@ export function showError(error){
 export const fetchProviders = () => {
 
     return dispatch => {
-        instance.get(`providers/    `)
+        instance.get(`providers/`)
             .then(res => {
                 let Providers = res.data;
                 // console.log(Providers);
